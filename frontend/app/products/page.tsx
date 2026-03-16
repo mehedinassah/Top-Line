@@ -2,16 +2,15 @@
 
 import { useState, useMemo } from "react";
 import ProductCard from "@/components/products/ProductCard";
-import { featuredProducts, SIZES, COLORS } from "@/lib/productData";
+import { featuredProducts, SIZES } from "@/lib/productData";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import type { Product, Size, Color } from "@/lib/productData";
+import type { Product, Size } from "@/lib/productData";
 
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
 
 export default function ProductsPage() {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [showMobileFilters, setShowMobileFilters] = useState(false);
@@ -40,17 +39,8 @@ export default function ProductsPage() {
       );
     }
 
-    // Color filter
-    if (selectedColors.length > 0) {
-      result = result.filter(p =>
-        selectedColors.some(colorName =>
-          p.colors.some(c => c.name === colorName)
-        )
-      );
-    }
-
     return result;
-  }, [selectedCategory, priceRange, selectedSizes, selectedColors]);
+  }, [selectedCategory, priceRange, selectedSizes]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -85,21 +75,14 @@ export default function ProductsPage() {
     );
   };
 
-  const toggleColor = (colorName: string) => {
-    setSelectedColors(prev =>
-      prev.includes(colorName) ? prev.filter(c => c !== colorName) : [...prev, colorName]
-    );
-  };
-
   const clearFilters = () => {
     setSortBy("newest");
     setSelectedSizes([]);
-    setSelectedColors([]);
     setPriceRange([0, maxPrice]);
     setSelectedCategory("");
   };
 
-  const hasActiveFilters = selectedSizes.length > 0 || selectedColors.length > 0 || selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
+  const hasActiveFilters = selectedSizes.length > 0 || selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
 
   return (
     <div className="min-h-screen bg-white">
@@ -204,35 +187,7 @@ export default function ProductsPage() {
                 </div>
               </div>
 
-              {/* Color Filter */}
-              <div>
-                <p className="text-sm font-semibold text-neutral-900 mb-3">Color</p>
-                <div className="flex flex-wrap gap-3">
-                  {COLORS.map(color => (
-                    <button
-                      key={color.name}
-                      onClick={() => toggleColor(color.name)}
-                      className={`flex flex-col items-center gap-1 transition ${
-                        selectedColors.includes(color.name) ? "opacity-100" : "opacity-70 hover:opacity-100"
-                      }`}
-                      title={color.name}
-                    >
-                      <div
-                        className={`h-8 w-8 rounded-full border-2 transition ${
-                          selectedColors.includes(color.name)
-                            ? "border-neutral-900 shadow-md"
-                            : "border-neutral-300"
-                        }`}
-                        style={{
-                          backgroundColor: color.code,
-                          borderColor: color.code === "#FFFFFF" ? "#ccc" : undefined
-                        }}
-                      />
-                      <span className="text-xs text-neutral-700">{color.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
+
             </div>
           </div>
 

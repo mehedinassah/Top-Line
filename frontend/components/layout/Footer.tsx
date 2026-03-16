@@ -28,10 +28,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Support</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/account/orders" className="text-neutral-300 hover:text-white transition duration-200" title="Track your orders">Order Status</Link></li>
-              <li><Link href="/account" className="text-neutral-300 hover:text-white transition duration-200" title="Visit size guide">Size Guide</Link></li>
-              <li><a href="mailto:support@topline.com" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</a></li>
-              <li><Link href="/account/addresses" className="text-neutral-300 hover:text-white transition duration-200" title="Shipping information">Shipping Info</Link></li>
+              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Track your orders">Order Status</Link></li>
+              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Visit size guide">Size Guide</Link></li>
+              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</Link></li>
+              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Shipping information">Shipping Info</Link></li>
             </ul>
           </div>
 
@@ -39,10 +39,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Information</h4>
             <ul className="space-y-2 text-sm">
-              <li><a href="#about" className="text-neutral-300 hover:text-white transition duration-200" title="About Top Line">About Us</a></li>
-              <li><a href="#privacy" className="text-neutral-300 hover:text-white transition duration-200" title="Privacy policy">Privacy Policy</a></li>
-              <li><a href="#terms" className="text-neutral-300 hover:text-white transition duration-200" title="Terms and conditions">Terms & Conditions</a></li>
-              <li><a href="#returns" className="text-neutral-300 hover:text-white transition duration-200" title="Returns policy">Returns & Exchanges</a></li>
+              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="About Top Line">About Us</Link></li>
+              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Privacy policy">Privacy Policy</Link></li>
+              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Terms and conditions">Terms & Conditions</Link></li>
+              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Returns policy">Returns & Exchanges</Link></li>
             </ul>
           </div>
 

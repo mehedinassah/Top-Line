@@ -3,7 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import ProductCard from "@/components/products/ProductCard";
-import { featuredProducts, SIZES, COLORS } from "@/lib/productData";
+import { featuredProducts, SIZES } from "@/lib/productData";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
 
@@ -12,7 +12,6 @@ type SortOption = "newest" | "price-low" | "price-high" | "rating";
 export default function MenPage() {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
-  const [selectedColors, setSelectedColors] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
@@ -39,15 +38,6 @@ export default function MenPage() {
       );
     }
 
-    // Color filter
-    if (selectedColors.length > 0) {
-      result = result.filter(p =>
-        selectedColors.some(colorName =>
-          p.colors.some(c => c.name === colorName)
-        )
-      );
-    }
-
     // Sorting
     switch (sortBy) {
       case "price-low":
@@ -65,7 +55,7 @@ export default function MenPage() {
     }
 
     return result;
-  }, [categoryProducts, selectedSizes, selectedColors, priceRange, sortBy]);
+  }, [categoryProducts, selectedSizes, priceRange, sortBy]);
 
   const categories = ["Shirts", "Pants", "Outerwear", "Tops", "Jeans"];
 
@@ -167,42 +157,11 @@ export default function MenPage() {
                 </div>
               </div>
 
-              {/* Color Filter */}
-              <div>
-                <label className="mb-3 block text-sm font-semibold text-neutral-900">Color</label>
-                <div className="space-y-2">
-                  {COLORS.map(color => (
-                    <label key={color.name} className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedColors.includes(color.name)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedColors([...selectedColors, color.name]);
-                          } else {
-                            setSelectedColors(selectedColors.filter(c => c !== color.name));
-                          }
-                        }}
-                        className="h-4 w-4 cursor-pointer accent-neutral-900"
-                      />
-                      <div className="flex items-center gap-2">
-                        <div
-                          className="h-4 w-4 rounded border border-neutral-300"
-                          style={{ backgroundColor: color.code }}
-                        />
-                        <span className="text-sm text-neutral-700">{color.name}</span>
-                      </div>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
               {/* Clear Filters */}
-              {(selectedSizes.length > 0 || selectedColors.length > 0 || priceRange[0] > 0 || priceRange[1] < maxPrice - 50) && (
+              {(selectedSizes.length > 0 || priceRange[0] > 0 || priceRange[1] < maxPrice - 50) && (
                 <button
                   onClick={() => {
                     setSelectedSizes([]);
-                    setSelectedColors([]);
                     setPriceRange([0, maxPrice - 50]);
                   }}
                   className="w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
@@ -249,7 +208,6 @@ export default function MenPage() {
                 <button
                   onClick={() => {
                     setSelectedSizes([]);
-                    setSelectedColors([]);
                     setPriceRange([0, maxPrice - 50]);
                   }}
                   className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 transition"
