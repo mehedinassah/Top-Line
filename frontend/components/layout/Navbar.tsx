@@ -83,6 +83,20 @@ export default function Navbar() {
             >
               Accessories
             </Link>
+            <Link 
+              href="/about" 
+              className="hover:text-neutral-900 transition duration-200"
+              title="About Top Line"
+            >
+              About
+            </Link>
+            <Link 
+              href="/faq" 
+              className="hover:text-neutral-900 transition duration-200"
+              title="FAQ"
+            >
+              FAQ
+            </Link>
           </nav>
 
           {/* Search - Desktop only */}
