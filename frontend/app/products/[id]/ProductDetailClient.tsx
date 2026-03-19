@@ -101,19 +101,15 @@ export default function ProductDetailClient(props: ProductDetailProps) {
       return;
     }
 
-    addItem(
-      {
-        id: props.id,
-        name: props.name,
-        price: displayPrice,
-        variant: {
-          size: selectedSize,
-          color: selectedColor,
-          sku: currentVariant?.sku
-        }
-      },
-      quantity
-    );
+    addItem({
+      id: props.id,
+      name: props.name,
+      price: displayPrice,
+      quantity: quantity,
+      size: selectedSize,
+      color: selectedColor,
+      image: props.images?.[0]
+    });
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
     setQuantity(1);
