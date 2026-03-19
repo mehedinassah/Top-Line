@@ -1,19 +1,82 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import Link from "next/link";
-import ProductCard from "@/components/products/ProductCard";
 import { featuredProducts, SIZES } from "@/lib/productData";
-import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { StarIcon } from "@heroicons/react/24/solid";
 import type { Product, Size } from "@/lib/productData";
 
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
+
+function MinimalProductCard({ product }: { product: Product }) {
+  const [showSecondImage, setShowSecondImage] = useState(false);
+  
+  const primaryImage = product.images?.[0] ?? "/placeholder-product.png";
+  const secondaryImage = product.images?.[1] ?? null;
+  const displayImage = showSecondImage && secondaryImage ? secondaryImage : primaryImage;
+  const displayPrice = product.discountPrice ?? product.price;
+  const hasDiscount = product.discountPrice !== undefined;
+
+  return (
+    <Link
+      href={`/products/${product.id}`}
+      className="group flex flex-col bg-white"
+      title={`View ${product.name}`}
+    >
+      <div 
+        className="relative w-full overflow-hidden"
+        style={{ aspectRatio: "3 / 4" }}
+        onMouseEnter={() => secondaryImage && setShowSecondImage(true)}
+        onMouseLeave={() => setShowSecondImage(false)}
+      >
+        <Image
+          src={displayImage}
+          alt={product.name}
+          fill
+          className="object-cover transition-transform duration-[400ms] ease-out group-hover:scale-105"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+        />
+        {hasDiscount && (
+          <div className="absolute right-4 top-4 bg-black px-3 py-1 text-xs font-semibold text-white">
+            Sale
+          </div>
+        )}
+      </div>
+      <div className="flex flex-grow flex-col gap-3 px-4 py-4">
+        <div>
+          <p className="line-clamp-2 text-sm font-light text-neutral-900">
+            {product.name}
+          </p>
+          <p className="text-xs text-neutral-600 line-clamp-1">
+            {product.description}
+          </p>
+        </div>
+        <div className="mt-auto flex items-center justify-between pt-2">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-light text-neutral-900">
+              ${displayPrice.toFixed(2)}
+            </span>
+            {hasDiscount && (
+              <span className="text-xs text-neutral-500 line-through">
+                ${product.price.toFixed(2)}
+              </span>
+            )}
+          </div>
+          <div className="flex items-center gap-1 text-xs text-neutral-700">
+            <StarIcon className="h-3 w-3 text-neutral-900" />
+            <span className="font-light">{product.rating?.toFixed(1) ?? "4.5"}</span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
 
 export default function AccessoriesPage() {
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const categoryProducts = useMemo(() => {
     return featuredProducts.filter(p => p.collection === "accessories");
@@ -59,170 +122,83 @@ export default function AccessoriesPage() {
 
   return (
     <>
-      {/* Hero Section */}
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-8 md:py-12">
-          <div className="space-y-2">
-            <h1 className="text-3xl font-bold text-neutral-900 md:text-4xl">Accessories</h1>
-            <p className="text-neutral-600">Perfect finishing touches for any outfit</p>
+      {/* Hero Section with Background Image */}
+      <div 
+        className="relative w-full border-b border-neutral-200 overflow-hidden"
+        style={{
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=2000&h=600&fit=crop&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: '#1a1a1a',
+          minHeight: '350px'
+        }}
+      >
+        {/* Fallback overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/60 opacity-50"></div>
+        
+        {/* Content */}
+        <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
+          <div className="space-y-4 max-w-2xl">
+            <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">Accessories</h1>
+            <p className="text-lg text-white/90 font-light max-w-xl">Complete your look with our carefully curated collection</p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <div className="mx-auto max-w-6xl">
-        <div className="flex flex-col gap-6 px-4 py-8 md:flex-row md:gap-8 md:py-10">
-          {/* Filters Sidebar - Hidden on mobile unless toggled */}
-          <div className={`${showMobileFilters ? "block" : "hidden"} md:block md:w-56 flex-shrink-0`}>
-            <div className="space-y-6 border-b border-neutral-200 pb-6 md:border-none md:pb-0">
-              {/* Sort - Mobile only header */}
-              <div className="md:hidden flex items-center justify-between">
-                <h3 className="font-semibold text-neutral-900">Filters</h3>
-                <button
-                  onClick={() => setShowMobileFilters(false)}
-                  className="p-1 text-neutral-600 hover:text-neutral-900"
-                >
-                  <XMarkIcon className="h-5 w-5" />
-                </button>
-              </div>
-
-              {/* Sorting */}
-              <div>
-                <label className="mb-3 block text-sm font-semibold text-neutral-900">Sort by</label>
-                <select
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
-                >
-                  <option value="newest">Newest</option>
-                  <option value="price-low">Price: Low to High</option>
-                  <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Highest Rated</option>
-                </select>
-              </div>
-
-              {/* Price Range */}
-              <div>
-                <label className="mb-3 block text-sm font-semibold text-neutral-900">Price range</label>
-                <div className="space-y-3">
-                  <div className="flex gap-2">
-                    <input
-                      type="number"
-                      placeholder="Min"
-                      value={priceRange[0]}
-                      onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
-                      className="w-1/2 rounded border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Max"
-                      value={priceRange[1]}
-                      onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                      className="w-1/2 rounded border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-neutral-900 focus:outline-none"
-                    />
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max={maxPrice}
-                    value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
-                    className="w-full accent-neutral-900"
-                  />
-                </div>
-              </div>
-
-              {/* Size Filter */}
-              <div>
-                <label className="mb-3 block text-sm font-semibold text-neutral-900">Size</label>
-                <div className="space-y-2">
-                  {SIZES.map(size => (
-                    <label key={size} className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedSizes.includes(size)}
-                        onChange={(e) => {
-                          if (e.target.checked) {
-                            setSelectedSizes([...selectedSizes, size]);
-                          } else {
-                            setSelectedSizes(selectedSizes.filter(s => s !== size));
-                          }
-                        }}
-                        className="h-4 w-4 cursor-pointer accent-neutral-900"
-                      />
-                      <span className="text-sm text-neutral-700">{size}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Clear Filters */}
-              {(selectedSizes.length > 0 || priceRange[0] > 0 || priceRange[1] < maxPrice - 50) && (
-                <button
-                  onClick={() => {
-                    setSelectedSizes([]);
-                    setPriceRange([0, maxPrice - 50]);
-                  }}
-                  className="w-full rounded border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
-                >
-                  Clear filters
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Main Content */}
-          <div className="flex-1">
-            {/* Mobile Filter Toggle */}
-            <div className="mb-6 flex items-center justify-between md:hidden">
-              <p className="text-sm text-neutral-600">
-                {filteredProducts.length} products
-              </p>
-              <button
-                onClick={() => setShowMobileFilters(true)}
-                className="flex items-center gap-2 rounded border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50"
+      {/* Control Bar */}
+      <div className="border-b border-neutral-200 bg-white px-6 py-4 md:px-8">
+        <div className="flex items-center justify-between">
+          <span className="text-sm text-neutral-600">{filteredProducts.length} products</span>
+          <div className="flex items-center gap-4">
+            <label className="text-sm text-neutral-600">
+              Sort:
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as SortOption)}
+                className="ml-2 border-0 bg-transparent text-sm text-neutral-900 focus:outline-none focus:ring-0 cursor-pointer"
               >
-                Filters
-                <ChevronDownIcon className="h-4 w-4" />
+                <option value="newest">Newest</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Highest Rated</option>
+              </select>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content - Full Width */}
+      <div className="w-full" style={{ backgroundColor: "#F7F3EF" }}>
+        <div className="flex flex-col gap-8 px-6 py-12 md:px-8 md:py-16 lg:py-20">
+          {/* Products Grid */}
+          {filteredProducts.length > 0 ? (
+            <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-4 md:gap-8">
+              {filteredProducts.map(product => (
+                <MinimalProductCard key={product.id} product={product} />
+              ))}
+            </div>
+          ) : (
+            <div className="flex flex-col items-center justify-center gap-4 rounded bg-white px-6 py-16 text-center">
+              <p className="text-neutral-600">No products found with selected filters.</p>
+              <button
+                onClick={() => {
+                  setSelectedSizes([]);
+                  setPriceRange([0, maxPrice - 50]);
+                }}
+                className="bg-neutral-900 px-6 py-2 text-sm font-light text-white hover:bg-neutral-800 transition"
+              >
+                Clear filters
               </button>
             </div>
-
-            {/* Desktop Product Count */}
-            <div className="mb-6 hidden items-center justify-between md:flex">
-              <p className="text-sm text-neutral-600">
-                {filteredProducts.length} products
-              </p>
-            </div>
-
-            {/* Products Grid */}
-            {filteredProducts.length > 0 ? (
-              <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-5 lg:gap-6">
-                {filteredProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            ) : (
-              <div className="flex flex-col items-center justify-center gap-4 rounded bg-neutral-50 px-6 py-12 text-center">
-                <p className="text-neutral-600">No products found with selected filters.</p>
-                <button
-                  onClick={() => {
-                    setSelectedSizes([]);
-                    setPriceRange([0, maxPrice - 50]);
-                  }}
-                  className="rounded bg-neutral-900 px-4 py-2 text-sm font-medium text-white hover:bg-neutral-800 transition"
-                >
-                  Clear filters
-                </button>
-              </div>
-            )}
-
-            {/* Back to home */}
-            <div className="mt-8 border-t border-neutral-200 pt-6">
-              <Link href="/" className="text-sm text-neutral-600 hover:text-neutral-900 transition">
-                ← Back to home
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
+      </div>
+
+      {/* Back Link */}
+      <div className="border-t border-neutral-200 bg-white px-6 py-6 md:px-8">
+        <Link href="/" className="text-sm text-neutral-600 hover:text-neutral-900 transition font-light">
+          ← Back to home
+        </Link>
       </div>
     </>
   );

@@ -1,73 +1,168 @@
 import Link from "next/link";
+import Image from "next/image";
+import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function AboutPage() {
   return (
     <>
-      <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-          <div className="space-y-4 text-center">
-            <h1 className="text-4xl font-bold text-neutral-900 md:text-5xl">About Top Line</h1>
-            <p className="mx-auto max-w-2xl text-lg text-neutral-600">
-              Curated essentials for the modern wardrobe, crafted with care and delivered with excellence
+      {/* 1. HERO SECTION */}
+      <section 
+        className="relative w-full flex items-center justify-center text-center border-b border-neutral-200"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2000&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundColor: '#1a1a1a',
+          height: '65vh',
+          minHeight: '500px'
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Hero Content */}
+        <div className="relative max-w-3xl px-6 md:px-8 text-center space-y-6">
+          <div className="space-y-4">
+            <h1 className="text-6xl md:text-7xl font-light text-white tracking-tight">
+              TOP LINE
+            </h1>
+            <p className="text-2xl md:text-3xl font-light text-white/90">
+              Modern Essentials
+            </p>
+          </div>
+          <p className="text-lg text-white/80 font-light max-w-xl mx-auto">
+            Curated essentials for the modern wardrobe.
+          </p>
+        </div>
+      </section>
+
+      {/* 2. INTRO STATEMENT */}
+      <section className="w-full bg-white py-24 md:py-32 border-b border-neutral-200">
+        <div className="flex items-center justify-center px-6 md:px-8">
+          <div className="text-center max-w-2xl space-y-8">
+            <h2 className="text-5xl md:text-6xl font-light text-neutral-900 tracking-tight">
+              Style, simplified.
+            </h2>
+            <p className="text-lg text-neutral-600 font-light">
+              We believe great fashion shouldn't be complicated. It should feel effortless.
             </p>
           </div>
         </div>
       </section>
 
-      <section className="bg-white py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="grid gap-12 md:grid-cols-2 md:gap-16 items-center">
+      {/* 3. OUR STORY - EDITORIAL LAYOUT */}
+      <section className="w-full bg-white py-24 md:py-32 border-b border-neutral-200">
+        <div className="flex flex-col lg:flex-row gap-12 md:gap-20 lg:gap-24 px-6 md:px-8 lg:px-12 max-w-7xl mx-auto items-center">
+          {/* Left: Story Text */}
+          <div className="flex-1 space-y-8">
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold text-neutral-900 md:text-4xl">Our Story</h2>
-              <div className="space-y-4 text-lg text-neutral-700 leading-relaxed">
+              <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
+                Our Story
+              </h3>
+              
+              <div className="space-y-6 text-lg text-neutral-700 font-light leading-relaxed">
                 <p>
-                  Top Line was founded on the belief that great style doesn't need to be complicated. We started as a small team in Dhaka with a simple mission: to create high-quality, minimalist clothing that works for everyone.
+                  Top Line began with a simple idea — strip away the unnecessary. In a world of endless noise and limitless choices, we believed there was space for something different.
                 </p>
+                
                 <p>
-                  Every piece in our collection is carefully selected and designed to be timeless. We believe in quality over quantity, and in creating pieces that you'll love wearing for years to come.
+                  We design essentials that feel effortless, wearable, and timeless. Each piece is intentional. Each design is considered. No trends, no shortcuts.
                 </p>
+                
                 <p>
-                  From our small studio in Dhaka to customers around the world, we're committed to bringing you the best in contemporary fashion.
+                  From our origins in Dhaka to our growing community worldwide, we're committed to one thing: creating clothing that improves your life, not complicates it.
+                </p>
+                
+                <p>
+                  Quality. Simplicity. Integrity. These aren't just words. They're the foundation of everything we do.
                 </p>
               </div>
             </div>
-            <div className="relative aspect-square rounded-2xl overflow-hidden bg-neutral-100" />
+          </div>
+
+          {/* Right: Image */}
+          <div className="flex-1 w-full">
+            <div className="relative aspect-square overflow-hidden bg-neutral-100">
+              <Image
+                src="https://images.unsplash.com/photo-1506629082847-11b53f8b2e4d?w=800&h=800&fit=crop"
+                alt="Top Line Story"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="border-t border-neutral-200 bg-neutral-50 py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <h2 className="text-3xl font-bold text-neutral-900 text-center mb-12">Our Values</h2>
-          <div className="grid gap-8 md:grid-cols-3">
+      {/* 4. VALUES GRID */}
+      <section className="w-full bg-neutral-50 py-24 md:py-32 border-b border-neutral-200">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="text-center mb-16 md:mb-24">
+            <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
+              Our Values
+            </h3>
+          </div>
+
+          {/* Values Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 md:gap-16">
             {[
-              { title: "Quality First", description: "We prioritize quality in every piece." },
-              { title: "Minimal Design", description: "Clean lines, timeless aesthetics." },
-              { title: "Sustainable", description: "Responsibly sourced materials." },
-              { title: "Customer Focus", description: "Your satisfaction is our priority." },
-              { title: "Innovation", description: "Constantly evolving our collections." },
-              { title: "Community", description: "Building a community of style lovers." }
+              {
+                title: "Built to Last",
+                description: "Quality that stands the test of time."
+              },
+              {
+                title: "Less, but Better",
+                description: "Intentional design, zero excess."
+              },
+              {
+                title: "Thoughtfully Made",
+                description: "Crafted with care and responsibility."
+              },
+              {
+                title: "You Come First",
+                description: "Your satisfaction is everything."
+              },
+              {
+                title: "Always Evolving",
+                description: "Innovation in every collection."
+              },
+              {
+                title: "Made for Everyone",
+                description: "Fashion that unites our community."
+              }
             ].map((value, index) => (
-              <div key={index} className="rounded-2xl border border-neutral-200 bg-white p-6">
-                <h3 className="text-xl font-semibold text-neutral-900 mb-2">{value.title}</h3>
-                <p className="text-neutral-700">{value.description}</p>
+              <div key={index} className="space-y-3">
+                <h4 className="text-xl font-light text-neutral-900">
+                  {value.title}
+                </h4>
+                <p className="text-neutral-600 font-light text-base">
+                  {value.description}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-t border-neutral-200 bg-neutral-900 py-12 md:py-16">
-        <div className="mx-auto max-w-6xl px-4 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">Ready to join us?</h2>
-          <p className="text-neutral-300 mb-8 max-w-2xl mx-auto">
-            Explore our collection and discover your next favorite piece
-          </p>
-          <Link
-            href="/products"
-            className="inline-block rounded-full bg-white px-8 py-3 font-semibold text-neutral-900 hover:bg-neutral-100 transition"
+      {/* 5. CALL TO ACTION */}
+      <section className="w-full bg-white py-24 md:py-32">
+        <div className="flex flex-col items-center justify-center px-6 md:px-8 gap-12">
+          <div className="text-center space-y-6 max-w-2xl">
+            <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
+              Ready to elevate your wardrobe?
+            </h3>
+            <p className="text-lg text-neutral-600 font-light">
+              Discover our curated collection of modern essentials.
+            </p>
+          </div>
+
+          {/* CTA Button */}
+          <Link 
+            href="/categories/men"
+            className="group inline-flex items-center gap-3 bg-neutral-900 text-white px-8 py-3 text-lg font-light hover:bg-neutral-800 transition-colors"
           >
-            Shop Now
+            Shop Collection
+            <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </section>
