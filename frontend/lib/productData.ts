@@ -47,8 +47,7 @@ export const featuredProducts: Product[] = [
     category: "outerwear",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq",
-      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
+      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
     ],
     rating: 4.8,
     sizes: ["S", "M", "L", "XL", "XXL"],
@@ -85,8 +84,7 @@ export const featuredProducts: Product[] = [
     category: "jeans",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC",
-      "https://drive.google.com/uc?export=view&id=1Z9lQJXzn1EwBSMotxULQ8vE35PPYdP2t"
+      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -119,8 +117,7 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc",
-      "https://drive.google.com/uc?export=view&id=1iUNRUWfB9yTevUftNOuf1iC4E1jFXgHG"
+      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -191,7 +188,7 @@ export const featuredProducts: Product[] = [
     category: "pants",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
+      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -377,8 +374,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8",
-      "https://drive.google.com/uc?export=view&id=1K4yEWh-fLjq8w6M7UJ2rs05GXEtZ3gp7"
+      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8"
     ],
     rating: 4.8,
     sizes: ["M"],
@@ -402,8 +398,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Xc3V5kkCC5V1kjpSIV8KOyRmjlUn2cSy",
-      "https://drive.google.com/uc?export=view&id=1XQETG_JVIKeB62lb1pR8jcRrbnI78XyT"
+      "https://drive.google.com/uc?export=view&id=1Xc3V5kkCC5V1kjpSIV8KOyRmjlUn2cSy"
     ],
     rating: 4.7,
     sizes: ["M"],
@@ -428,8 +423,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Kn6zZsgU52Cb9jBLB0fPb_TMo6b7hwWM",
-      "https://drive.google.com/uc?export=view&id=1Mld8lzD-Z3J2E9ZS93Fy4RUtfyMZQi-q"
+      "https://drive.google.com/uc?export=view&id=1Kn6zZsgU52Cb9jBLB0fPb_TMo6b7hwWM"
     ],
     rating: 4.6,
     sizes: ["M"],
@@ -453,7 +447,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8"
+      "https://drive.google.com/uc?export=view&id=1K4yEWh-fLjq8w6M7UJ2rs05GXEtZ3gp7"
     ],
     rating: 4.9,
     sizes: ["M"],
