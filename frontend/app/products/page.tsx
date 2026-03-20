@@ -109,11 +109,7 @@ export default function ProductsPage() {
         {/* Content */}
         <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
           <div className="space-y-4 max-w-2xl">
-            <h2 className="text-sm font-semibold tracking-widest text-white uppercase">
-              Curated Collection
-            </h2>
             <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">New Arrivals</h1>
-            <p className="text-lg text-white/90 font-light max-w-xl">Discover our latest pieces, carefully selected to bring you the freshest styles of the season. {sortedProducts.length} items available.</p>
           </div>
         </div>
       </div>
