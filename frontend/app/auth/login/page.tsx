@@ -42,6 +42,9 @@ export default function LoginPage() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email);
       
+      // Dispatch custom event to notify navbar of auth state change
+      window.dispatchEvent(new Event("authStateChanged"));
+      
       router.push("/");
     } catch (err) {
       setError("Login failed. Please try again.");

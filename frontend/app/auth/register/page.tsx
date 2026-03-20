@@ -82,6 +82,9 @@ export default function RegisterPage() {
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userName", name);
       
+      // Dispatch custom event to notify navbar of auth state change
+      window.dispatchEvent(new Event("authStateChanged"));
+      
       router.push("/");
     } catch (err) {
       setError("Registration failed. Please try again.");

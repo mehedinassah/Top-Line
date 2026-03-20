@@ -20,16 +20,16 @@ export default function Navbar() {
     setIsLoggedIn(loggedIn);
     setUserEmail(email);
 
-    // Listen for storage changes (when auth state changes)
-    const handleStorageChange = () => {
+    // Listen for auth state changes
+    const handleAuthStateChange = () => {
       const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       const updatedEmail = localStorage.getItem("userEmail") || "";
       setIsLoggedIn(updatedLoggedIn);
       setUserEmail(updatedEmail);
     };
 
-    window.addEventListener("storage", handleStorageChange);
-    return () => window.removeEventListener("storage", handleStorageChange);
+    window.addEventListener("authStateChanged", handleAuthStateChange);
+    return () => window.removeEventListener("authStateChanged", handleAuthStateChange);
   }, []);
 
   const handleLogout = () => {
