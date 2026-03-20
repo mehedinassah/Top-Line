@@ -404,12 +404,12 @@ export const featuredProducts: Product[] = [
     name: "Classic Wool Scarf",
     description: "Premium wool scarf for style and warmth in any season.",
     price: 89,
-    discountPrice: 71,,
-      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=900&q=80"
+    discountPrice: 71,
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=900&q=80"
+      "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.7,
     sizes: ["M"],
@@ -430,12 +430,12 @@ export const featuredProducts: Product[] = [
     id: 13,
     name: "Premium Leather Belt",
     description: "Versatile leather belt that works with any outfit.",
-    price: 75,,
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=80"
+    price: 75,
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1559810264-c0d931ecc6d9?auto=format&fit=crop&w=900&q=80"
+      "https://images.unsplash.com/photo-1559810264-c0d931ecc6d9?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.6,
     sizes: ["M"],
