@@ -30,67 +30,47 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 2. INTRO STATEMENT */}
-      <section className="relative w-full border-b border-neutral-200 overflow-hidden" style={{ height: '65vh', minHeight: '500px' }}>
-        <Image
-          src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=2000&q=80"
-          alt="Style, simplified"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
-        
-        {/* Content */}
-        <div className="relative h-full flex items-center justify-center px-6 md:px-8 py-16 md:py-24">
-          <div className="text-center max-w-3xl">
-            <h2 className="text-xl md:text-3xl font-bold tracking-tight leading-relaxed" style={{
-              background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              Woven as if the fabric itself was created just for you—tailored to your comfort, your presence.
-            </h2>
+      {/* 2. MISSION */}
+      <section className="w-full bg-neutral-50 py-24 md:py-32 border-b border-neutral-200">
+        <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12">
+          <div className="space-y-12">
+            <div className="space-y-6">
+              <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
+                Our Mission
+              </h3>
+              <p className="text-lg text-neutral-700 font-light leading-relaxed max-w-3xl">
+                At TOP LINE, we believe fashion is more than clothing—it's a form of self-expression and a statement of values. We're committed to creating pieces that seamlessly blend quality, sustainability, and timeless design. Every garment is thoughtfully crafted to empower you to feel confident, comfortable, and authentically yourself.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
+              <div className="space-y-3">
+                <div className="text-4xl font-light text-neutral-900">100%</div>
+                <p className="text-neutral-600 font-light">Premium Fabrics</p>
+              </div>
+              <div className="space-y-3">
+                <div className="text-4xl font-light text-neutral-900">Global</div>
+                <p className="text-neutral-600 font-light">Sourced Responsibly</p>
+              </div>
+              <div className="space-y-3">
+                <div className="text-4xl font-light text-neutral-900">5+</div>
+                <p className="text-neutral-600 font-light">Years of Excellence</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 3. OUR STORY - FULL WIDTH IMAGE BACKGROUND */}
-      <section className="relative w-full border-b border-neutral-200 overflow-hidden" style={{ minHeight: '600px' }}>
-        <Image
-          src="https://images.unsplash.com/photo-1519309881563-430f63602d4b?auto=format&fit=crop&w=2000&q=80"
-          alt="Our Story"
-          fill
-          className="object-cover"
-          priority
-          sizes="100vw"
-        />
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-black/50"></div>
-        
-        {/* Content */}
-        <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8">
-          <p className="text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap" style={{
-            background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text'
-          }}>
-            This isn't fabric. It's identity. It's lifestyle.
-          </p>
-        </div>
-      </section>
-
-      {/* 4. VALUES GRID */}
-      <section className="w-full bg-neutral-50 py-24 md:py-32 border-b border-neutral-200">
+      {/* 3. VALUES GRID */}
+      <section className="w-full bg-white py-24 md:py-32 border-b border-neutral-200">
         <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="text-center mb-16 md:mb-24">
             <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
               Our Values
             </h3>
+            <p className="text-neutral-600 font-light text-lg mt-4">
+              Guiding principles that define who we are
+            </p>
           </div>
 
           {/* Values Grid */}
@@ -121,11 +101,12 @@ export default function AboutPage() {
                 description: "Fashion that unites our community."
               }
             ].map((value, index) => (
-              <div key={index} className="space-y-3">
-                <h4 className="text-xl font-light text-neutral-900">
+              <div key={index} className="group space-y-4 p-8 border border-neutral-200 bg-white hover:border-neutral-400 transition-all duration-300 hover:shadow-lg">
+                <div className="w-12 h-12 bg-neutral-900 group-hover:bg-neutral-800 transition-colors"></div>
+                <h4 className="text-xl font-light text-neutral-900 mt-4">
                   {value.title}
                 </h4>
-                <p className="text-neutral-600 font-light text-base">
+                <p className="text-neutral-600 font-light text-base leading-relaxed">
                   {value.description}
                 </p>
               </div>
@@ -134,26 +115,36 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 5. CALL TO ACTION */}
-      <section className="w-full bg-white py-24 md:py-32">
-        <div className="flex flex-col items-center justify-center px-6 md:px-8 gap-12">
+      {/* 4. CALL TO ACTION */}
+      <section className="relative w-full overflow-hidden py-32 md:py-40">
+        {/* Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"></div>
+        
+        {/* Decorative elements */}
+        <div className="absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/2 translate-y-1/2"></div>
+        
+        {/* Content */}
+        <div className="relative flex flex-col items-center justify-center px-6 md:px-8 gap-12">
           <div className="text-center space-y-6 max-w-2xl">
-            <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
+            <h3 className="text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight">
               Ready to elevate your wardrobe?
             </h3>
-            <p className="text-lg text-neutral-600 font-light">
-              Discover our curated collection of modern essentials.
+            <p className="text-lg text-white/70 font-light">
+              Discover our curated collection of modern essentials and timeless pieces.
             </p>
           </div>
 
-          {/* CTA Button */}
-          <Link 
-            href="/categories/men"
-            className="group inline-flex items-center gap-3 bg-neutral-900 text-white px-8 py-3 text-lg font-light hover:bg-neutral-800 transition-colors"
-          >
-            Shop Collection
-            <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            <Link 
+              href="/products"
+              className="group inline-flex items-center justify-center gap-3 bg-white text-neutral-900 px-8 py-4 text-lg font-light hover:bg-neutral-100 transition-all duration-300 hover:shadow-lg"
+            >
+              Shop All Products
+              <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
       </section>
     </>

@@ -65,9 +65,6 @@ export default function Navbar() {
   return (
     <>
       <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur">
-        <div className="border-b border-neutral-200 bg-white px-4 py-1 text-center text-[0.7rem] font-medium uppercase tracking-wide text-neutral-900">
-          Free shipping on orders over $75
-        </div>
         <div className="mx-auto flex max-w-6xl items-center px-4 py-3 md:py-4">
           {/* Logo - Far Left */}
           <Link 

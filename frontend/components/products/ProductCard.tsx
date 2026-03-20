@@ -61,11 +61,11 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group flex h-full flex-col border border-neutral-200 bg-white p-3 transition hover:-translate-y-1 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-minimal"
+      className="group relative aspect-square overflow-hidden bg-neutral-100 cursor-pointer"
       title={`View ${product.name}`}
     >
       <div 
-        className="relative aspect-square w-full overflow-hidden bg-neutral-100"
+        className="relative w-full h-full"
         onMouseEnter={() => secondaryImage && setShowSecondImage(true)}
         onMouseLeave={() => setShowSecondImage(false)}
       >
@@ -73,19 +73,25 @@ export default function ProductCard({ product }: { product: Product }) {
           src={displayImage}
           alt={product.name}
           fill
-          className="object-cover transition-all duration-300 group-hover:scale-105"
+          className="object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
-          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 33.33vw, (min-width: 640px) 50vw, 100vw"
         />
+        
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/0 group-hover:from-black/20 group-hover:via-black/20 group-hover:to-black/40 transition-all duration-500" />
+
+        {/* Discount Badge */}
         {hasDiscount && (
-          <div className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white">
+          <div className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white z-10">
             Sale
           </div>
         )}
+        
         {/* Wishlist Heart */}
         <button
           onClick={handleWishlistClick}
-          className="absolute bottom-2 right-2 rounded-full bg-white/80 p-2 hover:bg-white transition shadow-sm"
+          className="absolute bottom-2 right-2 rounded-full bg-white/80 p-2 hover:bg-white transition shadow-sm z-10"
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
@@ -95,30 +101,23 @@ export default function ProductCard({ product }: { product: Product }) {
             <HeartIcon className="h-5 w-5 text-neutral-400" />
           )}
         </button>
-      </div>
-      <div className="mt-3 flex flex-grow flex-col gap-2 md:gap-3">
-        <div>
-          <p className="line-clamp-2 text-sm font-medium text-neutral-900 md:text-base">
-            {product.name}
-          </p>
-          <p className="text-xs text-neutral-700 line-clamp-2 md:text-sm">
-            {product.description}
-          </p>
-        </div>
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <div className="flex items-center gap-2">
-            <span className="text-base font-semibold text-neutral-900 md:text-lg">
+
+        {/* Product Info on Hover */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+          <div className="text-center px-4">
+            <p className="text-xs font-semibold tracking-[0.15em] text-white uppercase line-clamp-2">
+              {product.name}
+            </p>
+            <div className="flex items-center justify-center gap-1 mt-2">
+              <StarIcon className="h-4 w-4 text-yellow-400" />
+              <span className="text-sm text-white/90 font-light">{product.rating?.toFixed(1) ?? "4.5"}</span>
+            </div>
+            <p className="mt-2 text-sm text-white/90 font-light tracking-wide">
               ${displayPrice.toFixed(2)}
-            </span>
-            {hasDiscount && (
-              <span className="text-xs text-neutral-500 line-through">
-                ${product.price.toFixed(2)}
-              </span>
-            )}
-          </div>
-          <div className="flex items-center gap-1 text-xs text-neutral-700">
-            <StarIcon className="h-4 w-4 text-yellow-500" />
-            <span className="font-medium">{product.rating?.toFixed(1) ?? "4.5"}</span>
+            </p>
+            <p className="mt-3 text-sm text-white/90 font-light tracking-wide">
+              View Details →
+            </p>
           </div>
         </div>
       </div>
