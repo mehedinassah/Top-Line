@@ -91,6 +91,15 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* Backdrop - Closes drawer and dims content */}
+      {showFilterDrawer && (
+        <div
+          className="fixed inset-0 bg-black/20 z-30"
+          onClick={() => setShowFilterDrawer(false)}
+          aria-hidden="true"
+        />
+      )}
+
       {/* Header */}
       <div className="relative h-64 sm:h-72 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
         <Image
