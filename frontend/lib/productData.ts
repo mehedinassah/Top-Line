@@ -441,6 +441,33 @@ export const featuredProducts: Product[] = [
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-013-NAV-M", inStock: true, quantity: 16 },
       { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-013-BEI-M", inStock: true, quantity: 14 }
     ]
+  },
+  {
+    id: 14,
+    name: "Italian Silk Pocket Square",
+    description: "Luxurious silk pocket square for sophisticated style.",
+    price: 45,
+    discountPrice: 36,
+    category: "accessories",
+    collection: "accessories",
+    images: [
+      "https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1585283563330-e0245d1bc0e8?auto=format&fit=crop&w=900&q=80"
+    ],
+    rating: 4.9,
+    sizes: ["M"],
+    colors: [
+      { name: "Navy", code: "#001F3F" },
+      { name: "Charcoal", code: "#36454F" },
+      { name: "Olive", code: "#808000" },
+      { name: "Cream", code: "#FFFDD0" }
+    ],
+    variants: [
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-014-NAV-M", inStock: true, quantity: 20 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-014-CHA-M", inStock: true, quantity: 18 },
+      { size: "M", color: { name: "Olive", code: "#808000" }, sku: "TL-014-OLI-M", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-014-CRM-M", inStock: true, quantity: 14 }
+    ]
   }
 ];
 
