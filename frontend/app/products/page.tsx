@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
 import { featuredProducts, SIZES } from "@/lib/productData";
 import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -96,17 +97,24 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="border-b border-neutral-200 bg-white px-6 py-12 md:px-8 md:py-16">
-        <div className="max-w-2xl">
-          <h2 className="text-sm font-semibold tracking-widest text-neutral-700 uppercase">
-            Curated Collection
-          </h2>
-          <h1 className="mt-3 text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight">
-            New Arrivals
-          </h1>
-          <p className="mt-4 text-neutral-700 max-w-2xl">
-            Discover our latest pieces, carefully selected to bring you the freshest styles of the season. {sortedProducts.length} items available.
-          </p>
+      <div className="relative h-80 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
+        <Image
+          src="https://drive.google.com/uc?export=view&id=11owLFu1xe6qImNRkrQtiV18EzTaSHXPm"
+          alt="New Arrivals hero image"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Content */}
+        <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="text-sm font-semibold tracking-widest text-white uppercase">
+              Curated Collection
+            </h2>
+            <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">New Arrivals</h1>
+            <p className="text-lg text-white/90 font-light max-w-xl">Discover our latest pieces, carefully selected to bring you the freshest styles of the season. {sortedProducts.length} items available.</p>
+          </div>
         </div>
       </div>
 

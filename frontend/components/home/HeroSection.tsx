@@ -8,7 +8,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const heroImages = [
   {
-    url: "https://drive.google.com/uc?export=view&id=1TVmIIsOTkIt1bU5sbzJg1NknxRjt5-QV",
+    url: "https://drive.google.com/uc?export=view&id=1CVAphp5_n1EO8nq1OxgyC1b8KePhJ4WP",
     alt: "Homepage hero image 1"
   },
   {
