@@ -259,9 +259,9 @@ export const featuredProducts: Product[] = [
     discountPrice: 139,
     category: "dresses",
     collection: "women",
-    images: [612336307429-8a88e8d08dbb?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1537631521956-ecf42d9891aa?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?auto=format&fit=crop&w=900&q=80"
+    images: [
+      "https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1537631521956-ecf42d9891ab?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.8,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -290,9 +290,9 @@ export const featuredProducts: Product[] = [
     price: 189,
     category: "outerwear",
     collection: "women",
-    images: [,
+    images: [
+      "https://images.unsplash.com/photo-1595777707802-221658fb74c3?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1589941013453-ec89f33b5e95?auto=format&fit=crop&w=900&q=80"
-      "https://images.unsplash.com/photo-1595777707802-221658fb74c3?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
