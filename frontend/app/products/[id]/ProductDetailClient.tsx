@@ -95,21 +95,25 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     : props.colors || [];
 
   function handleAddToCart() {
-    if (!isVariantInStock) return;
+    if (!isVariantInStock) {
+      return;
+    }
     if (!selectedSize || !selectedColor) {
       alert("Please select a size and color");
       return;
     }
 
-    addItem({
+    const cartItemData = {
       id: props.id,
       name: props.name,
       price: displayPrice,
-      quantity: quantity,
+      quantity,
       size: selectedSize,
       color: selectedColor,
       image: props.images?.[0]
-    });
+    };
+
+    addItem(cartItemData);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
     setQuantity(1);
