@@ -1,5 +1,3 @@
-import type { Product } from "@/components/products/ProductCard";
-
 export const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 
 export const COLORS = [
