@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:topline}
-    username: ${DB_USER:topline}
-    password: ${DB_PASSWORD:topline}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/topline}
+    username: ${SPRING_DATASOURCE_USERNAME:topline}
+    password: ${SPRING_DATASOURCE_PASSWORD:topline}
   jpa:
     hibernate:
       ddl-auto: update
