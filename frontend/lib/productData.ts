@@ -280,6 +280,37 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 8,
+    name: "Elegant Silk Blouse",
+    description: "Luxurious silk blouse with elegant draping and timeless appeal.",
+    price: 145,
+    discountPrice: 116,
+    category: "tops",
+    collection: "women",
+    images: [
+      "https://drive.google.com/uc?export=view&id=1jzp_6a94RBTZ9-RwahMejdItGX3GwhqR"
+    ],
+    rating: 4.8,
+    sizes: ["XS", "S", "M", "L", "XL"],
+    colors: [
+      { name: "White", code: "#FFFFFF" },
+      { name: "Navy", code: "#001F3F" },
+      { name: "Cream", code: "#FFFDD0" }
+    ],
+    variants: [
+      { size: "XS", color: { name: "White", code: "#FFFFFF" }, sku: "TL-008-WHT-XS", inStock: true, quantity: 10 },
+      { size: "S", color: { name: "White", code: "#FFFFFF" }, sku: "TL-008-WHT-S", inStock: true, quantity: 14 },
+      { size: "M", color: { name: "White", code: "#FFFFFF" }, sku: "TL-008-WHT-M", inStock: true, quantity: 18 },
+      { size: "L", color: { name: "White", code: "#FFFFFF" }, sku: "TL-008-WHT-L", inStock: true, quantity: 15 },
+      { size: "XL", color: { name: "White", code: "#FFFFFF" }, sku: "TL-008-WHT-XL", inStock: true, quantity: 9 },
+      { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-S", inStock: true, quantity: 12 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-M", inStock: true, quantity: 16 },
+      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-L", inStock: true, quantity: 13 },
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-008-CRM-M", inStock: true, quantity: 8 },
+      { size: "L", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-008-CRM-L", inStock: true, quantity: 6 }
+    ]
+  },
+  {
+    id: 9,
     name: "Premium Knit Blazer",
     description: "Tailored blazer in soft knit fabric for structured elegance.",
     price: 189,
@@ -296,20 +327,20 @@ export const featuredProducts: Product[] = [
       { name: "Beige", code: "#F5F5DC" }
     ],
     variants: [
-      { size: "XS", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-008-CHA-XS", inStock: true, quantity: 7 },
-      { size: "S", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-008-CHA-S", inStock: true, quantity: 11 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-008-CHA-M", inStock: true, quantity: 13 },
-      { size: "L", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-008-CHA-L", inStock: true, quantity: 9 },
-      { size: "XL", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-008-CHA-XL", inStock: true, quantity: 5 },
-      { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-S", inStock: true, quantity: 9 },
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-M", inStock: true, quantity: 11 },
-      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-L", inStock: true, quantity: 8 },
-      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-008-BEI-M", inStock: false, quantity: 0 },
-      { size: "L", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-008-BEI-L", inStock: true, quantity: 6 }
+      { size: "XS", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-XS", inStock: true, quantity: 7 },
+      { size: "S", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-S", inStock: true, quantity: 11 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-M", inStock: true, quantity: 13 },
+      { size: "L", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-L", inStock: true, quantity: 9 },
+      { size: "XL", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-XL", inStock: true, quantity: 5 },
+      { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-009-NAV-S", inStock: true, quantity: 9 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-009-NAV-M", inStock: true, quantity: 11 },
+      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-009-NAV-L", inStock: true, quantity: 8 },
+      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-009-BEI-M", inStock: false, quantity: 0 },
+      { size: "L", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-009-BEI-L", inStock: true, quantity: 6 }
     ]
   },
   {
-    id: 9,
+    id: 10,
     name: "High-Waist Trousers",
     description: "Classic high-waist trousers with perfect drape and tailoring.",
     price: 129,
@@ -326,19 +357,19 @@ export const featuredProducts: Product[] = [
       { name: "Navy", code: "#001F3F" }
     ],
     variants: [
-      { size: "XS", color: { name: "Black", code: "#000000" }, sku: "TL-009-BLK-XS", inStock: true, quantity: 6 },
-      { size: "S", color: { name: "Black", code: "#000000" }, sku: "TL-009-BLK-S", inStock: true, quantity: 10 },
-      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-009-BLK-M", inStock: true, quantity: 14 },
-      { size: "L", color: { name: "Black", code: "#000000" }, sku: "TL-009-BLK-L", inStock: true, quantity: 11 },
-      { size: "XL", color: { name: "Black", code: "#000000" }, sku: "TL-009-BLK-XL", inStock: true, quantity: 7 },
-      { size: "S", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-S", inStock: true, quantity: 8 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-M", inStock: true, quantity: 12 },
-      { size: "L", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-009-CHA-L", inStock: false, quantity: 0 },
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-009-NAV-M", inStock: true, quantity: 9 }
+      { size: "XS", color: { name: "Black", code: "#000000" }, sku: "TL-010-BLK-XS", inStock: true, quantity: 6 },
+      { size: "S", color: { name: "Black", code: "#000000" }, sku: "TL-010-BLK-S", inStock: true, quantity: 10 },
+      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-010-BLK-M", inStock: true, quantity: 14 },
+      { size: "L", color: { name: "Black", code: "#000000" }, sku: "TL-010-BLK-L", inStock: true, quantity: 11 },
+      { size: "XL", color: { name: "Black", code: "#000000" }, sku: "TL-010-BLK-XL", inStock: true, quantity: 7 },
+      { size: "S", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-010-CHA-S", inStock: true, quantity: 8 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-010-CHA-M", inStock: true, quantity: 12 },
+      { size: "L", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-010-CHA-L", inStock: false, quantity: 0 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-010-NAV-M", inStock: true, quantity: 9 }
     ]
   },
   {
-    id: 10,
+    id: 11,
     name: "Luxury Cashmere Cardigan",
     description: "Soft and warm cashmere cardigan for ultimate comfort.",
     price: 245,
@@ -356,19 +387,19 @@ export const featuredProducts: Product[] = [
       { name: "Charcoal", code: "#36454F" }
     ],
     variants: [
-      { size: "XS", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-010-CRM-XS", inStock: true, quantity: 5 },
-      { size: "S", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-010-CRM-S", inStock: true, quantity: 8 },
-      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-010-CRM-M", inStock: true, quantity: 11 },
-      { size: "L", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-010-CRM-L", inStock: true, quantity: 8 },
-      { size: "S", color: { name: "Gray", code: "#808080" }, sku: "TL-010-GRY-S", inStock: true, quantity: 7 },
-      { size: "M", color: { name: "Gray", code: "#808080" }, sku: "TL-010-GRY-M", inStock: true, quantity: 10 },
-      { size: "L", color: { name: "Gray", code: "#808080" }, sku: "TL-010-GRY-L", inStock: true, quantity: 7 },
-      { size: "XL", color: { name: "Gray", code: "#808080" }, sku: "TL-010-GRY-XL", inStock: false, quantity: 0 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-010-CHA-M", inStock: true, quantity: 9 }
+      { size: "XS", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-011-CRM-XS", inStock: true, quantity: 5 },
+      { size: "S", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-011-CRM-S", inStock: true, quantity: 8 },
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-011-CRM-M", inStock: true, quantity: 11 },
+      { size: "L", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-011-CRM-L", inStock: true, quantity: 8 },
+      { size: "S", color: { name: "Gray", code: "#808080" }, sku: "TL-011-GRY-S", inStock: true, quantity: 7 },
+      { size: "M", color: { name: "Gray", code: "#808080" }, sku: "TL-011-GRY-M", inStock: true, quantity: 10 },
+      { size: "L", color: { name: "Gray", code: "#808080" }, sku: "TL-011-GRY-L", inStock: true, quantity: 7 },
+      { size: "XL", color: { name: "Gray", code: "#808080" }, sku: "TL-011-GRY-XL", inStock: false, quantity: 0 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-011-CHA-M", inStock: true, quantity: 9 }
     ]
   },
   {
-    id: 11,
+    id: 12,
     name: "Minimalist Leather Handbag",
     description: "Timeless leather handbag with elegant design and functionality.",
     price: 199,
@@ -385,13 +416,13 @@ export const featuredProducts: Product[] = [
       { name: "Beige", code: "#F5F5DC" }
     ],
     variants: [
-      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-011-BLK-M", inStock: true, quantity: 12 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-011-CHA-M", inStock: true, quantity: 10 },
-      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-011-BEI-M", inStock: true, quantity: 8 }
+      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-012-BLK-M", inStock: true, quantity: 12 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-012-CHA-M", inStock: true, quantity: 10 },
+      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-012-BEI-M", inStock: true, quantity: 8 }
     ]
   },
   {
-    id: 12,
+    id: 13,
     name: "Classic Wool Scarf",
     description: "Premium wool scarf for style and warmth in any season.",
     price: 89,
@@ -410,14 +441,14 @@ export const featuredProducts: Product[] = [
       { name: "Cream", code: "#FFFDD0" }
     ],
     variants: [
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-012-NAV-M", inStock: true, quantity: 15 },
-      { size: "M", color: { name: "Gray", code: "#808080" }, sku: "TL-012-GRY-M", inStock: true, quantity: 14 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-012-CHA-M", inStock: true, quantity: 12 },
-      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-012-CRM-M", inStock: true, quantity: 10 }
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-013-NAV-M", inStock: true, quantity: 15 },
+      { size: "M", color: { name: "Gray", code: "#808080" }, sku: "TL-013-GRY-M", inStock: true, quantity: 14 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-013-CHA-M", inStock: true, quantity: 12 },
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-013-CRM-M", inStock: true, quantity: 10 }
     ]
   },
   {
-    id: 13,
+    id: 14,
     name: "Premium Leather Belt",
     description: "Versatile leather belt that works with any outfit.",
     price: 75,
@@ -434,13 +465,13 @@ export const featuredProducts: Product[] = [
       { name: "Beige", code: "#F5F5DC" }
     ],
     variants: [
-      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-013-BLK-M", inStock: true, quantity: 18 },
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-013-NAV-M", inStock: true, quantity: 16 },
-      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-013-BEI-M", inStock: true, quantity: 14 }
+      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-014-BLK-M", inStock: true, quantity: 18 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-014-NAV-M", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-014-BEI-M", inStock: true, quantity: 14 }
     ]
   },
   {
-    id: 14,
+    id: 15,
     name: "Italian Silk Pocket Square",
     description: "Luxurious silk pocket square for sophisticated style.",
     price: 45,
@@ -459,10 +490,10 @@ export const featuredProducts: Product[] = [
       { name: "Cream", code: "#FFFDD0" }
     ],
     variants: [
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-014-NAV-M", inStock: true, quantity: 20 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-014-CHA-M", inStock: true, quantity: 18 },
-      { size: "M", color: { name: "Olive", code: "#808000" }, sku: "TL-014-OLI-M", inStock: true, quantity: 16 },
-      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-014-CRM-M", inStock: true, quantity: 14 }
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-015-NAV-M", inStock: true, quantity: 20 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-015-CHA-M", inStock: true, quantity: 18 },
+      { size: "M", color: { name: "Olive", code: "#808000" }, sku: "TL-015-OLI-M", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-015-CRM-M", inStock: true, quantity: 14 }
     ]
   }
 ];
@@ -483,333 +514,91 @@ const detailedProducts: DetailedProduct[] = [
     ...featuredProducts[0],
     inStock: true,
     stockCount: 18,
-    reviews: [
-      {
-        id: 1,
-        author: "Voirob",
-        rating: 4,
-        comment: "Mochotkar hoyeche vaya"
-      },
-      {
-        id: 2,
-        author: "Olif",
-        rating: 5,
-        comment: "Bhaloi"
-      },
-      {
-        id: 3,
-        author: "Sagid Majhi",
-        rating: 5,
-        comment: "Shundor hoise onek"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[1],
     inStock: true,
-    stockCount: 6,
-    reviews: [
-      {
-        id: 4,
-        author: "John Kabir",
-        rating: 3,
-        comment: "Ekdam 300 dibo"
-      },
-      {
-        id: 5,
-        author: "Shaon",
-        rating: 4,
-        comment: "Nah agei bhalo chilo"
-      }
-    ]
+    stockCount: 22,
+    reviews: []
   },
   {
     ...featuredProducts[2],
     inStock: false,
     stockCount: 0,
-    reviews: [
-      {
-        id: 6,
-        author: "Aowfi",
-        rating: 4,
-        comment: "Siuuuuuuu"
-      },
-      {
-        id: 7,
-        author: "Balakhtiar",
-        rating: 4,
-        comment: "Accha dost price ta ektu komano jay na"
-      },
-      {
-        id: 8,
-        author: "Noor",
-        rating: 4,
-        comment: "Abbu ke dekhaisi. Dekhi ki bole"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[3],
     inStock: true,
     stockCount: 25,
-    reviews: [
-      {
-        id: 9,
-        author: "Riad Kobra",
-        rating: 4,
-        comment: "Eto dam keneee"
-      },
-      {
-        id: 10,
-        author: "Voirob",
-        rating: 4,
-        comment: "Mochotkar hoyeche vaya"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[4],
     inStock: true,
     stockCount: 12,
-    reviews: [
-      {
-        id: 11,
-        author: "Olif",
-        rating: 5,
-        comment: "Bhaloi"
-      },
-      {
-        id: 12,
-        author: "Shaon",
-        rating: 4,
-        comment: "Nah agei bhalo chilo"
-      },
-      {
-        id: 13,
-        author: "Aowfi",
-        rating: 4,
-        comment: "Siuuuuuuu"
-      },
-      {
-        id: 14,
-        author: "John Kabir",
-        rating: 3,
-        comment: "Ekdam 300 dibo"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[5],
     inStock: true,
     stockCount: 8,
-    reviews: [
-      {
-        id: 15,
-        author: "Sagid Majhi",
-        rating: 5,
-        comment: "Shundor hoise onek"
-      },
-      {
-        id: 16,
-        author: "Noor",
-        rating: 4,
-        comment: "Abbu ke dekhaisi. Dekhi ki bole"
-      },
-      {
-        id: 17,
-        author: "Balakhtiar",
-        rating: 4,
-        comment: "Accha dost price ta ektu komano jay na"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[6],
     inStock: true,
     stockCount: 16,
-    reviews: [
-      {
-        id: 18,
-        author: "Riad Kobra",
-        rating: 4,
-        comment: "Eto dam keneee"
-      },
-      {
-        id: 19,
-        author: "Voirob",
-        rating: 4,
-        comment: "Mochotkar hoyeche vaya"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[7],
     inStock: true,
-    stockCount: 11,
-    reviews: [
-      {
-        id: 20,
-        author: "Olif",
-        rating: 5,
-        comment: "Bhaloi"
-      },
-      {
-        id: 21,
-        author: "Aowfi",
-        rating: 4,
-        comment: "Siuuuuuuu"
-      },
-      {
-        id: 22,
-        author: "Shaon",
-        rating: 4,
-        comment: "Nah agei bhalo chilo"
-      },
-      {
-        id: 23,
-        author: "John Kabir",
-        rating: 3,
-        comment: "Ekdam 300 dibo"
-      }
-    ]
+    stockCount: 12,
+    reviews: []
   },
   {
     ...featuredProducts[8],
     inStock: true,
-    stockCount: 14,
-    reviews: [
-      {
-        id: 24,
-        author: "Sagid Majhi",
-        rating: 5,
-        comment: "Shundor hoise onek"
-      },
-      {
-        id: 25,
-        author: "Balakhtiar",
-        rating: 4,
-        comment: "Accha dost price ta ektu komano jay na"
-      },
-      {
-        id: 26,
-        author: "Noor",
-        rating: 4,
-        comment: "Abbu ke dekhaisi. Dekhi ki bole"
-      }
-    ]
+    stockCount: 11,
+    reviews: []
   },
   {
     ...featuredProducts[9],
     inStock: true,
-    stockCount: 10,
-    reviews: [
-      {
-        id: 27,
-        author: "Riad Kobra",
-        rating: 4,
-        comment: "Eto dam keneee"
-      },
-      {
-        id: 28,
-        author: "Voirob",
-        rating: 4,
-        comment: "Mochotkar hoyeche vaya"
-      }
-    ]
+    stockCount: 14,
+    reviews: []
   },
   {
     ...featuredProducts[10],
     inStock: true,
-    stockCount: 9,
-    reviews: [
-      {
-        id: 29,
-        author: "Olif",
-        rating: 5,
-        comment: "Bhaloi"
-      },
-      {
-        id: 30,
-        author: "John Kabir",
-        rating: 3,
-        comment: "Ekdam 300 dibo"
-      },
-      {
-        id: 31,
-        author: "Shaon",
-        rating: 4,
-        comment: "Nah agei bhalo chilo"
-      }
-    ]
+    stockCount: 10,
+    reviews: []
   },
   {
     ...featuredProducts[11],
     inStock: true,
     stockCount: 13,
-    reviews: [
-      {
-        id: 32,
-        author: "Aowfi",
-        rating: 4,
-        comment: "Siuuuuuuu"
-      },
-      {
-        id: 33,
-        author: "Sagid Majhi",
-        rating: 5,
-        comment: "Shundor hoise onek"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[12],
     inStock: true,
     stockCount: 16,
-    reviews: [
-      {
-        id: 34,
-        author: "Balakhtiar",
-        rating: 4,
-        comment: "Accha dost price ta ektu komano jay na"
-      },
-      {
-        id: 35,
-        author: "Noor",
-        rating: 4,
-        comment: "Abbu ke dekhaisi. Dekhi ki bole"
-      },
-      {
-        id: 36,
-        author: "Riad Kobra",
-        rating: 4,
-        comment: "Eto dam keneee"
-      },
-      {
-        id: 37,
-        author: "Voirob",
-        rating: 4,
-        comment: "Mochotkar hoyeche vaya"
-      }
-    ]
+    reviews: []
   },
   {
     ...featuredProducts[13],
     inStock: true,
     stockCount: 22,
-    reviews: [
-      {
-        id: 38,
-        author: "Olif",
-        rating: 5,
-        comment: "Bhaloi"
-      },
-      {
-        id: 39,
-        author: "Shaon",
-        rating: 4,
-        comment: "Nah agei bhalo chilo"
-      }
-    ]
+    reviews: []
+  },
+  {
+    ...featuredProducts[14],
+    inStock: true,
+    stockCount: 19,
+    reviews: []
   }
 ];
 
