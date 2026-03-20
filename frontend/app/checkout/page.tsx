@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
@@ -28,6 +28,25 @@ export default function CheckoutPage() {
   const router = useRouter();
   const { items: cartItems, clear } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("shipping");
+  const [isHydrated, setIsHydrated] = useState(false);
+  
+  // Wait for cart to hydrate from localStorage
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
+  
+  // Redirect if cart is empty after hydration
+  useEffect(() => {
+    if (isHydrated && cartItems.length === 0) {
+      // Give localStorage time to load, then redirect if still empty
+      const timer = setTimeout(() => {
+        if (cartItems.length === 0) {
+          router.push("/products");
+        }
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, [isHydrated, cartItems, router]);
   
   // Calculate totals from actual cart items
   const cartSubtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
