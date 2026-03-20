@@ -55,6 +55,8 @@ export default function Navbar() {
     setShowProfileMenu(false);
     // Dispatch event for other components to listen
     window.dispatchEvent(new Event("authStateChanged"));
+    // Reload page to refresh all components
+    setTimeout(() => window.location.reload(), 100);
   };
 
   return (
@@ -65,7 +67,14 @@ export default function Navbar() {
         </div>
         <div className="mx-auto flex max-w-6xl items-center px-4 py-3 md:py-4">
           {/* Logo - Far Left */}
-          <Link href="/" className="flex flex-shrink-0 items-center">
+          <Link 
+            href="/" 
+            className="flex flex-shrink-0 items-center"
+            onClick={(e) => {
+              e.preventDefault();
+              window.location.href = '/';
+            }}
+          >
             <span className="text-lg font-bold tracking-tight text-neutral-900">
               Top Line
             </span>
