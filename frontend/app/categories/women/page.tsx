@@ -198,9 +198,9 @@ export default function WomenPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
         
         {/* Content */}
-        <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
+        <div className="relative h-full flex items-start px-6 md:px-8 pt-10 md:pt-16">
           <div className="space-y-4 max-w-2xl">
-            <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">Women's Collection</h1>
+            <h1 className="text-4xl font-light text-white md:text-5xl tracking-tight">Women's Collection</h1>
           </div>
         </div>
       </div>
