@@ -187,7 +187,7 @@ export default function AccessoriesPage() {
         }}
       >
         <Image
-          src="https://drive.google.com/uc?export=view&id=1xemJLetMsmUyBrnjjM-KPOfXmqyghD-E"
+          src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=2000&q=80"
           alt="Accessories"
           fill
           className="object-cover"

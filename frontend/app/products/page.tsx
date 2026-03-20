@@ -99,7 +99,7 @@ export default function ProductsPage() {
       {/* Header */}
       <div className="relative h-80 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
         <Image
-          src="https://drive.google.com/uc?export=view&id=11owLFu1xe6qImNRkrQtiV18EzTaSHXPm"
+          src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=2000&q=80"
           alt="New Arrivals hero image"
           fill
           className="object-cover"

@@ -33,7 +33,7 @@ export default function AboutPage() {
       {/* 2. INTRO STATEMENT */}
       <section className="relative w-full border-b border-neutral-200 overflow-hidden" style={{ height: '65vh', minHeight: '500px' }}>
         <Image
-          src="https://drive.google.com/uc?export=view&id=1FocHwdF9BkZ2IAeCEUiUIhaHyqrbdcH2"
+          src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=2000&q=80"
           alt="Style, simplified"
           fill
           className="object-cover"
@@ -44,54 +44,43 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
         
         {/* Content */}
-        <div className="relative h-full flex items-start px-6 md:px-8 pt-10 md:pt-16">
-          <div className="space-y-4 max-w-2xl">
-            <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">Style, simplified.</h2>
+        <div className="relative h-full flex items-center justify-center px-6 md:px-8 py-16 md:py-24">
+          <div className="text-center max-w-3xl">
+            <h2 className="text-xl md:text-3xl font-bold tracking-tight leading-relaxed" style={{
+              background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.2) 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}>
+              Woven as if the fabric itself was created just for you—tailored to your comfort, your presence.
+            </h2>
           </div>
         </div>
       </section>
 
-      {/* 3. OUR STORY - EDITORIAL LAYOUT */}
-      <section className="w-full bg-white py-24 md:py-32 border-b border-neutral-200">
-        <div className="flex flex-col lg:flex-row gap-12 md:gap-20 lg:gap-24 px-6 md:px-8 lg:px-12 max-w-7xl mx-auto items-center">
-          {/* Left: Story Text */}
-          <div className="flex-1 space-y-8">
-            <div className="space-y-6">
-              <h3 className="text-4xl md:text-5xl font-light text-neutral-900 tracking-tight">
-                Our Story
-              </h3>
-              
-              <div className="space-y-6 text-lg text-neutral-700 font-light leading-relaxed">
-                <p>
-                  Top Line began with a simple idea — strip away the unnecessary. In a world of endless noise and limitless choices, we believed there was space for something different.
-                </p>
-                
-                <p>
-                  We design essentials that feel effortless, wearable, and timeless. Each piece is intentional. Each design is considered. No trends, no shortcuts.
-                </p>
-                
-                <p>
-                  From our origins in Dhaka to our growing community worldwide, we're committed to one thing: creating clothing that improves your life, not complicates it.
-                </p>
-                
-                <p>
-                  Quality. Simplicity. Integrity. These aren't just words. They're the foundation of everything we do.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Right: Image */}
-          <div className="flex-1 w-full">
-            <div className="relative aspect-square overflow-hidden bg-neutral-100">
-              <Image
-                src="https://images.unsplash.com/photo-1506629082847-11b53f8b2e4d?w=800&h=800&fit=crop"
-                alt="Top Line Story"
-                fill
-                className="object-cover"
-              />
-            </div>
-          </div>
+      {/* 3. OUR STORY - FULL WIDTH IMAGE BACKGROUND */}
+      <section className="relative w-full border-b border-neutral-200 overflow-hidden" style={{ minHeight: '600px' }}>
+        <Image
+          src="https://images.unsplash.com/photo-1519309881563-430f63602d4b?auto=format&fit=crop&w=2000&q=80"
+          alt="Our Story"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-black/50"></div>
+        
+        {/* Content */}
+        <div className="absolute bottom-6 md:bottom-8 right-6 md:right-8">
+          <p className="text-2xl md:text-3xl font-bold tracking-tight whitespace-nowrap" style={{
+            background: 'linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0.3) 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text'
+          }}>
+            This isn't fabric. It's identity. It's lifestyle.
+          </p>
         </div>
       </section>
 

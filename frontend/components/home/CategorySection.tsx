@@ -7,17 +7,17 @@ const categories = [
   {
     slug: "men",
     title: "Men",
-    image: "https://drive.google.com/uc?export=view&id=1SaNdd1iK5cCsXnP7Tc8FLCc051xUKRDH"
+    image: "https://images.unsplash.com/photo-1552062407-c551eeda4bae?auto=format&fit=crop&w=1200&q=80"
   },
   {
     slug: "women",
     title: "Women",
-    image: "https://drive.google.com/uc?export=view&id=1A87QR8AfLidNzJT5HljedATCv1Xry0D7"
+    image: "https://images.unsplash.com/photo-1495385794356-15371f348c44?auto=format&fit=crop&w=1200&q=80"
   },
   {
     slug: "accessories",
     title: "Accessories",
-    image: "https://drive.google.com/uc?export=view&id=1RuXFUXf4eMzrR8pu_wP2MI5MSeM_X-I_"
+    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
