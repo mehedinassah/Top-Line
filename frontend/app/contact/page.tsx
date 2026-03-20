@@ -42,13 +42,13 @@ export default function ContactPage() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative w-full bg-white py-20 md:py-28 border-b border-neutral-200">
-        <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12">
-          <div className="space-y-6 text-center">
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-light text-neutral-900 tracking-tight">
+      <section className="relative w-full bg-white py-12 sm:py-16 md:py-20 lg:py-28 border-b border-neutral-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="space-y-3 sm:space-y-4 md:space-y-6 text-center">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-neutral-900 tracking-tight">
               Get in Touch
             </h1>
-            <p className="text-lg text-neutral-600 font-light max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base md:text-lg text-neutral-600 font-light max-w-2xl mx-auto">
               Have questions? We'd love to hear from you. Reach out and we'll respond as soon as possible.
             </p>
           </div>
@@ -56,21 +56,21 @@ export default function ContactPage() {
       </section>
 
       {/* Main Content */}
-      <section className="w-full bg-neutral-50 py-24 md:py-32 border-b border-neutral-200">
-        <div className="max-w-4xl mx-auto px-6 md:px-8 lg:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-20">
+      <section className="w-full bg-neutral-50 py-12 sm:py-16 md:py-24 lg:py-32 border-b border-neutral-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="grid grid-cols-1 gap-8 sm:gap-10 md:gap-16 lg:gap-20 md:grid-cols-2">
             
             {/* Contact Information */}
-            <div className="space-y-12">
+            <div className="space-y-8 sm:space-y-10 md:space-y-12">
               {/* Email */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
-                    <EnvelopeIcon className="h-6 w-6 text-white" />
+              <div className="space-y-2 sm:space-y-3 md:space-y-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
+                    <EnvelopeIcon className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-light text-neutral-900">Email</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl font-light text-neutral-900">Email</h3>
                 </div>
-                <p className="text-neutral-600 font-light text-lg ml-15">
+                <p className="text-neutral-600 font-light text-sm sm:text-base md:text-lg ml-12 sm:ml-15">
                   <a 
                     href="mailto:hello@topline.com" 
                     className="hover:text-neutral-900 transition-colors"
@@ -81,22 +81,22 @@ export default function ContactPage() {
               </div>
 
               {/* Location */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <div className="w-12 h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPinIcon className="h-6 w-6 text-white" />
+              <div className="space-y-2 sm:space-y-3 md:space-y-4">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
+                    <MapPinIcon className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-light text-neutral-900">Location</h3>
+                  <h3 className="text-base sm:text-lg md:text-xl font-light text-neutral-900">Location</h3>
                 </div>
-                <p className="text-neutral-600 font-light text-lg ml-15">
+                <p className="text-neutral-600 font-light text-sm sm:text-base md:text-lg ml-12 sm:ml-15">
                   Dhaka, Bangladesh
                 </p>
               </div>
 
               {/* Follow Us */}
-              <div className="space-y-6 pt-4">
-                <h3 className="text-xl font-light text-neutral-900">Follow Us</h3>
-                <div className="flex gap-6">
+              <div className="space-y-4 sm:space-y-6 pt-4 sm:pt-6">
+                <h3 className="text-base sm:text-lg md:text-xl font-light text-neutral-900">Follow Us</h3>
+                <div className="flex gap-4 sm:gap-6">
                   <a
                     href="https://instagram.com"
                     target="_blank"
@@ -139,9 +139,9 @@ export default function ContactPage() {
 
             {/* Message Box */}
             <div className="flex flex-col justify-center">
-              <div className="bg-white p-12 border border-neutral-200 rounded-2xl space-y-6">
-                <h3 className="text-2xl font-light text-neutral-900">Send us a Message</h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="bg-white p-6 sm:p-8 md:p-12 border border-neutral-200 rounded-2xl space-y-4 sm:space-y-6">
+                <h3 className="text-xl sm:text-2xl font-light text-neutral-900">Send us a Message</h3>
+                <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                   <div>
                     <input
                       type="text"
@@ -149,7 +149,7 @@ export default function ContactPage() {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Your Name"
-                      className="w-full px-4 py-3 border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all rounded"
                     />
                   </div>
                   <div>
@@ -159,7 +159,7 @@ export default function ContactPage() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Your Email"
-                      className="w-full px-4 py-3 border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all rounded"
                     />
                   </div>
                   <div>
@@ -169,13 +169,13 @@ export default function ContactPage() {
                       onChange={handleChange}
                       placeholder="Your Message"
                       rows={5}
-                      className="w-full px-4 py-3 border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all resize-none"
+                      className="w-full px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base border border-neutral-200 bg-neutral-50 text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 transition-all resize-none rounded"
                     ></textarea>
                   </div>
                   <button
                     type="submit"
                     disabled={isLoading}
-                    className="w-full bg-neutral-900 text-white px-6 py-3 font-light hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-50"
+                    className="w-full bg-neutral-900 text-white px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-light hover:bg-neutral-800 transition-colors duration-200 disabled:opacity-50 rounded"
                   >
                     {isLoading ? "Sending..." : "Send Message"}
                   </button>
@@ -187,11 +187,11 @@ export default function ContactPage() {
       </section>
 
       {/* Back to Home */}
-      <section className="w-full bg-white py-12 md:py-16 border-b border-neutral-200">
-        <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 text-center">
+      <section className="w-full bg-white py-8 sm:py-12 md:py-16 border-b border-neutral-200">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 text-center">
           <Link
             href="/"
-            className="inline-flex items-center justify-center gap-2 text-neutral-900 font-light hover:text-neutral-600 transition-colors"
+            className="inline-flex items-center justify-center gap-2 text-sm sm:text-base text-neutral-900 font-light hover:text-neutral-600 transition-colors"
           >
             ← Back to Home
           </Link>

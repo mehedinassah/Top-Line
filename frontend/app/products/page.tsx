@@ -97,7 +97,7 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="relative h-80 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
+      <div className="relative h-64 sm:h-72 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
         <Image
           src="https://images.pexels.com/photos/3073037/pexels-photo-3073037.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000"
           alt="New Arrivals hero image"
@@ -107,26 +107,26 @@ export default function ProductsPage() {
           sizes="100vw"
         />
         {/* Content */}
-        <div className="absolute bottom-32 md:bottom-40 right-6 md:right-8">
-          <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight text-right">New Arrivals</h1>
+        <div className="absolute bottom-16 sm:bottom-20 md:bottom-32 lg:bottom-40 right-4 sm:right-6 md:right-8">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight text-right">New Arrivals</h1>
         </div>
       </div>
 
       {/* Main Content - Full Width */}
       <div className="w-full" style={{ backgroundColor: "#F5F5F5" }}>
-        <div className="flex flex-col gap-8 px-6 py-12 md:px-8 md:py-16 lg:py-20">
+        <div className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
           {/* Toolbar */}
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
             <div>
-              <p className="text-sm font-medium text-neutral-700">
+              <p className="text-xs sm:text-sm font-medium text-neutral-700">
                 {sortedProducts.length} {sortedProducts.length === 1 ? "item" : "items"} found • Page {currentPage} of {totalPages}
               </p>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
               {/* Filter Toggle Button */}
               <button
                 onClick={() => setShowMobileFilters(!showMobileFilters)}
-                className="flex items-center gap-2 rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
+                className="flex items-center gap-2 rounded-full border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition flex-1 sm:flex-none"
               >
                 <FunnelIcon className="h-4 w-4" />
                 Filters
@@ -137,7 +137,7 @@ export default function ProductsPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition"
+                className="rounded-full border border-neutral-300 bg-white px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition flex-1 sm:flex-none"
               >
                 <option value="newest">Newest First</option>
                 <option value="price-low">Price: Low to High</option>
@@ -148,13 +148,13 @@ export default function ProductsPage() {
           </div>
 
           {/* Main Content with Sidebar Layout */}
-          <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
             {/* Filters Sidebar - Left Side */}
             {showMobileFilters && (
               <div className="lg:w-64 flex-shrink-0">
-                <div className="rounded-2xl border border-neutral-200 bg-white p-8 sticky top-8">
-                  <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-lg font-semibold text-neutral-900">Refine</h2>
+                <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8 sticky top-8">
+                  <div className="flex items-center justify-between mb-6 sm:mb-8">
+                    <h2 className="text-base sm:text-lg font-semibold text-neutral-900">Refine</h2>
                     {hasActiveFilters && (
                       <button
                         onClick={clearFilters}
@@ -263,18 +263,18 @@ export default function ProductsPage() {
             {/* Products Section */}
             <div className="flex-1">
             {sortedProducts.length === 0 ? (
-              <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-12 text-center">
-                <p className="text-neutral-700 mb-4">No items match your selections.</p>
+              <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 md:p-12 text-center">
+                <p className="text-sm sm:text-base text-neutral-700 mb-4">No items match your selections.</p>
                 <button
                   onClick={clearFilters}
-                  className="rounded-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                  className="rounded-full bg-neutral-900 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white hover:bg-neutral-800 transition"
                 >
                   Clear Filters
                 </button>
               </div>
             ) : (
               <>
-                <div className="grid gap-2 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 md:gap-3">
+                <div className="grid gap-2 sm:gap-3 md:gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {paginatedProducts.map(product => (
                     <ProductCard key={product.id} product={product} />
                   ))}
@@ -282,21 +282,21 @@ export default function ProductsPage() {
 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div className="mt-12 flex items-center justify-center gap-2">
+                  <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
                     <button
                       onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                       disabled={currentPage === 1}
-                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                      className="rounded-lg border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
                     >
                       Previous
                     </button>
 
-                    <div className="flex gap-1">
+                    <div className="flex gap-1 flex-wrap justify-center">
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          className={`h-10 w-10 rounded-lg text-sm font-medium transition ${
+                          className={`h-8 sm:h-10 w-8 sm:w-10 rounded-lg text-xs sm:text-sm font-medium transition ${
                             currentPage === page
                               ? "bg-neutral-900 text-white"
                               : "border border-neutral-300 text-neutral-900 hover:bg-neutral-50"
@@ -310,7 +310,7 @@ export default function ProductsPage() {
                     <button
                       onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                       disabled={currentPage === totalPages}
-                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                      className="rounded-lg border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
                     >
                       Next
                     </button>

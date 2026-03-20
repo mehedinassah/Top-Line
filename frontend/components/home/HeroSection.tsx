@@ -78,25 +78,25 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <div className="max-w-4xl px-4 text-center space-y-6">
+        <div className="max-w-4xl px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
           <div>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-4">
+            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white mb-4">
               Clean lines.<br /> Premium fit.
             </h1>
 
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6">
             <Link
               href="/products"
-              className="rounded-sm bg-white px-8 py-3 text-center text-sm font-semibold text-neutral-900 hover:bg-neutral-100 transition duration-200 shadow-lg"
+              className="rounded-sm bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-center text-xs sm:text-sm font-semibold text-neutral-900 hover:bg-neutral-100 transition duration-200 shadow-lg"
               title="Shop collection"
             >
               Shop collection
             </Link>
             <Link
               href="/products?sort=newest"
-              className="rounded-sm border-2 border-white px-8 py-3 text-center text-sm font-semibold text-white hover:bg-white/10 transition duration-200"
+              className="rounded-sm border-2 border-white px-6 sm:px-8 py-2.5 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white hover:bg-white/10 transition duration-200"
               title="View new arrivals"
             >
               What's new
@@ -108,24 +108,24 @@ export default function HeroSection() {
       {/* Navigation Arrows */}
       <button
         onClick={prevImage}
-        className="absolute left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition duration-200 backdrop-blur-sm"
+        className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 rounded-full transition duration-200 backdrop-blur-sm"
         aria-label="Previous image"
         title="Previous image"
       >
-        <ChevronLeftIcon className="h-6 w-6" />
+        <ChevronLeftIcon className="h-5 sm:h-6 w-5 sm:w-6" />
       </button>
 
       <button
         onClick={nextImage}
-        className="absolute right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition duration-200 backdrop-blur-sm"
+        className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 rounded-full transition duration-200 backdrop-blur-sm"
         aria-label="Next image"
         title="Next image"
       >
-        <ChevronRightIcon className="h-6 w-6" />
+        <ChevronRightIcon className="h-5 sm:h-6 w-5 sm:w-6" />
       </button>
 
       {/* Dot Indicators */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {heroImages.map((_, index) => (
           <button
             key={index}
