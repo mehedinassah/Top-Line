@@ -1,8 +1,12 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 export default function AboutPage() {
+  const router = useRouter();
   return (
     <>
       {/* 1. HERO SECTION */}
@@ -143,6 +147,28 @@ export default function AboutPage() {
             >
               Shop All Products
               <ArrowRightIcon className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. FOOTER */}
+      <section className="w-full bg-white border-t border-neutral-200">
+        <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+            <button
+              onClick={() => router.push("/")}
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-light text-white bg-neutral-900 hover:bg-neutral-800 transition-all duration-300 hover:shadow-lg"
+              title="Return to homepage"
+            >
+              Top Line
+            </button>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-8 py-4 text-lg font-light text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white transition-all duration-300"
+              title="Get in touch with us"
+            >
+              Contact Us
             </Link>
           </div>
         </div>
