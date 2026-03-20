@@ -9,7 +9,7 @@ export default function AboutPage() {
       <section 
         className="relative w-full flex items-center justify-center text-center border-b border-neutral-200"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=2000&q=80')",
+          backgroundImage: "url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=2000&h=1000&q=80')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundColor: '#1a1a1a',

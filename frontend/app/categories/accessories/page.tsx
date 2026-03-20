@@ -182,7 +182,7 @@ export default function AccessoriesPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=2000&h=600&fit=crop&q=80')",
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=2000&h=600&fit=crop&q=80')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundColor: '#1a1a1a',

@@ -8,20 +8,20 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const heroImages = [
   {
-    url: "https://images.pexels.com/photos/3622613/pexels-photo-3622613.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    alt: "Premium mens fashion collection"
+    url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&h=1080&q=80",
+    alt: "Elegant fashion stylist curating modern wardrobe"
   },
   {
-    url: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    alt: "Modern minimalist clothing style"
+    url: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1920&h=1080&q=80",
+    alt: "Fashion essentials collection display"
   },
   {
-    url: "https://images.pexels.com/photos/1926769/pexels-photo-1926769.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    alt: "Curated essentials for modern wardrobe"
+    url: "https://images.unsplash.com/photo-1517457373614-b7152f800fd1?auto=format&fit=crop&w=1920&h=1080&q=80",
+    alt: "Minimalist fashion wardrobe styling"
   },
   {
-    url: "https://images.pexels.com/photos/3622619/pexels-photo-3622619.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop",
-    alt: "Premium quality mens wear"
+    url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&h=1080&q=80",
+    alt: "Contemporary fashion collection"
   }
 ];
 

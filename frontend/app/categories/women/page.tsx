@@ -182,7 +182,7 @@ export default function WomenPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1509631179647-0177331693ae?w=2000&h=600&fit=crop&q=80')",
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?w=2000&h=600&fit=crop&q=80')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundColor: '#1a1a1a',
