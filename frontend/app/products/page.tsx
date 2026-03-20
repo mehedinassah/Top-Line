@@ -3,8 +3,9 @@
 import { useState, useMemo } from "react";
 import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
+import FilterDrawer from "@/components/products/FilterDrawer";
 import { featuredProducts, SIZES } from "@/lib/productData";
-import { ChevronDownIcon, XMarkIcon, FunnelIcon } from "@heroicons/react/24/outline";
+import { FunnelIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
 
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
@@ -14,7 +15,7 @@ export default function ProductsPage() {
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
+  const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
   const itemsPerPage = 12;
@@ -73,12 +74,6 @@ export default function ProductsPage() {
 
   const categories = Array.from(new Set(featuredProducts.map(p => p.category)));
 
-  const toggleSize = (size: Size) => {
-    setSelectedSizes(prev =>
-      prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
-    );
-  };
-
   const clearFilters = () => {
     setSortBy("newest");
     setSelectedSizes([]);
@@ -86,7 +81,7 @@ export default function ProductsPage() {
     setSelectedCategory("");
   };
 
-  const hasActiveFilters = selectedSizes.length > 0 || selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
+  const hasActiveFilters = selectedSizes.length > 0 || !!selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
 
   // Pagination logic
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
@@ -125,12 +120,11 @@ export default function ProductsPage() {
             <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
               {/* Filter Toggle Button */}
               <button
-                onClick={() => setShowMobileFilters(!showMobileFilters)}
+                onClick={() => setShowFilterDrawer(true)}
                 className="flex items-center gap-2 rounded-full border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition flex-1 sm:flex-none"
               >
                 <FunnelIcon className="h-4 w-4" />
                 Filters
-                <ChevronDownIcon className={`h-4 w-4 transition-transform ${showMobileFilters ? "rotate-180" : ""}`} />
               </button>
 
               {/* Sort Dropdown */}
@@ -147,121 +141,8 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Main Content with Sidebar Layout */}
-          <div className="flex flex-col lg:flex-row gap-6 sm:gap-8">
-            {/* Filters Sidebar - Left Side */}
-            {showMobileFilters && (
-              <div className="lg:w-64 flex-shrink-0">
-                <div className="rounded-2xl border border-neutral-200 bg-white p-6 sm:p-8 sticky top-8">
-                  <div className="flex items-center justify-between mb-6 sm:mb-8">
-                    <h2 className="text-base sm:text-lg font-semibold text-neutral-900">Refine</h2>
-                    {hasActiveFilters && (
-                      <button
-                        onClick={clearFilters}
-                        className="text-xs font-medium text-neutral-600 hover:text-neutral-900 underline transition"
-                      >
-                        Clear all
-                      </button>
-                    )}
-                  </div>
-
-                  {/* Category Filter */}
-                  <div className="mb-8 pb-8 border-b border-neutral-200">
-                    <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Category</p>
-                    <div className="space-y-2">
-                      <button
-                        onClick={() => {
-                          setSelectedCategory("");
-                          setCurrentPage(1);
-                        }}
-                        className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
-                          !selectedCategory
-                            ? "bg-neutral-900 text-white"
-                            : "text-neutral-700 hover:bg-neutral-50"
-                        }`}
-                      >
-                        All Items
-                      </button>
-                      {categories.map(cat => (
-                        <button
-                          key={cat}
-                          onClick={() => {
-                            setSelectedCategory(selectedCategory === cat ? "" : cat);
-                            setCurrentPage(1);
-                          }}
-                          className={`w-full text-left px-3 py-2 text-sm rounded-lg transition capitalize ${
-                            selectedCategory === cat
-                              ? "bg-neutral-900 text-white"
-                              : "text-neutral-700 hover:bg-neutral-50"
-                          }`}
-                        >
-                          {cat}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Price Range Filter */}
-                  <div className="mb-8 pb-8 border-b border-neutral-200">
-                    <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Price Range</p>
-                    <div className="space-y-4">
-                      <input
-                        type="range"
-                        min="0"
-                        max={maxPrice}
-                        value={priceRange[0]}
-                        onChange={(e) => {
-                          setPriceRange([Number(e.target.value), priceRange[1]]);
-                          setCurrentPage(1);
-                        }}
-                        className="w-full"
-                      />
-                      <input
-                        type="range"
-                        min="0"
-                        max={maxPrice}
-                        value={priceRange[1]}
-                        onChange={(e) => {
-                          setPriceRange([priceRange[0], Number(e.target.value)]);
-                          setCurrentPage(1);
-                        }}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-sm font-medium text-neutral-900">
-                        <span>${priceRange[0]}</span>
-                        <span>${priceRange[1]}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Size Filter */}
-                  <div>
-                    <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Size</p>
-                    <div className="grid grid-cols-3 gap-2">
-                      {SIZES.map(size => (
-                        <button
-                          key={size}
-                          onClick={() => {
-                            toggleSize(size);
-                            setCurrentPage(1);
-                          }}
-                          className={`rounded-lg px-3 py-2.5 text-xs font-semibold transition ${
-                            selectedSizes.includes(size)
-                              ? "bg-neutral-900 text-white"
-                              : "border border-neutral-300 text-neutral-900 hover:border-neutral-900"
-                          }`}
-                        >
-                          {size}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Products Section */}
-            <div className="flex-1">
+          {/* Main Content with Products Grid */}
+          <div>
             {sortedProducts.length === 0 ? (
               <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 md:p-12 text-center">
                 <p className="text-sm sm:text-base text-neutral-700 mb-4">No items match your selections.</p>
@@ -319,7 +200,34 @@ export default function ProductsPage() {
               </>
             )}
           </div>
-        </div>
+
+        {/* Filter Drawer */}
+        <FilterDrawer
+          open={showFilterDrawer}
+          onClose={() => setShowFilterDrawer(false)}
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={(cat) => {
+            setSelectedCategory(selectedCategory === cat ? "" : cat);
+            setCurrentPage(1);
+          }}
+          priceRange={priceRange}
+          onPriceChange={(range) => {
+            setPriceRange(range);
+            setCurrentPage(1);
+          }}
+          maxPrice={maxPrice}
+          selectedSizes={selectedSizes}
+          onSizeToggle={(size) => {
+            setSelectedSizes(prev =>
+              prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+            );
+            setCurrentPage(1);
+          }}
+          hasActiveFilters={hasActiveFilters}
+          onClearFilters={clearFilters}
+          SIZES={SIZES}
+        />
         </div>
       </div>
     </div>
