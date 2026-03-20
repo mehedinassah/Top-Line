@@ -3,17 +3,27 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronRightIcon, MapPinIcon, ShoppingBagIcon, HeartIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon, HeartIcon, Cog6ToothIcon, ArrowRightOnRectangleIcon } from "@heroicons/react/24/outline";
+import { useCart, type CartItem } from "@/components/cart/CartContext";
 
 interface UserProfile {
   name: string;
   email: string;
 }
 
+interface WishlistItem {
+  id: string;
+  name: string;
+  price: number;
+  image?: string;
+}
+
 export default function AccountPage() {
   const router = useRouter();
+  const { items: cartItems } = useCart();
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
 
   useEffect(() => {
     // Check if user is logged in
@@ -28,6 +38,16 @@ export default function AccountPage() {
     const userEmail = localStorage.getItem("userEmail") || "";
     setUser({ name: userName, email: userEmail });
     setIsLoggedIn(true);
+
+    // Load wishlist from localStorage
+    try {
+      const stored = localStorage.getItem("topline_wishlist");
+      if (stored) {
+        setWishlistItems(JSON.parse(stored));
+      }
+    } catch (error) {
+      console.error("Failed to load wishlist:", error);
+    }
   }, [router]);
 
   const handleLogout = () => {
@@ -61,21 +81,7 @@ export default function AccountPage() {
                 className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
               >
                 Profile
-                <ChevronRightIcon className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/account/orders"
-                className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
-              >
-                Orders
-                <ChevronRightIcon className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/wishlist"
-                className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
-              >
-                Wishlist
-                <ChevronRightIcon className="h-4 w-4" />
+                <ArrowRightOnRectangleIcon className="h-4 w-4" />
               </Link>
               <button
                 onClick={handleLogout}
@@ -110,44 +116,67 @@ export default function AccountPage() {
               </div>
             </section>
 
-            {/* Addresses Section */}
-            <section className="rounded-2xl border border-neutral-200 bg-white p-6">
-              <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
-                <MapPinIcon className="h-5 w-5" />
-                Saved Addresses
-              </h2>
-              <div className="space-y-3">
-                <p className="text-sm text-neutral-700">No saved addresses yet. Add one for faster checkout.</p>
-              </div>
-              <button className="mt-4 rounded-full border border-neutral-300 px-6 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-900 transition">
-                + Add Address
-              </button>
-            </section>
-
-            {/* Recent Orders */}
+            {/* Cart Items Section */}
             <section className="rounded-2xl border border-neutral-200 bg-white p-6">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
                 <ShoppingBagIcon className="h-5 w-5" />
-                Recent Orders
+                Your Cart
               </h2>
-              <div className="space-y-3">
-                <p className="text-sm text-neutral-700">You haven't placed any orders yet. Start shopping to see your orders here.</p>
-              </div>
+              {cartItems.length > 0 ? (
+                <div className="space-y-3">
+                  {cartItems.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
+                      <div className="flex-1">
+                        <p className="font-medium text-neutral-900">{item.name}</p>
+                        <p className="text-sm text-neutral-700">Qty: {item.quantity}</p>
+                        {item.size && <p className="text-sm text-neutral-700">Size: {item.size}</p>}
+                        {item.color && <p className="text-sm text-neutral-700">Color: {item.color}</p>}
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-neutral-700">Your cart is empty. Start shopping to add items.</p>
+              )}
               <Link
                 href="/products"
                 className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
-                Start Shopping
+                Continue Shopping
               </Link>
             </section>
 
-            {/* Wishlist */}
+            {/* Wishlist Section */}
             <section className="rounded-2xl border border-neutral-200 bg-white p-6">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
                 <HeartIcon className="h-5 w-5" />
                 Wishlist
               </h2>
-              <p className="text-sm text-neutral-700">Your wishlist is empty. Add items to your wishlist to save them for later.</p>
+              {wishlistItems.length > 0 ? (
+                <div className="space-y-3">
+                  {wishlistItems.map((item) => (
+                    <div key={item.id} className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
+                      <div className="flex-1">
+                        <p className="font-medium text-neutral-900">{item.name}</p>
+                        <p className="text-sm text-neutral-700">${item.price.toFixed(2)}</p>
+                      </div>
+                      <div className="text-right">
+                        <Link
+                          href={`/products/${item.id}`}
+                          className="text-sm font-medium text-neutral-900 hover:underline"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm text-neutral-700">Your wishlist is empty. Add items to your wishlist to save them for later.</p>
+              )}
               <Link
                 href="/products"
                 className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
