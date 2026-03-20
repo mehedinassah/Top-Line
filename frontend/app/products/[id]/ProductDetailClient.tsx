@@ -109,19 +109,25 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     if (!isVariantInStock) {
       return;
     }
-    if (!selectedSize || !selectedColor) {
-      alert("Please select a size and color");
-      return;
+    
+    // Only require size/color for non-accessory items
+    if (props.collection !== "accessories") {
+      if (!selectedSize || !selectedColor) {
+        alert("Please select a size and color");
+        return;
+      }
     }
 
     const cartItemData = {
-      id: `${props.id}-${selectedSize}-${selectedColor.name}`,
+      id: props.collection === "accessories" 
+        ? `${props.id}` 
+        : `${props.id}-${selectedSize}-${selectedColor?.name}`,
       productId: props.id,
       name: props.name,
       price: displayPrice,
       quantity,
       size: selectedSize,
-      color: selectedColor.name,
+      color: selectedColor?.name,
       image: props.images?.[0],
       discountPrice: props.discountPrice
     };
@@ -165,7 +171,8 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   }
 
   function handleIncreaseQuantity() {
-    if (quantity < variantStock) {
+    const stock = props.collection === "accessories" ? props.stockCount : variantStock;
+    if (quantity < stock) {
       setQuantity(quantity + 1);
     }
   }
@@ -310,26 +317,28 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               </p>
 
               {/* Size & Color Selectors */}
-              <div className="space-y-4 border-t border-neutral-200 pt-4 md:pt-6">
-                <ColorSelector
-                  selectedColor={selectedColor}
-                  onColorChange={setSelectedColor}
-                  colors={props.colors}
-                />
-                
-                <SizeSelector
-                  selectedSize={selectedSize}
-                  onSizeChange={setSelectedSize}
-                  availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
-                />
+              {props.collection !== "accessories" && (
+                <div className="space-y-4 border-t border-neutral-200 pt-4 md:pt-6">
+                  <ColorSelector
+                    selectedColor={selectedColor}
+                    onColorChange={setSelectedColor}
+                    colors={props.colors}
+                  />
+                  
+                  <SizeSelector
+                    selectedSize={selectedSize}
+                    onSizeChange={setSelectedSize}
+                    availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
+                  />
 
-                {/* SKU Display */}
-                {currentVariant && (
-                  <div className="rounded-lg bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
-                    SKU: <span className="font-mono font-medium">{currentVariant.sku}</span>
-                  </div>
-                )}
-              </div>
+                  {/* SKU Display */}
+                  {currentVariant && (
+                    <div className="rounded-lg bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
+                      SKU: <span className="font-mono font-medium">{currentVariant.sku}</span>
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Quantity Selector & Add to Cart */}
               <div className="flex flex-col gap-3 sm:gap-4">
@@ -349,18 +358,19 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                       value={quantity}
                       onChange={(e) => {
                         const val = parseInt(e.target.value);
-                        if (val > 0 && val <= variantStock) {
+                        const maxStock = props.collection === "accessories" ? props.stockCount : variantStock;
+                        if (val > 0 && val <= maxStock) {
                           setQuantity(val);
                         }
                       }}
                       min="1"
-                      max={variantStock}
+                      max={props.collection === "accessories" ? props.stockCount : variantStock}
                       className="w-8 bg-transparent text-center text-sm font-medium text-neutral-900 outline-none"
                       aria-label="Product quantity"
                     />
                     <button
                       onClick={handleIncreaseQuantity}
-                      disabled={quantity >= variantStock}
+                      disabled={quantity >= (props.collection === "accessories" ? props.stockCount : variantStock)}
                       className="text-neutral-700 hover:text-neutral-900 disabled:opacity-50 disabled:cursor-not-allowed transition"
                       aria-label="Increase quantity"
                       title="Increase quantity"
@@ -373,7 +383,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 <div className="flex gap-3">
                   <button
                     onClick={handleAddToCart}
-                    disabled={!isVariantInStock || !selectedSize || !selectedColor}
+                    disabled={!isVariantInStock || (props.collection !== "accessories" && (!selectedSize || !selectedColor))}
                     className={`flex-1 rounded-full px-6 py-2.5 font-semibold text-sm shadow-minimal transition ${
                       addedToCart
                         ? "bg-green-600 text-white hover:bg-green-700"
