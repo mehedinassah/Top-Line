@@ -50,6 +50,9 @@ export default function Navbar() {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userEmail");
     localStorage.removeItem("userName");
+    // Clear user's wishlist and orders on logout
+    localStorage.removeItem("topline_wishlist");
+    localStorage.removeItem("topline_orders");
     setIsLoggedIn(false);
     setUserEmail("");
     setShowProfileMenu(false);

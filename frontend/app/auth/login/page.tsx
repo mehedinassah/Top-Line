@@ -42,6 +42,10 @@ export default function LoginPage() {
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email);
       
+      // Clear previous user's data
+      localStorage.removeItem("topline_wishlist");
+      localStorage.removeItem("topline_orders");
+      
       // Dispatch custom event to notify navbar of auth state change
       window.dispatchEvent(new Event("authStateChanged"));
       

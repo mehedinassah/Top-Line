@@ -82,6 +82,10 @@ export default function RegisterPage() {
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userName", name);
       
+      // Clear any previous data
+      localStorage.removeItem("topline_wishlist");
+      localStorage.removeItem("topline_orders");
+      
       // Dispatch custom event to notify navbar of auth state change
       window.dispatchEvent(new Event("authStateChanged"));
       
