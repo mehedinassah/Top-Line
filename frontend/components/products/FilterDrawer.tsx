@@ -38,25 +38,26 @@ export default function FilterDrawer({
     <div
       className={`overflow-hidden transition-all duration-200 ease-out flex flex-col border-r border-neutral-200 bg-white shadow-lg z-40 ${
         open 
-          ? "w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 min-h-screen pointer-events-auto" 
+          ? "w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 max-h-screen pointer-events-auto" 
           : "w-0 pointer-events-none"
       }`}
     >
-      <div className="flex flex-col h-full px-4 py-5 sm:px-6 sm:py-6">
-        {/* Header */}
-        <div className="flex items-center justify-between gap-2 mb-6 sm:mb-8">
-          <h2 className="text-lg font-bold text-neutral-900 md:text-xl">
-            Filters
-          </h2>
-          <button
-            onClick={onClose}
-            className="p-1 hover:bg-neutral-100 rounded-lg transition"
-            aria-label="Close filters"
-          >
-            <XMarkIcon className="h-5 w-5 text-neutral-600" />
-          </button>
-        </div>
+      {/* Header - Fixed */}
+      <div className="flex-shrink-0 flex items-center justify-between gap-2 border-b border-neutral-200 px-4 py-5 sm:px-6 sm:py-6">
+        <h2 className="text-lg font-bold text-neutral-900 md:text-xl">
+          Filters
+        </h2>
+        <button
+          onClick={onClose}
+          className="p-1 hover:bg-neutral-100 rounded-lg transition"
+          aria-label="Close filters"
+        >
+          <XMarkIcon className="h-5 w-5 text-neutral-600" />
+        </button>
+      </div>
 
+      {/* Scrollable Content */}
+      <div className="flex-1 overflow-y-auto px-4 py-5 sm:px-6 sm:py-6">
         {/* Clear All Button */}
         {hasActiveFilters && (
           <button
@@ -70,8 +71,8 @@ export default function FilterDrawer({
         )}
 
         {/* Category Filter */}
-        <div className="mb-8 pb-8 border-b border-neutral-200">
-          <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">
+        <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-neutral-200">
+          <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
             Category
           </p>
           <div className="space-y-2">
@@ -79,7 +80,7 @@ export default function FilterDrawer({
               onClick={() => {
                 onCategoryChange("");
               }}
-              className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition font-medium ${
+              className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg transition font-medium ${
                 !selectedCategory
                   ? "bg-neutral-900 text-white"
                   : "text-neutral-700 hover:bg-neutral-50"
@@ -93,7 +94,7 @@ export default function FilterDrawer({
                 onClick={() => {
                   onCategoryChange(selectedCategory === cat ? "" : cat);
                 }}
-                className={`w-full text-left px-3 py-2.5 text-sm rounded-lg transition capitalize font-medium ${
+                className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg transition capitalize font-medium ${
                   selectedCategory === cat
                     ? "bg-neutral-900 text-white"
                     : "text-neutral-700 hover:bg-neutral-50"
@@ -106,11 +107,11 @@ export default function FilterDrawer({
         </div>
 
         {/* Price Range Filter */}
-        <div className="mb-8 pb-8 border-b border-neutral-200">
-          <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">
+        <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-neutral-200">
+          <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
             Price Range
           </p>
-          <div className="space-y-4">
+          <div className="space-y-3 sm:space-y-4">
             <input
               type="range"
               min="0"
@@ -131,7 +132,7 @@ export default function FilterDrawer({
               }}
               className="w-full accent-neutral-900"
             />
-            <div className="flex justify-between text-sm font-medium text-neutral-900">
+            <div className="flex justify-between text-xs sm:text-sm font-medium text-neutral-900">
               <span>${priceRange[0]}</span>
               <span>${priceRange[1]}</span>
             </div>
@@ -140,7 +141,7 @@ export default function FilterDrawer({
 
         {/* Size Filter */}
         <div>
-          <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">
+          <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
             Size
           </p>
           <div className="grid grid-cols-3 gap-2">
@@ -148,7 +149,7 @@ export default function FilterDrawer({
               <button
                 key={size}
                 onClick={() => onSizeToggle(size)}
-                className={`rounded-lg px-2 sm:px-3 py-2.5 text-xs font-semibold transition ${
+                className={`rounded-lg px-2 sm:px-3 py-2 sm:py-2.5 text-xs font-semibold transition ${
                   selectedSizes.includes(size)
                     ? "bg-neutral-900 text-white"
                     : "border border-neutral-300 text-neutral-900 hover:border-neutral-900"
