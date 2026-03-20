@@ -1,22 +1,65 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { featuredProducts, SIZES } from "@/lib/productData";
-import { StarIcon } from "@heroicons/react/24/solid";
+import { StarIcon, HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
+import { HeartIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
 
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
 
 function MinimalProductCard({ product }: { product: Product }) {
   const [showSecondImage, setShowSecondImage] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
   
   const primaryImage = product.images?.[0] ?? "/placeholder-product.png";
   const secondaryImage = product.images?.[1] ?? null;
   const displayImage = showSecondImage && secondaryImage ? secondaryImage : primaryImage;
   const displayPrice = product.discountPrice ?? product.price;
   const hasDiscount = product.discountPrice !== undefined;
+
+  // Check if product is in wishlist on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem("topline_wishlist");
+      const wishlist = stored ? JSON.parse(stored) : [];
+      const exists = wishlist.some((item: any) => item.productId === product.id);
+      setIsInWishlist(exists);
+    } catch (error) {
+      console.error("Failed to load wishlist:", error);
+    }
+  }, [product.id]);
+
+  const handleWishlistClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    try {
+      const stored = localStorage.getItem("topline_wishlist");
+      let wishlist = stored ? JSON.parse(stored) : [];
+
+      const exists = wishlist.some((item: any) => item.productId === product.id);
+
+      if (exists) {
+        wishlist = wishlist.filter((item: any) => item.productId !== product.id);
+      } else {
+        wishlist.push({
+          id: `${product.id}`,
+          productId: product.id,
+          name: product.name,
+          price: displayPrice,
+          image: primaryImage
+        });
+      }
+
+      localStorage.setItem("topline_wishlist", JSON.stringify(wishlist));
+      setIsInWishlist(!exists);
+    } catch (error) {
+      console.error("Failed to update wishlist:", error);
+    }
+  };
 
   return (
     <Link
@@ -42,6 +85,19 @@ function MinimalProductCard({ product }: { product: Product }) {
             Sale
           </div>
         )}
+        {/* Wishlist Heart */}
+        <button
+          onClick={handleWishlistClick}
+          className="absolute bottom-4 right-4 rounded-full bg-white/80 p-2 hover:bg-white transition shadow-sm"
+          title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+          aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+        >
+          {isInWishlist ? (
+            <HeartSolidIcon className="h-5 w-5 text-red-600" />
+          ) : (
+            <HeartIcon className="h-5 w-5 text-neutral-400" />
+          )}
+        </button>
       </div>
       <div className="flex flex-grow flex-col gap-3 px-4 py-4">
         <div>
