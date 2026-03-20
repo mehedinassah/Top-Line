@@ -8,20 +8,16 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const heroImages = [
   {
-    url: "https://images.unsplash.com/photo-1509631179647-0177331693ae?w=1200&q=80",
-    alt: "Elegant fashion lifestyle photography"
+    url: "https://drive.google.com/uc?export=view&id=1TVmIIsOTkIt1bU5sbzJg1NknxRjt5-QV",
+    alt: "Homepage hero image 1"
   },
   {
-    url: "https://images.unsplash.com/photo-1455849318743-63233373ff62?w=1200&q=80",
-    alt: "Modern fashion essentials"
+    url: "https://drive.google.com/uc?export=view&id=1TRbOMaietYgk5VpupjhteBY99_-BnZyH",
+    alt: "Homepage hero image 2"
   },
   {
-    url: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
-    alt: "Contemporary fashion styling"
-  },
-  {
-    url: "https://images.unsplash.com/photo-1483389127117-b6a938b99aea?w=1200&q=80",
-    alt: "Luxury fashion collection"
+    url: "https://drive.google.com/uc?export=view&id=1jjiAd9jzcLNtvi88i2p5Cs_bagFwFdoe",
+    alt: "Homepage hero image 3"
   }
 ];
 

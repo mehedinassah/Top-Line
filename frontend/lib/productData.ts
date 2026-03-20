@@ -47,8 +47,8 @@ export const featuredProducts: Product[] = [
     category: "outerwear",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80",
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq",
+      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
     ],
     rating: 4.8,
     sizes: ["S", "M", "L", "XL", "XXL"],
@@ -85,8 +85,8 @@ export const featuredProducts: Product[] = [
     category: "jeans",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1542272619-c8a90ad63d0f?w=600&q=80",
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC",
+      "https://drive.google.com/uc?export=view&id=1Z9lQJXzn1EwBSMotxULQ8vE35PPYdP2t"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -119,8 +119,8 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&q=80",
-      "https://images.unsplash.com/photo-1521376573897-a15bcb6f7188?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc",
+      "https://drive.google.com/uc?export=view&id=1iUNRUWfB9yTevUftNOuf1iC4E1jFXgHG"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -157,7 +157,7 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1521572730684-f281dc12f3b7?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1FYOWIROx3Xk-BLBKJj6Wx8v8sd5NAy6u"
     ],
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -191,8 +191,7 @@ export const featuredProducts: Product[] = [
     category: "pants",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?w=600&q=80",
-      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -226,8 +225,7 @@ export const featuredProducts: Product[] = [
     category: "tops",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80",
-      "https://images.unsplash.com/photo-1521376573897-a15bcb6f7188?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -260,8 +258,7 @@ export const featuredProducts: Product[] = [
     category: "dresses",
     collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?w=600&q=80",
-      "https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1jzp_6a94RBTZ9-RwahMejdItGX3GwhqR"
     ],
     rating: 4.8,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -291,8 +288,7 @@ export const featuredProducts: Product[] = [
     category: "outerwear",
     collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80",
-      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1W4x1_YGmVfzsoP9lpaBKiVA2m63U52oR"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -322,8 +318,7 @@ export const featuredProducts: Product[] = [
     category: "pants",
     collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80",
-      "https://images.unsplash.com/photo-1506629082632-11c94d3e59fd?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1pAK7tmREcuf9zwy9FAb18W4OMXj2g63F"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -353,8 +348,7 @@ export const featuredProducts: Product[] = [
     category: "tops",
     collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1539533057440-7bf458871b70?w=600&q=80",
-      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1Za6WZkyRXf3boTLtcuIKTHuOgB2Fs23y"
     ],
     rating: 4.9,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -383,8 +377,8 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80",
-      "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8",
+      "https://drive.google.com/uc?export=view&id=1K4yEWh-fLjq8w6M7UJ2rs05GXEtZ3gp7"
     ],
     rating: 4.8,
     sizes: ["M"],
@@ -408,8 +402,8 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80",
-      "https://images.unsplash.com/photo-1559810264-c0d931ecc6d9?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1Xc3V5kkCC5V1kjpSIV8KOyRmjlUn2cSy",
+      "https://drive.google.com/uc?export=view&id=1XQETG_JVIKeB62lb1pR8jcRrbnI78XyT"
     ],
     rating: 4.7,
     sizes: ["M"],
@@ -434,8 +428,8 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1559810264-c0d931ecc6d9?w=600&q=80",
-      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1Kn6zZsgU52Cb9jBLB0fPb_TMo6b7hwWM",
+      "https://drive.google.com/uc?export=view&id=1Mld8lzD-Z3J2E9ZS93Fy4RUtfyMZQi-q"
     ],
     rating: 4.6,
     sizes: ["M"],
@@ -459,8 +453,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=600&q=80",
-      "https://images.unsplash.com/photo-1612336307429-8a88e8d08dbb?w=600&q=80"
+      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8"
     ],
     rating: 4.9,
     sizes: ["M"],
