@@ -107,7 +107,7 @@ export default function ProductsPage() {
           sizes="100vw"
         />
         {/* Content */}
-        <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
+        <div className="relative h-full flex items-start px-6 md:px-8 pt-20 md:pt-32">
           <div className="space-y-4 max-w-2xl">
             <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">New Arrivals</h1>
           </div>
