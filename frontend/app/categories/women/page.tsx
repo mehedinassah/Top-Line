@@ -187,7 +187,7 @@ export default function WomenPage() {
         }}
       >
         <Image
-          src="https://drive.google.com/uc?export=view&id=1TRbOMaietYgk5VpupjhteBY99_-BnZyH"
+          src="https://drive.google.com/uc?export=view&id=1DYkijtBPGRGPougg0kWMWh4pyLjoRhpY"
           alt="Women's Collection"
           fill
           className="object-cover"
