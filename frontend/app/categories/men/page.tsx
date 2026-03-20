@@ -201,7 +201,6 @@ export default function MenPage() {
         <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
           <div className="space-y-4 max-w-2xl">
             <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">Men's Collection</h1>
-            <p className="text-lg text-white/90 font-light max-w-xl">Premium essentials and timeless pieces for the modern wardrobe</p>
           </div>
         </div>
       </div>

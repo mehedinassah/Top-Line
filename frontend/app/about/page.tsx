@@ -26,13 +26,7 @@ export default function AboutPage() {
             <h1 className="text-6xl md:text-7xl font-light text-white tracking-tight">
               TOP LINE
             </h1>
-            <p className="text-2xl md:text-3xl font-light text-white/90">
-              Modern Essentials
-            </p>
           </div>
-          <p className="text-lg text-white/80 font-light max-w-xl mx-auto">
-            Curated essentials for the modern wardrobe.
-          </p>
         </div>
       </section>
 

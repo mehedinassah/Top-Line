@@ -8,9 +8,7 @@ export default function Footer() {
           {/* Brand */}
           <div>
             <h3 className="text-lg font-bold tracking-tight mb-4">Top Line</h3>
-            <p className="text-sm text-neutral-300 leading-relaxed">
-              Curated essentials for the modern wardrobe. Premium quality, timeless design.
-            </p>
+            <p className="text-sm text-neutral-300 leading-relaxed"></p>
           </div>
 
           {/* Collections */}

@@ -74,9 +74,7 @@ export default function HeroSection() {
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight text-white mb-4">
               Clean lines.<br /> Premium fit.
             </h1>
-            <p className="text-lg md:text-xl text-neutral-100 max-w-2xl mx-auto leading-relaxed">
-              Curated collection of essentials for the modern wardrobe. Built to last, designed to inspire.
-            </p>
+
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">

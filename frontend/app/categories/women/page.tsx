@@ -201,7 +201,6 @@ export default function WomenPage() {
         <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
           <div className="space-y-4 max-w-2xl">
             <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">Women's Collection</h1>
-            <p className="text-lg text-white/90 font-light max-w-xl">Curated pieces designed for elegance and comfort</p>
           </div>
         </div>
       </div>
