@@ -117,14 +117,7 @@ export default function AccountPage() {
                 Saved Addresses
               </h2>
               <div className="space-y-3">
-                <div className="rounded-lg border border-neutral-200 p-4">
-                  <p className="font-medium text-neutral-900">Home</p>
-                  <p className="mt-1 text-sm text-neutral-700">123 Main Street</p>
-                  <p className="text-sm text-neutral-700">New York, NY 10001</p>
-                  <button className="mt-3 text-sm font-medium text-neutral-900 hover:underline">
-                    Edit
-                  </button>
-                </div>
+                <p className="text-sm text-neutral-700">No saved addresses yet. Add one for faster checkout.</p>
               </div>
               <button className="mt-4 rounded-full border border-neutral-300 px-6 py-2 text-sm font-semibold text-neutral-900 hover:border-neutral-900 transition">
                 + Add Address
@@ -138,25 +131,13 @@ export default function AccountPage() {
                 Recent Orders
               </h2>
               <div className="space-y-3">
-                <div className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
-                  <div>
-                    <p className="font-medium text-neutral-900">Order #ORD-12345</p>
-                    <p className="text-sm text-neutral-700">March 10, 2026</p>
-                    <p className="text-sm text-green-600">Delivered</p>
-                  </div>
-                  <Link
-                    href="/account/orders/1"
-                    className="rounded-full border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
-                  >
-                    View
-                  </Link>
-                </div>
+                <p className="text-sm text-neutral-700">You haven't placed any orders yet. Start shopping to see your orders here.</p>
               </div>
               <Link
-                href="/account/orders"
-                className="mt-4 inline-block text-sm font-medium text-neutral-900 hover:underline"
+                href="/products"
+                className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
-                View all orders →
+                Start Shopping
               </Link>
             </section>
 
@@ -166,12 +147,12 @@ export default function AccountPage() {
                 <HeartIcon className="h-5 w-5" />
                 Wishlist
               </h2>
-              <p className="text-sm text-neutral-700">You have 3 items in your wishlist</p>
+              <p className="text-sm text-neutral-700">Your wishlist is empty. Add items to your wishlist to save them for later.</p>
               <Link
-                href="/wishlist"
+                href="/products"
                 className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
-                View Wishlist
+                Explore Products
               </Link>
             </section>
           </div>
