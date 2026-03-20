@@ -118,14 +118,13 @@ export default function ProductsPage() {
 
       {/* Main Section with Sidebar and Content */}
       <div 
-        className="flex w-full min-h-screen"
+        className="flex w-full"
         style={{ 
           backgroundColor: "#F5F5F5",
         }}
       >
         {/* Filter Drawer - Flex Item */}
-        <div className="flex-shrink-0">
-          <FilterDrawer
+        <FilterDrawer
           open={showFilterDrawer}
           onClose={() => setShowFilterDrawer(false)}
           categories={categories}
@@ -151,7 +150,6 @@ export default function ProductsPage() {
           onClearFilters={clearFilters}
           SIZES={SIZES}
         />
-        </div>
 
         {/* Main Content - Flex Item */}
         <div className="flex-1">

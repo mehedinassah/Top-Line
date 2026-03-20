@@ -36,9 +36,9 @@ export default function FilterDrawer({
 }: FilterDrawerProps) {
   return (
     <div
-      className={`overflow-hidden transition-all duration-200 ease-out flex flex-col border-r border-neutral-200 bg-white shadow-lg z-40 ${
+      className={`flex-shrink-0 overflow-hidden transition-all duration-200 ease-out flex flex-col border-r border-neutral-200 bg-white shadow-lg z-40 ${
         open 
-          ? "w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 max-h-screen pointer-events-auto" 
+          ? "w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 min-h-screen pointer-events-auto" 
           : "w-0 pointer-events-none"
       }`}
     >
