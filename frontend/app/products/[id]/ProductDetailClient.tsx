@@ -104,13 +104,15 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     }
 
     const cartItemData = {
-      id: props.id,
+      id: `${props.id}-${selectedSize}-${selectedColor.name}`,
+      productId: props.id,
       name: props.name,
       price: displayPrice,
       quantity,
       size: selectedSize,
-      color: selectedColor,
-      image: props.images?.[0]
+      color: selectedColor.name,
+      image: props.images?.[0],
+      discountPrice: props.discountPrice
     };
 
     addItem(cartItemData);
