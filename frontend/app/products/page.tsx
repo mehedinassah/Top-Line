@@ -87,63 +87,71 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="border-b border-neutral-200 bg-neutral-50 px-4 py-8">
+      <div className="border-b border-neutral-200 bg-white px-4 py-12 md:py-16">
         <div className="mx-auto max-w-6xl">
-          <h1 className="text-3xl font-bold text-neutral-900">All Products</h1>
-          <p className="mt-2 text-neutral-700">
-            Showing {sortedProducts.length} of {featuredProducts.length} products
+          <h2 className="text-sm font-semibold tracking-widest text-neutral-700 uppercase">
+            Curated Collection
+          </h2>
+          <h1 className="mt-3 text-4xl md:text-5xl font-bold text-neutral-900 tracking-tight">
+            New Arrivals
+          </h1>
+          <p className="mt-4 text-neutral-700 max-w-2xl">
+            Discover our latest pieces, carefully selected to bring you the freshest styles of the season. {sortedProducts.length} items available.
           </p>
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-8">
+      <div className="mx-auto max-w-6xl px-4 py-12">
         <div className="grid gap-8 lg:grid-cols-4">
           {/* Filters Sidebar */}
           <div className={`lg:col-span-1 ${showMobileFilters ? "block" : "hidden lg:block"}`}>
-            <div className="rounded-2xl border border-neutral-200 bg-white p-6">
-              <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-neutral-900">Filters</h2>
+            <div className="rounded-2xl border border-neutral-200 bg-white p-8">
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-lg font-semibold text-neutral-900">Refine</h2>
                 {hasActiveFilters && (
                   <button
                     onClick={clearFilters}
-                    className="text-xs font-medium text-neutral-700 hover:text-neutral-900 underline"
+                    className="text-xs font-medium text-neutral-600 hover:text-neutral-900 underline transition"
                   >
-                    Clear
+                    Clear all
                   </button>
                 )}
               </div>
 
               {/* Category Filter */}
-              <div className="mb-6 pb-6 border-b border-neutral-200">
-                <p className="text-sm font-semibold text-neutral-900 mb-3">Category</p>
+              <div className="mb-8 pb-8 border-b border-neutral-200">
+                <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Category</p>
                 <div className="space-y-2">
-                  <label className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={!selectedCategory}
-                      onChange={() => setSelectedCategory("")}
-                      className="h-4 w-4 rounded border-neutral-300"
-                    />
-                    <span className="text-sm text-neutral-700">All Categories</span>
-                  </label>
+                  <button
+                    onClick={() => setSelectedCategory("")}
+                    className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
+                      !selectedCategory
+                        ? "bg-neutral-900 text-white"
+                        : "text-neutral-700 hover:bg-neutral-50"
+                    }`}
+                  >
+                    All Items
+                  </button>
                   {categories.map(cat => (
-                    <label key={cat} className="flex items-center gap-2 cursor-pointer">
-                      <input
-                        type="checkbox"
-                        checked={selectedCategory === cat}
-                        onChange={() => setSelectedCategory(selectedCategory === cat ? "" : cat)}
-                        className="h-4 w-4 rounded border-neutral-300"
-                      />
-                      <span className="text-sm text-neutral-700 capitalize">{cat}</span>
-                    </label>
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat)}
+                      className={`w-full text-left px-3 py-2 text-sm rounded-lg transition capitalize ${
+                        selectedCategory === cat
+                          ? "bg-neutral-900 text-white"
+                          : "text-neutral-700 hover:bg-neutral-50"
+                      }`}
+                    >
+                      {cat}
+                    </button>
                   ))}
                 </div>
               </div>
 
               {/* Price Range Filter */}
-              <div className="mb-6 pb-6 border-b border-neutral-200">
-                <p className="text-sm font-semibold text-neutral-900 mb-3">Price Range</p>
-                <div className="space-y-3">
+              <div className="mb-8 pb-8 border-b border-neutral-200">
+                <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Price Range</p>
+                <div className="space-y-4">
                   <input
                     type="range"
                     min="0"
@@ -160,7 +168,7 @@ export default function ProductsPage() {
                     onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
                     className="w-full"
                   />
-                  <div className="flex justify-between text-sm text-neutral-700">
+                  <div className="flex justify-between text-sm font-medium text-neutral-900">
                     <span>${priceRange[0]}</span>
                     <span>${priceRange[1]}</span>
                   </div>
@@ -168,14 +176,14 @@ export default function ProductsPage() {
               </div>
 
               {/* Size Filter */}
-              <div className="mb-6 pb-6 border-b border-neutral-200">
-                <p className="text-sm font-semibold text-neutral-900 mb-3">Size</p>
+              <div>
+                <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Size</p>
                 <div className="grid grid-cols-3 gap-2">
                   {SIZES.map(size => (
                     <button
                       key={size}
                       onClick={() => toggleSize(size)}
-                      className={`rounded-lg px-3 py-2 text-xs font-medium transition ${
+                      className={`rounded-lg px-3 py-2.5 text-xs font-semibold transition ${
                         selectedSizes.includes(size)
                           ? "bg-neutral-900 text-white"
                           : "border border-neutral-300 text-neutral-900 hover:border-neutral-900"
@@ -186,27 +194,25 @@ export default function ProductsPage() {
                   ))}
                 </div>
               </div>
-
-
             </div>
           </div>
 
           {/* Products Grid */}
           <div className="lg:col-span-3">
             {/* Toolbar */}
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-8 flex items-center justify-between">
               <div>
-                <p className="text-sm text-neutral-700">
-                  {sortedProducts.length} {sortedProducts.length === 1 ? "product" : "products"}
+                <p className="text-sm font-medium text-neutral-700">
+                  {sortedProducts.length} {sortedProducts.length === 1 ? "item" : "items"} found
                 </p>
               </div>
               <div className="flex items-center gap-3">
                 {/* Mobile Filter Toggle */}
                 <button
                   onClick={() => setShowMobileFilters(!showMobileFilters)}
-                  className="lg:hidden flex items-center gap-2 rounded-full border border-neutral-300 px-3 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 transition"
+                  className="lg:hidden flex items-center gap-2 rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
                 >
-                  Filters
+                  Refine
                   <ChevronDownIcon className="h-4 w-4" />
                 </button>
 
@@ -214,23 +220,23 @@ export default function ProductsPage() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortOption)}
-                  className="rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                  className="rounded-full border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition"
                 >
-                  <option value="newest">Newest</option>
+                  <option value="newest">Newest First</option>
                   <option value="price-low">Price: Low to High</option>
                   <option value="price-high">Price: High to Low</option>
-                  <option value="rating">Best Rating</option>
+                  <option value="rating">Top Rated</option>
                 </select>
               </div>
             </div>
 
             {/* Products Grid */}
             {sortedProducts.length === 0 ? (
-              <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-12 text-center">
-                <p className="text-neutral-700">No products found matching your filters.</p>
+              <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-12 text-center">
+                <p className="text-neutral-700 mb-4">No items match your selections.</p>
                 <button
                   onClick={clearFilters}
-                  className="mt-4 rounded-full bg-neutral-900 px-6 py-2 text-sm font-medium text-white hover:bg-neutral-800 transition"
+                  className="rounded-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
                 >
                   Clear Filters
                 </button>
