@@ -61,11 +61,11 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group flex h-full flex-col rounded-2xl border border-neutral-200 bg-white p-3 transition hover:-translate-y-1 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-minimal"
+      className="group flex h-full flex-col border border-neutral-200 bg-white p-3 transition hover:-translate-y-1 hover:border-neutral-300 hover:bg-neutral-50 hover:shadow-minimal"
       title={`View ${product.name}`}
     >
       <div 
-        className="relative aspect-square w-full overflow-hidden rounded-xl bg-neutral-100"
+        className="relative aspect-square w-full overflow-hidden bg-neutral-100"
         onMouseEnter={() => secondaryImage && setShowSecondImage(true)}
         onMouseLeave={() => setShowSecondImage(false)}
       >
