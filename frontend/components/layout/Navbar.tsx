@@ -149,7 +149,8 @@ export default function Navbar() {
             )}
           </button>
 
-          {/* Icons - Right Side */}\n          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          {/* Icons - Right Side */}
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
             <button
               onClick={() => setCartOpen(true)}
               className="relative rounded-full border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
