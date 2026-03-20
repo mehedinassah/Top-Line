@@ -57,6 +57,22 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     }
   }, [props.id]);
 
+  // Listen for auth state changes
+  useEffect(() => {
+    const handleAuthStateChange = () => {
+      const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      setIsLoggedIn(updatedLoggedIn);
+    };
+
+    window.addEventListener("authStateChanged", handleAuthStateChange);
+    window.addEventListener("storage", handleAuthStateChange);
+    
+    return () => {
+      window.removeEventListener("authStateChanged", handleAuthStateChange);
+      window.removeEventListener("storage", handleAuthStateChange);
+    };
+  }, []);
+
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
     if (!reviewComment.trim()) return;

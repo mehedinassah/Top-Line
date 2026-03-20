@@ -49,9 +49,12 @@ export default function Navbar() {
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userEmail");
+    localStorage.removeItem("userName");
     setIsLoggedIn(false);
     setUserEmail("");
     setShowProfileMenu(false);
+    // Dispatch event for other components to listen
+    window.dispatchEvent(new Event("authStateChanged"));
   };
 
   return (
