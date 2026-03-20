@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -14,13 +14,20 @@ export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const { totalQuantity } = useCart();
 
-  useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    const email = localStorage.getItem("userEmail") || "";
-    setIsLoggedIn(loggedIn);
-    setUserEmail(email);
+  // Check auth state synchronously as early as possible
+  useLayoutEffect(() => {
+    const updateAuthState = () => {
+      const loggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const email = localStorage.getItem("userEmail") || "";
+      setIsLoggedIn(loggedIn);
+      setUserEmail(email);
+    };
 
-    // Listen for auth state changes
+    updateAuthState();
+  }, []);
+
+  // Listen for auth state changes from login/register pages and storage events
+  useEffect(() => {
     const handleAuthStateChange = () => {
       const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       const updatedEmail = localStorage.getItem("userEmail") || "";
@@ -28,8 +35,15 @@ export default function Navbar() {
       setUserEmail(updatedEmail);
     };
 
+    // Listen for custom auth event from login/register
     window.addEventListener("authStateChanged", handleAuthStateChange);
-    return () => window.removeEventListener("authStateChanged", handleAuthStateChange);
+    // Listen for storage changes (cross-tab updates)
+    window.addEventListener("storage", handleAuthStateChange);
+    
+    return () => {
+      window.removeEventListener("authStateChanged", handleAuthStateChange);
+      window.removeEventListener("storage", handleAuthStateChange);
+    };
   }, []);
 
   const handleLogout = () => {
