@@ -222,7 +222,7 @@ export default function ProductsPage() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
 
           {/* Products Section */}
           <div className="flex-1">
@@ -317,6 +317,7 @@ export default function ProductsPage() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
