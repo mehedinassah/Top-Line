@@ -8,7 +8,7 @@ export default function LookbookSection() {
     {
       id: 1,
       image:
-        "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=1200&h=1200&q=80",
+        "https://drive.google.com/uc?export=view&id=1aekJJSLXptikHQ1FbKRwIXHa4GTFktD2",
       alt: "Editorial Look 1",
       link: "/products?category=men",
       label: "MEN'S",
@@ -24,7 +24,7 @@ export default function LookbookSection() {
     {
       id: 3,
       image:
-        "https://images.unsplash.com/photo-1508615039623-a25605d2938d?auto=format&fit=crop&w=1200&h=1200&q=80",
+        "https://drive.google.com/uc?export=view&id=1XEnBAt5WLdptvDrawRjnrsooEqaFFuf-",
       alt: "Editorial Look 3",
       link: "/products?category=accessories",
       label: "ACCESSORIES",
@@ -56,7 +56,7 @@ export default function LookbookSection() {
                   fill
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                   sizes="(min-width: 1024px) 33.33vw, (min-width: 640px) 50vw, 100vw"
-                  priority={item.id <= 3}
+                  loading="lazy"
                 />
 
                 {/* Overlay */}
