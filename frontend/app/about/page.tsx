@@ -157,8 +157,9 @@ export default function AboutPage() {
         <div className="max-w-5xl mx-auto px-6 md:px-8 lg:px-12 py-16 md:py-20">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
             <button
+              type="button"
               onClick={() => router.push("/")}
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-light text-white bg-neutral-900 hover:bg-neutral-800 transition-all duration-300 hover:shadow-lg"
+              className="cursor-pointer inline-flex items-center justify-center px-8 py-4 text-lg font-light text-white bg-neutral-900 hover:bg-neutral-800 transition-all duration-300 hover:shadow-lg rounded"
               title="Return to homepage"
             >
               Top Line
