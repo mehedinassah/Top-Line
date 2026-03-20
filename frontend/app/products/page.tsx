@@ -116,8 +116,15 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Main Content - Full Width */}
-      <div className="w-full" style={{ backgroundColor: "#F5F5F5" }}>
+      {/* Main Content - Shifts right when drawer opens */}
+      <div 
+        className={`w-full transition-all duration-200 ${
+          showFilterDrawer ? "ml-1/2 md:ml-1/3" : ""
+        }`}
+        style={{ 
+          backgroundColor: "#F5F5F5",
+        }}
+      >
         <div className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
           {/* Toolbar */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
