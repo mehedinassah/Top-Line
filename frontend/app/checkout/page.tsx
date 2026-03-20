@@ -13,7 +13,6 @@ interface ShippingData {
   email: string;
   address: string;
   city: string;
-  state: string;
   zip: string;
 }
 
@@ -63,7 +62,6 @@ export default function CheckoutPage() {
     email: "",
     address: "",
     city: "",
-    state: "",
     zip: ""
   });
   const [orderDetails, setOrderDetails] = useState<OrderDetails | null>(null);
@@ -74,7 +72,7 @@ export default function CheckoutPage() {
   };
 
   const handleContinueToPayment = () => {
-    if (!shippingData.fullName || !shippingData.email || !shippingData.address || !shippingData.city || !shippingData.state || !shippingData.zip) {
+    if (!shippingData.fullName || !shippingData.email || !shippingData.address || !shippingData.city || !shippingData.zip) {
       alert("Please fill in all fields");
       return;
     }
@@ -217,20 +215,12 @@ export default function CheckoutPage() {
                       onChange={handleShippingChange}
                       className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 gap-4">
                       <input
                         type="text"
                         name="city"
                         placeholder="City"
                         value={shippingData.city}
-                        onChange={handleShippingChange}
-                        className="rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
-                      />
-                      <input
-                        type="text"
-                        name="state"
-                        placeholder="State"
-                        value={shippingData.state}
                         onChange={handleShippingChange}
                         className="rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                       />

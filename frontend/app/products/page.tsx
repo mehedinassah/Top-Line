@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
 import FilterDrawer from "@/components/products/FilterDrawer";
@@ -20,6 +20,14 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+
+  // Ref for scrolling to products
+  const productsGridRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to products grid when page changes
+  useEffect(() => {
+    productsGridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [currentPage]);
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -185,7 +193,7 @@ export default function ProductsPage() {
           </div>
 
           {/* Main Content with Products Grid */}
-          <div>
+          <div ref={productsGridRef}>
             {sortedProducts.length === 0 ? (
               <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 sm:p-8 md:p-12 text-center">
                 <p className="text-sm sm:text-base text-neutral-700 mb-4">No items match your selections.</p>
