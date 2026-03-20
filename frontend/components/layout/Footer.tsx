@@ -28,7 +28,7 @@ export default function Footer() {
             <ul className="space-y-2 text-sm">
               <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Track your orders">Order Status</Link></li>
               <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Visit size guide">Size Guide</Link></li>
-              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</Link></li>
+              <li><Link href="/contact" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</Link></li>
               <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Shipping information">Shipping Info</Link></li>
             </ul>
           </div>
