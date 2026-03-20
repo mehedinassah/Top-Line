@@ -19,6 +19,17 @@ export default function Navbar() {
     const email = localStorage.getItem("userEmail") || "";
     setIsLoggedIn(loggedIn);
     setUserEmail(email);
+
+    // Listen for storage changes (when auth state changes)
+    const handleStorageChange = () => {
+      const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+      const updatedEmail = localStorage.getItem("userEmail") || "";
+      setIsLoggedIn(updatedLoggedIn);
+      setUserEmail(updatedEmail);
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   const handleLogout = () => {

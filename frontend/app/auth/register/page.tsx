@@ -82,7 +82,7 @@ export default function RegisterPage() {
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userName", name);
       
-      router.push("/account");
+      router.push("/");
     } catch (err) {
       setError("Registration failed. Please try again.");
     } finally {
