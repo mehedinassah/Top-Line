@@ -48,7 +48,7 @@ export const featuredProducts: Product[] = [
     collection: "men",
     images: [
       "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=600&q=80"
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
     ],
     rating: 4.8,
     sizes: ["S", "M", "L", "XL", "XXL"],
@@ -86,7 +86,7 @@ export const featuredProducts: Product[] = [
     collection: "men",
     images: [
       "https://images.unsplash.com/photo-1542272619-c8a90ad63d0f?w=600&q=80",
-      "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=600&q=80"
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -120,7 +120,7 @@ export const featuredProducts: Product[] = [
     collection: "men",
     images: [
       "https://images.unsplash.com/photo-1596854407944-bf87f6fdd49e?w=600&q=80",
-      "https://images.unsplash.com/photo-1458181285174-be83d3d7b672?w=600&q=80"
+      "https://images.unsplash.com/photo-1521376573897-a15bcb6f7188?w=600&q=80"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -157,7 +157,7 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1552301514-5fefe8c9ef14?w=600&q=80"
+      "https://images.unsplash.com/photo-1521572730684-f281dc12f3b7?w=600&q=80"
     ],
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -191,8 +191,8 @@ export const featuredProducts: Product[] = [
     category: "pants",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1574802356219-553eb213f72d?w=600&q=80",
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80"
+      "https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?w=600&q=80",
+      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -226,8 +226,8 @@ export const featuredProducts: Product[] = [
     category: "tops",
     collection: "men",
     images: [
-      "https://images.unsplash.com/photo-1579944400049-66f63e6dbe09?w=600&q=80",
-      "https://images.unsplash.com/photo-1590080876285-36c47a88907b?w=600&q=80"
+      "https://images.unsplash.com/photo-1502920917128-1aa500764cbd?w=600&q=80",
+      "https://images.unsplash.com/photo-1521376573897-a15bcb6f7188?w=600&q=80"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -291,8 +291,8 @@ export const featuredProducts: Product[] = [
     category: "outerwear",
     collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
-      "https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=600&q=80"
+      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80",
+      "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&q=80"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -354,7 +354,7 @@ export const featuredProducts: Product[] = [
     collection: "women",
     images: [
       "https://images.unsplash.com/photo-1539533057440-7bf458871b70?w=600&q=80",
-      "https://images.unsplash.com/photo-1551596739-3f6da3fc85eb?w=600&q=80"
+      "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=600&q=80"
     ],
     rating: 4.9,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -408,7 +408,7 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?w=600&q=80",
+      "https://images.unsplash.com/photo-1579344572640-7215cbe69675?w=600&q=80",
       "https://images.unsplash.com/photo-1559810264-c0d931ecc6d9?w=600&q=80"
     ],
     rating: 4.7,
@@ -828,5 +828,6 @@ const detailedProducts: DetailedProduct[] = [
 export function getProductById(id: number): DetailedProduct | undefined {
   return detailedProducts.find((p) => p.id === id);
 }
+
 
 
