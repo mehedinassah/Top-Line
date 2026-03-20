@@ -44,7 +44,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="flex h-full w-full max-w-md flex-col border-l border-neutral-200 bg-white px-4 py-5 shadow-xl sm:max-w-sm md:max-w-md">
+            <Dialog.Panel className="flex h-full w-1/2 sm:w-full sm:max-w-sm md:max-w-md flex-col border-l border-neutral-200 bg-white px-4 py-5 shadow-xl">
               <div className="flex items-center justify-between gap-2">
                 <Dialog.Title className="text-lg font-bold text-neutral-900 md:text-xl">
                   Shopping Cart
