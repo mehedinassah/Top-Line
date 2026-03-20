@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/topline}
-    username: ${SPRING_DATASOURCE_USERNAME:topline}
-    password: ${SPRING_DATASOURCE_PASSWORD:topline}
+    url: jdbc:postgresql://${PGHOST:localhost}:${PGPORT:5432}/${PGDATABASE:topline}
+    username: ${PGUSER:topline}
+    password: ${PGPASSWORD:topline}
     hikari:
       maximum-pool-size: 5
       minimum-idle: 2
