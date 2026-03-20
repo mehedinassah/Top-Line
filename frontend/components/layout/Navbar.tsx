@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartContext";
@@ -149,10 +149,10 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden rounded-full bg-neutral-900 px-4 py-1.5 text-sm font-medium text-white hover:bg-neutral-800 transition duration-200 md:inline-block"
+                  className="hidden rounded-full border border-neutral-300 p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
                   title="Account menu"
                 >
-                  Signed in
+                  <UserIcon className="h-5 w-5" />
                 </button>
                 {showProfileMenu && (
                   <div className="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg z-50">
