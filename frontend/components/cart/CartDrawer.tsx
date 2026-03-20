@@ -1,6 +1,7 @@
 "use client";
 
 import { Fragment } from "react";
+import { useRouter } from "next/navigation";
 import { Dialog, Transition } from "@headlessui/react";
 import { useCart } from "@/components/cart/CartContext";
 
@@ -10,7 +11,13 @@ interface CartDrawerProps {
 }
 
 export default function CartDrawer({ open, onClose }: CartDrawerProps) {
+  const router = useRouter();
   const { items, removeItem, subtotal } = useCart();
+
+  const handleCheckout = () => {
+    onClose();
+    router.push("/checkout");
+  };
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -83,6 +90,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                 </div>
                 <button
                   disabled={items.length === 0}
+                  onClick={handleCheckout}
                   className="mt-3 w-full rounded-full bg-neutral-900 py-2.5 text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 transition"
                 >
                   Proceed to checkout
