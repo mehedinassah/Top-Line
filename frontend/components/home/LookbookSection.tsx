@@ -10,7 +10,7 @@ export default function LookbookSection() {
       image:
         "https://drive.google.com/uc?export=view&id=1aekJJSLXptikHQ1FbKRwIXHa4GTFktD2",
       alt: "Editorial Look 1",
-      link: "/products?category=men",
+      link: "/categories/men",
       label: "MEN'S",
     },
     {
@@ -18,7 +18,7 @@ export default function LookbookSection() {
       image:
         "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&h=1200&q=80",
       alt: "Editorial Look 2",
-      link: "/products?category=women",
+      link: "/categories/women",
       label: "WOMEN'S",
     },
     {
@@ -26,7 +26,7 @@ export default function LookbookSection() {
       image:
         "https://drive.google.com/uc?export=view&id=1XEnBAt5WLdptvDrawRjnrsooEqaFFuf-",
       alt: "Editorial Look 3",
-      link: "/products?category=accessories",
+      link: "/categories/accessories",
       label: "ACCESSORIES",
     },
   ];
