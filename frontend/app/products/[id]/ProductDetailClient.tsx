@@ -122,6 +122,40 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   }
 
   function handleAddToWishlist() {
+    if (!selectedSize || !selectedColor) {
+      alert("Please select a size and color");
+      return;
+    }
+
+    const wishlistItem = {
+      id: `${props.id}`,
+      productId: props.id,
+      name: props.name,
+      price: displayPrice,
+      image: props.images?.[0],
+      size: selectedSize,
+      color: selectedColor.name
+    };
+
+    try {
+      const stored = localStorage.getItem("topline_wishlist");
+      const wishlist = stored ? JSON.parse(stored) : [];
+      
+      // Check if item already exists
+      const exists = wishlist.some((item: any) => 
+        item.productId === wishlistItem.productId && 
+        item.size === wishlistItem.size && 
+        item.color === wishlistItem.color
+      );
+
+      if (!exists) {
+        wishlist.push(wishlistItem);
+        localStorage.setItem("topline_wishlist", JSON.stringify(wishlist));
+      }
+    } catch (error) {
+      console.error("Failed to add to wishlist:", error);
+    }
+
     setAddedToWishlist(true);
     setTimeout(() => setAddedToWishlist(false), 2000);
   }

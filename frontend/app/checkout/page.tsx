@@ -96,7 +96,7 @@ export default function CheckoutPage() {
     const orderTotal = cartTotal;
     const orderItems = [...cartItems]; // Create a copy of items
     
-    setOrderDetails({
+    const orderData = {
       number: orderNumber,
       date: new Date().toLocaleDateString(),
       total: orderTotal,
@@ -105,7 +105,24 @@ export default function CheckoutPage() {
       subtotal: subtotal,
       shipping: orderShipping,
       tax: orderTax
-    });
+    };
+
+    setOrderDetails(orderData);
+    
+    // Save order to localStorage for orders page
+    try {
+      const stored = localStorage.getItem("topline_orders");
+      const orders = stored ? JSON.parse(stored) : [];
+      orders.push({
+        ...orderData,
+        status: "Confirmed",
+        placedDate: new Date().toISOString()
+      });
+      localStorage.setItem("topline_orders", JSON.stringify(orders));
+    } catch (error) {
+      console.error("Failed to save order:", error);
+    }
+
     setCurrentStep("confirmation");
     
     // Clear the cart after order is placed
