@@ -31,15 +31,22 @@ export default function AboutPage() {
       </section>
 
       {/* 2. INTRO STATEMENT */}
-      <section className="w-full bg-white py-24 md:py-32 border-b border-neutral-200">
-        <div className="flex items-center justify-center px-6 md:px-8">
-          <div className="text-center max-w-2xl space-y-8">
-            <h2 className="text-5xl md:text-6xl font-light text-neutral-900 tracking-tight">
-              Style, simplified.
-            </h2>
-            <p className="text-lg text-neutral-600 font-light">
-              We believe great fashion shouldn't be complicated. It should feel effortless.
-            </p>
+      <section className="relative w-full border-b border-neutral-200 overflow-hidden" style={{ height: '65vh', minHeight: '500px' }}>
+        <Image
+          src="https://drive.google.com/uc?export=view&id=1FocHwdF9BkZ2IAeCEUiUIhaHyqrbdcH2"
+          alt="Style, simplified"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
+        
+        {/* Content */}
+        <div className="relative h-full flex items-start px-6 md:px-8 pt-10 md:pt-16">
+          <div className="space-y-4 max-w-2xl">
+            <h2 className="text-4xl md:text-5xl font-light text-white tracking-tight">Style, simplified.</h2>
           </div>
         </div>
       </section>
