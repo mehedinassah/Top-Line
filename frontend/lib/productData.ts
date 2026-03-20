@@ -490,21 +490,21 @@ const detailedProducts: DetailedProduct[] = [
     reviews: [
       {
         id: 1,
-        author: "Michael J.",
-        rating: 5,
-        comment: "Excellent quality and perfect fit. This overcoat is an excellent investment piece that will last for years."
+        author: "Voirob",
+        rating: 4,
+        comment: "Mochotkar hoyeche vaya"
       },
       {
         id: 2,
-        author: "Robert S.",
-        rating: 4,
-        comment: "Great material and construction. Shipping was fast and packaging was excellent."
+        author: "Olif",
+        rating: 5,
+        comment: "Bhaloi"
       },
       {
         id: 3,
-        author: "James T.",
+        author: "Sagid Majhi",
         rating: 5,
-        comment: "The best overcoat I've ever owned. Highly recommended!"
+        comment: "Shundor hoise onek"
       }
     ]
   },
@@ -515,15 +515,15 @@ const detailedProducts: DetailedProduct[] = [
     reviews: [
       {
         id: 4,
-        author: "David P.",
-        rating: 5,
-        comment: "True to size and amazing quality. These jeans fit perfectly and look great."
+        author: "John Kabir",
+        rating: 3,
+        comment: "Ekdam 300 dibo"
       },
       {
         id: 5,
-        author: "Chris B.",
-        rating: 5,
-        comment: "Love the vintage aesthetic but with modern comfort. Will definitely buy again."
+        author: "Shaon",
+        rating: 4,
+        comment: "Nah agei bhalo chilo"
       }
     ]
   },
@@ -534,15 +534,21 @@ const detailedProducts: DetailedProduct[] = [
     reviews: [
       {
         id: 6,
-        author: "Tom R.",
+        author: "Aowfi",
         rating: 4,
-        comment: "Classic oxford shirt. Currently out of stock but will definitely repurchase when available."
+        comment: "Siuuuuuuu"
       },
       {
         id: 7,
-        author: "Paul K.",
-        rating: 5,
-        comment: "Perfect for layering. High quality material that feels premium."
+        author: "Balakhtiar",
+        rating: 4,
+        comment: "Accha dost price ta ektu komano jay na"
+      },
+      {
+        id: 8,
+        author: "Noor",
+        rating: 4,
+        comment: "Abbu ke dekhaisi. Dekhi ki bole"
       }
     ]
   },
@@ -552,22 +558,16 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 25,
     reviews: [
       {
-        id: 8,
-        author: "Alex M.",
-        rating: 5,
-        comment: "Simple and perfect. Cannot go wrong with a classic white tee."
-      },
-      {
         id: 9,
-        author: "Kevin L.",
+        author: "Riad Kobra",
         rating: 4,
-        comment: "Good quality and comfortable. Fits well after washing."
+        comment: "Eto dam keneee"
       },
       {
         id: 10,
-        author: "Marcus W.",
-        rating: 5,
-        comment: "Excellent basics for the price. I bought multiple colors."
+        author: "Voirob",
+        rating: 4,
+        comment: "Mochotkar hoyeche vaya"
       }
     ]
   },
@@ -578,15 +578,27 @@ const detailedProducts: DetailedProduct[] = [
     reviews: [
       {
         id: 11,
-        author: "Jason H.",
-        rating: 4,
-        comment: "Great chinos for the price. Very versatile and comfortable."
+        author: "Olif",
+        rating: 5,
+        comment: "Bhaloi"
       },
       {
         id: 12,
-        author: "Brian T.",
-        rating: 5,
-        comment: "Perfect fit and great color options. Highly recommend!"
+        author: "Shaon",
+        rating: 4,
+        comment: "Nah agei bhalo chilo"
+      },
+      {
+        id: 13,
+        author: "Aowfi",
+        rating: 4,
+        comment: "Siuuuuuuu"
+      },
+      {
+        id: 14,
+        author: "John Kabir",
+        rating: 3,
+        comment: "Ekdam 300 dibo"
       }
     ]
   },
@@ -596,16 +608,22 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 8,
     reviews: [
       {
-        id: 13,
-        author: "Daniel F.",
+        id: 15,
+        author: "Sagid Majhi",
         rating: 5,
-        comment: "Warm and comfortable sweater. Perfect for fall and winter."
+        comment: "Shundor hoise onek"
       },
       {
-        id: 14,
-        author: "Steven G.",
+        id: 16,
+        author: "Noor",
         rating: 4,
-        comment: "Good quality wool. Slightly tight on first wear but stretches out nicely."
+        comment: "Abbu ke dekhaisi. Dekhi ki bole"
+      },
+      {
+        id: 17,
+        author: "Balakhtiar",
+        rating: 4,
+        comment: "Accha dost price ta ektu komano jay na"
       }
     ]
   },
@@ -615,16 +633,16 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 16,
     reviews: [
       {
-        id: 15,
-        author: "Emma L.",
-        rating: 5,
-        comment: "Such an elegant midi dress. Perfect for any occasion!"
+        id: 18,
+        author: "Riad Kobra",
+        rating: 4,
+        comment: "Eto dam keneee"
       },
       {
-        id: 16,
-        author: "Sarah M.",
-        rating: 5,
-        comment: "Excellent quality fabric and beautiful drape. Highly recommend!"
+        id: 19,
+        author: "Voirob",
+        rating: 4,
+        comment: "Mochotkar hoyeche vaya"
       }
     ]
   },
@@ -634,16 +652,28 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 11,
     reviews: [
       {
-        id: 17,
-        author: "Lisa K.",
+        id: 20,
+        author: "Olif",
         rating: 5,
-        comment: "The knit blazer is so comfortable yet stylish. Love it!"
+        comment: "Bhaloi"
       },
       {
-        id: 18,
-        author: "Jennifer P.",
+        id: 21,
+        author: "Aowfi",
         rating: 4,
-        comment: "Great quality. Fits true to size."
+        comment: "Siuuuuuuu"
+      },
+      {
+        id: 22,
+        author: "Shaon",
+        rating: 4,
+        comment: "Nah agei bhalo chilo"
+      },
+      {
+        id: 23,
+        author: "John Kabir",
+        rating: 3,
+        comment: "Ekdam 300 dibo"
       }
     ]
   },
@@ -653,16 +683,22 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 14,
     reviews: [
       {
-        id: 19,
-        author: "Rachel T.",
+        id: 24,
+        author: "Sagid Majhi",
         rating: 5,
-        comment: "Perfect trousers with excellent tailoring. Very comfortable!"
+        comment: "Shundor hoise onek"
       },
       {
-        id: 20,
-        author: "Michelle D.",
+        id: 25,
+        author: "Balakhtiar",
         rating: 4,
-        comment: "Love the high-waist design. Very flattering."
+        comment: "Accha dost price ta ektu komano jay na"
+      },
+      {
+        id: 26,
+        author: "Noor",
+        rating: 4,
+        comment: "Abbu ke dekhaisi. Dekhi ki bole"
       }
     ]
   },
@@ -672,16 +708,16 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 10,
     reviews: [
       {
-        id: 21,
-        author: "Victoria H.",
-        rating: 5,
-        comment: "Luxurious cashmere cardigan. Worth every penny!"
+        id: 27,
+        author: "Riad Kobra",
+        rating: 4,
+        comment: "Eto dam keneee"
       },
       {
-        id: 22,
-        author: "Angela W.",
-        rating: 5,
-        comment: "So soft and warm. Perfect for layering."
+        id: 28,
+        author: "Voirob",
+        rating: 4,
+        comment: "Mochotkar hoyeche vaya"
       }
     ]
   },
@@ -691,16 +727,22 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 9,
     reviews: [
       {
-        id: 23,
-        author: "Patricia B.",
+        id: 29,
+        author: "Olif",
         rating: 5,
-        comment: "Beautiful leather handbag. Excellent craftsmanship!"
+        comment: "Bhaloi"
       },
       {
-        id: 24,
-        author: "Karen R.",
+        id: 30,
+        author: "John Kabir",
+        rating: 3,
+        comment: "Ekdam 300 dibo"
+      },
+      {
+        id: 31,
+        author: "Shaon",
         rating: 4,
-        comment: "Perfect size and very stylish. Great quality leather."
+        comment: "Nah agei bhalo chilo"
       }
     ]
   },
@@ -710,16 +752,16 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 13,
     reviews: [
       {
-        id: 25,
-        author: "Margaret A.",
-        rating: 5,
-        comment: "Classic wool scarf. Perfect for all seasons!"
+        id: 32,
+        author: "Aowfi",
+        rating: 4,
+        comment: "Siuuuuuuu"
       },
       {
-        id: 26,
-        author: "Susan C.",
-        rating: 4,
-        comment: "Great quality wool. Warm and cozy."
+        id: 33,
+        author: "Sagid Majhi",
+        rating: 5,
+        comment: "Shundor hoise onek"
       }
     ]
   },
@@ -729,16 +771,28 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 16,
     reviews: [
       {
-        id: 27,
-        author: "Dorothy S.",
-        rating: 5,
-        comment: "Premium quality leather belt. Looks elegant and lasts forever!"
+        id: 34,
+        author: "Balakhtiar",
+        rating: 4,
+        comment: "Accha dost price ta ektu komano jay na"
       },
       {
-        id: 28,
-        author: "Linda G.",
+        id: 35,
+        author: "Noor",
         rating: 4,
-        comment: "Great belt. Perfect for any outfit."
+        comment: "Abbu ke dekhaisi. Dekhi ki bole"
+      },
+      {
+        id: 36,
+        author: "Riad Kobra",
+        rating: 4,
+        comment: "Eto dam keneee"
+      },
+      {
+        id: 37,
+        author: "Voirob",
+        rating: 4,
+        comment: "Mochotkar hoyeche vaya"
       }
     ]
   },
@@ -748,22 +802,16 @@ const detailedProducts: DetailedProduct[] = [
     stockCount: 22,
     reviews: [
       {
-        id: 29,
-        author: "Vincent T.",
+        id: 38,
+        author: "Olif",
         rating: 5,
-        comment: "Exquisite Italian silk. The perfect accessory to elevate any ensemble!"
+        comment: "Bhaloi"
       },
       {
-        id: 30,
-        author: "Alessandro M.",
-        rating: 5,
-        comment: "Luxury pocket square with exceptional craftsmanship. Worth every penny."
-      },
-      {
-        id: 31,
-        author: "Marco R.",
+        id: 39,
+        author: "Shaon",
         rating: 4,
-        comment: "Beautiful colors and soft silk. Great addition to my collection."
+        comment: "Nah agei bhalo chilo"
       }
     ]
   }
