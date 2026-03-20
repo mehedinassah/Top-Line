@@ -321,9 +321,9 @@ export const featuredProducts: Product[] = [
     price: 129,
     category: "pants",
     collection: "women",
-    images: [,
+    images: [
+      "https://images.unsplash.com/photo-1539193565614-8be0ed8a0302?auto=format&fit=crop&w=900&q=80",
       "https://images.unsplash.com/photo-1543163521-9145f931371e?auto=format&fit=crop&w=900&q=80"
-      "https://images.unsplash.com/photo-1539193565614-8be0ed8a0302?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL"],
