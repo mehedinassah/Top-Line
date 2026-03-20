@@ -76,14 +76,7 @@ export default function Navbar() {
             <Link 
               href="/products" 
               className="hover:text-neutral-900 transition duration-200"
-              title="Shop all products"
-            >
-              Shop
-            </Link>
-            <Link 
-              href="/products?sort=newest" 
-              className="hover:text-neutral-900 transition duration-200"
-              title="View newest products"
+              title="View all products"
             >
               New Arrivals
             </Link>
