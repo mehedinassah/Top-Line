@@ -91,7 +91,7 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Wishlist Heart */}
         <button
           onClick={handleWishlistClick}
-          className="absolute bottom-2 right-2 rounded-full bg-white/80 p-2 hover:bg-white transition shadow-sm z-10"
+          className="absolute bottom-2 right-2 p-2 hover:opacity-80 transition z-10"
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
