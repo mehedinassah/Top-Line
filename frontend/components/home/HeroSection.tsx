@@ -8,19 +8,19 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 
 const heroImages = [
   {
-    url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=1920&h=1080&q=80",
+    url: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1200&q=80",
     alt: "Elegant fashion stylist curating modern wardrobe"
   },
   {
-    url: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&w=1920&h=1080&q=80",
+    url: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1200&q=80",
     alt: "Fashion essentials collection display"
   },
   {
-    url: "https://images.unsplash.com/photo-1517457373614-b7152f800fd1?auto=format&fit=crop&w=1920&h=1080&q=80",
+    url: "https://images.unsplash.com/photo-1495999959800-2eeece1300a9?w=1200&q=80",
     alt: "Minimalist fashion wardrobe styling"
   },
   {
-    url: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1920&h=1080&q=80",
+    url: "https://images.unsplash.com/photo-1479064555552-3ef4979005a1?w=1200&q=80",
     alt: "Contemporary fashion collection"
   }
 ];

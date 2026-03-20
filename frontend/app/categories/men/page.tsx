@@ -182,7 +182,7 @@ export default function MenPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=2000&h=600&fit=crop&q=80')",
+          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://images.unsplash.com/photo-1552062407-c551eeda4bae?w=1200&q=80')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundColor: '#1a1a1a',
