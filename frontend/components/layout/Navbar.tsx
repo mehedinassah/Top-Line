@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useState } from "react";
-import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartContext";
@@ -12,6 +12,7 @@ export default function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { totalQuantity } = useCart();
 
   // Check auth state synchronously as early as possible
@@ -134,8 +135,21 @@ export default function Navbar() {
             <SearchBar />
           </div>
 
-          {/* Icons - Right Side */}
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="block md:hidden rounded-full border border-neutral-300 p-1.5 text-neutral-700 hover:bg-neutral-100 transition duration-200 mr-2"
+            aria-label="Toggle navigation menu"
+            title="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? (
+              <XMarkIcon className="h-5 w-5" />
+            ) : (
+              <Bars3Icon className="h-5 w-5" />
+            )}
+          </button>
+
+          {/* Icons - Right Side */}\n          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
             <button
               onClick={() => setCartOpen(true)}
               className="relative rounded-full border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
@@ -211,12 +225,124 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* Mobile Search */}
-        <div className="border-t border-neutral-200 bg-white py-2 md:hidden">
-          <div className="mx-auto max-w-6xl px-4">
-            <SearchBar />
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="border-t border-neutral-200 bg-white md:hidden">
+            <div className="mx-auto max-w-6xl px-4 py-4">
+              {/* Mobile Search */}
+              <div className="mb-4">
+                <SearchBar />
+              </div>
+
+              {/* Mobile Navigation Links */}
+              <nav className="space-y-3 py-4 border-t border-neutral-200">
+                <Link
+                  href="/products"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="View all products"
+                >
+                  New Arrivals
+                </Link>
+                <Link
+                  href="/categories/men"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="Browse men's collection"
+                >
+                  Men
+                </Link>
+                <Link
+                  href="/categories/women"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="Browse women's collection"
+                >
+                  Women
+                </Link>
+                <Link
+                  href="/categories/accessories"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="Browse accessories collection"
+                >
+                  Accessories
+                </Link>
+                <Link
+                  href="/about"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="About Top Line"
+                >
+                  About
+                </Link>
+                <Link
+                  href="/faq"
+                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                  onClick={() => setMobileMenuOpen(false)}
+                  title="FAQ"
+                >
+                  FAQ
+                </Link>
+              </nav>
+
+              {/* Mobile Auth Links */}
+              <div className="border-t border-neutral-200 pt-4 mt-4">
+                {isLoggedIn ? (
+                  <>
+                    <div className="px-3 py-2 mb-3 bg-neutral-50 rounded">
+                      <p className="text-xs text-neutral-600">Signed in as</p>
+                      <p className="text-sm font-medium text-neutral-900 truncate">{userEmail}</p>
+                    </div>
+                    <Link
+                      href="/account"
+                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                      title="Go to account"
+                    >
+                      My Account
+                    </Link>
+                    <Link
+                      href="/account/orders"
+                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                      title="View orders"
+                    >
+                      My Orders
+                    </Link>
+                    <Link
+                      href="/wishlist"
+                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
+                      onClick={() => setMobileMenuOpen(false)}
+                      title="View wishlist"
+                    >
+                      Wishlist
+                    </Link>
+                    <button
+                      onClick={() => {
+                        handleLogout();
+                        setMobileMenuOpen(false);
+                      }}
+                      className="w-full text-left px-3 py-2 text-sm font-medium text-red-600 hover:bg-neutral-100 rounded transition duration-200 mt-2"
+                      title="Sign out"
+                    >
+                      Sign out
+                    </button>
+                  </>
+                ) : (
+                  <Link
+                    href="/auth/login"
+                    className="block w-full px-3 py-2 text-sm font-medium text-center text-white bg-neutral-900 hover:bg-neutral-800 rounded transition duration-200"
+                    onClick={() => setMobileMenuOpen(false)}
+                    title="Sign in to your account"
+                  >
+                    Sign in
+                  </Link>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
+        )}
       </header>
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
