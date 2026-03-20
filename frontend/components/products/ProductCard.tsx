@@ -96,9 +96,9 @@ export default function ProductCard({ product }: { product: Product }) {
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
           {isInWishlist ? (
-            <HeartSolidIcon className="h-5 w-5 text-red-600" />
+            <HeartSolidIcon className="h-6 w-6 text-red-500" />
           ) : (
-            <HeartIcon className="h-5 w-5 text-neutral-400" />
+            <HeartIcon className="h-6 w-6 text-white drop-shadow-lg" />
           )}
         </button>
 
