@@ -45,7 +45,7 @@ export default function CheckoutPage() {
       // Give localStorage time to load, then redirect if still empty
       const timer = setTimeout(() => {
         if (cartItems.length === 0) {
-          router.push("/products");
+          router.push("/");
         }
       }, 1000);
       return () => clearTimeout(timer);
@@ -82,7 +82,7 @@ export default function CheckoutPage() {
   };
 
   const handleContinueClick = () => {
-    router.push("/products");
+    router.push("/");
   };
 
   const handleContinueToConfirmation = () => {
