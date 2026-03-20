@@ -39,9 +39,9 @@ export default function CheckoutPage() {
     setIsHydrated(true);
   }, []);
   
-  // Redirect if cart is empty after hydration
+  // Redirect if cart is empty on shipping step (user shouldn't be at checkout with empty cart)
   useEffect(() => {
-    if (isHydrated && cartItems.length === 0) {
+    if (isHydrated && currentStep === "shipping" && cartItems.length === 0) {
       // Give localStorage time to load, then redirect if still empty
       const timer = setTimeout(() => {
         if (cartItems.length === 0) {
@@ -50,7 +50,7 @@ export default function CheckoutPage() {
       }, 1000);
       return () => clearTimeout(timer);
     }
-  }, [isHydrated, cartItems, router]);
+  }, [isHydrated, currentStep, cartItems, router]);
   
   // Calculate totals from actual cart items
   const cartSubtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
