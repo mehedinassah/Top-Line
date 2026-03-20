@@ -351,10 +351,10 @@ export const featuredProducts: Product[] = [
     price: 245,
     discountPrice: 199,
     category: "tops",
-    collection: "women",17255066283-f896a5c3cb78?auto=format&fit=crop&w=900&q=80",
-      "https://images.unsplash.com/photo-1505408395821-73f4ef4d66eb
+    collection: "women",
     images: [
-      "https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80"
+      "https://images.unsplash.com/photo-1517255066283-f896a5c3cb78?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1505408395821-73f4ef4d66eb?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.9,
     sizes: ["XS", "S", "M", "L", "XL"],
