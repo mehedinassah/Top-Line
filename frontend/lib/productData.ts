@@ -380,11 +380,11 @@ export const featuredProducts: Product[] = [
     name: "Minimalist Leather Handbag",
     description: "Timeless leather handbag with elegant design and functionality.",
     price: 199,
-    category: "accessories",,
-      "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=900&q=80"
+    category: "accessories",
     collection: "accessories",
     images: [
-      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80"
+      "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?auto=format&fit=crop&w=900&q=80",
+      "https://images.unsplash.com/photo-1556740738-b6a63e27c4df?auto=format&fit=crop&w=900&q=80"
     ],
     rating: 4.8,
     sizes: ["M"],
