@@ -33,6 +33,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [selectedColor, setSelectedColor] = useState<Color | null>(props.colors?.[0] || null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [addedToWishlist, setAddedToWishlist] = useState(false);
+  const [isInWishlist, setIsInWishlist] = useState(false);
   const [imageZoom, setImageZoom] = useState(false);
   const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -44,7 +45,17 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
-  }, []);
+
+    // Check if product is already in wishlist
+    try {
+      const stored = localStorage.getItem("topline_wishlist");
+      const wishlist = stored ? JSON.parse(stored) : [];
+      const exists = wishlist.some((item: any) => item.productId === props.id);
+      setIsInWishlist(exists);
+    } catch (error) {
+      console.error("Failed to load wishlist:", error);
+    }
+  }, [props.id]);
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,15 +143,19 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
     try {
       const stored = localStorage.getItem("topline_wishlist");
-      const wishlist = stored ? JSON.parse(stored) : [];
+      let wishlist = stored ? JSON.parse(stored) : [];
       
-      // Check if item already exists (just by product ID, not by variant)
       const exists = wishlist.some((item: any) => item.productId === wishlistItem.productId);
 
-      if (!exists) {
+      if (exists) {
+        wishlist = wishlist.filter((item: any) => item.productId !== wishlistItem.productId);
+        setIsInWishlist(false);
+      } else {
         wishlist.push(wishlistItem);
-        localStorage.setItem("topline_wishlist", JSON.stringify(wishlist));
+        setIsInWishlist(true);
       }
+
+      localStorage.setItem("topline_wishlist", JSON.stringify(wishlist));
     } catch (error) {
       console.error("Failed to add to wishlist:", error);
     }
@@ -376,14 +391,18 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   <button
                     onClick={handleAddToWishlist}
                     className={`rounded-full px-4 py-2.5 font-semibold text-sm transition ${
-                      addedToWishlist
+                      isInWishlist
                         ? "bg-red-100 text-red-600 hover:bg-red-200"
                         : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
                     }`}
-                    title="Add to wishlist"
-                    aria-label="Add to wishlist"
+                    title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
+                    aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
                   >
-                    <HeartIcon className="h-5 w-5" />
+                    {isInWishlist ? (
+                      <HeartIcon className="h-5 w-5 fill-current" />
+                    ) : (
+                      <HeartIcon className="h-5 w-5" />
+                    )}
                   </button>
                 </div>
               </div>
