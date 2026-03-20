@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
+import { useCart } from "@/components/cart/CartContext";
 
 type CheckoutStep = "shipping" | "payment" | "confirmation";
 
@@ -22,18 +24,17 @@ interface OrderDetails {
   estimatedDelivery: string;
 }
 
-const mockCartItems = [
-  { id: 1, name: "Tailored Wool Blend Overcoat", price: 189, quantity: 1, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" },
-  { id: 4, name: "Classic White T-Shirt", price: 36, quantity: 2, image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=400&q=80" }
-];
-
-const cartSubtotal = mockCartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-const shipping = 10;
-const tax = Math.round((cartSubtotal + shipping) * 0.08 * 100) / 100;
-const cartTotal = cartSubtotal + shipping + tax;
-
 export default function CheckoutPage() {
+  const router = useRouter();
+  const { items: cartItems, clear } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("shipping");
+  
+  // Calculate totals from actual cart items
+  const cartSubtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const shipping = 10;
+  const tax = Math.round((cartSubtotal + shipping) * 0.08 * 100) / 100;
+  const cartTotal = cartSubtotal + shipping + tax;
+  
   const [shippingData, setShippingData] = useState<ShippingData>({
     fullName: "",
     email: "",
@@ -68,6 +69,9 @@ export default function CheckoutPage() {
       estimatedDelivery: deliveryDate
     });
     setCurrentStep("confirmation");
+    
+    // Clear the cart after order is placed
+    clear();
   };
 
   return (
@@ -289,7 +293,7 @@ export default function CheckoutPage() {
             <div className="h-fit rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
               <h3 className="font-semibold text-neutral-900">Order Summary</h3>
               <div className="mt-4 space-y-3 border-b border-neutral-200 pb-4">
-                {mockCartItems.map(item => (
+                {cartItems.map(item => (
                   <div key={item.id} className="flex justify-between text-sm">
                     <div>
                       <p className="font-medium text-neutral-900">{item.name}</p>
