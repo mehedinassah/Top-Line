@@ -116,15 +116,43 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      {/* Main Content - Shifts right when drawer opens */}
+      {/* Main Section with Sidebar and Content */}
       <div 
-        className={`w-full transition-all duration-200 ${
-          showFilterDrawer ? "ml-1/2 md:ml-1/3" : ""
-        }`}
+        className="flex w-full"
         style={{ 
           backgroundColor: "#F5F5F5",
         }}
       >
+        {/* Filter Drawer - Flex Item */}
+        <FilterDrawer
+          open={showFilterDrawer}
+          onClose={() => setShowFilterDrawer(false)}
+          categories={categories}
+          selectedCategory={selectedCategory}
+          onCategoryChange={(cat) => {
+            setSelectedCategory(selectedCategory === cat ? "" : cat);
+            setCurrentPage(1);
+          }}
+          priceRange={priceRange}
+          onPriceChange={(range) => {
+            setPriceRange(range);
+            setCurrentPage(1);
+          }}
+          maxPrice={maxPrice}
+          selectedSizes={selectedSizes}
+          onSizeToggle={(size) => {
+            setSelectedSizes(prev =>
+              prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
+            );
+            setCurrentPage(1);
+          }}
+          hasActiveFilters={hasActiveFilters}
+          onClearFilters={clearFilters}
+          SIZES={SIZES}
+        />
+
+        {/* Main Content - Flex Item */}
+        <div className="flex-1">
         <div className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
           {/* Toolbar */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
@@ -216,34 +244,7 @@ export default function ProductsPage() {
               </>
             )}
           </div>
-
-        {/* Filter Drawer */}
-        <FilterDrawer
-          open={showFilterDrawer}
-          onClose={() => setShowFilterDrawer(false)}
-          categories={categories}
-          selectedCategory={selectedCategory}
-          onCategoryChange={(cat) => {
-            setSelectedCategory(selectedCategory === cat ? "" : cat);
-            setCurrentPage(1);
-          }}
-          priceRange={priceRange}
-          onPriceChange={(range) => {
-            setPriceRange(range);
-            setCurrentPage(1);
-          }}
-          maxPrice={maxPrice}
-          selectedSizes={selectedSizes}
-          onSizeToggle={(size) => {
-            setSelectedSizes(prev =>
-              prev.includes(size) ? prev.filter(s => s !== size) : [...prev, size]
-            );
-            setCurrentPage(1);
-          }}
-          hasActiveFilters={hasActiveFilters}
-          onClearFilters={clearFilters}
-          SIZES={SIZES}
-        />
+        </div>
         </div>
       </div>
     </div>

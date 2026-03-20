@@ -36,8 +36,8 @@ export default function FilterDrawer({
 }: FilterDrawerProps) {
   return (
     <div
-      className={`fixed inset-y-0 left-0 z-40 w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 transform transition-transform duration-200 ease-out flex flex-col border-r border-neutral-200 bg-white shadow-xl overflow-y-auto ${
-        open ? "translate-x-0" : "-translate-x-full"
+      className={`overflow-hidden transition-all duration-200 ease-out flex flex-col border-r border-neutral-200 bg-white shadow-lg ${
+        open ? "w-1/2 sm:w-1/2 md:w-1/3 lg:w-1/3 min-h-screen" : "w-0"
       }`}
     >
       <div className="flex flex-col h-full px-4 py-5 sm:px-6 sm:py-6">
