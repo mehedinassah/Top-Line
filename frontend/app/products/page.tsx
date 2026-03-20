@@ -96,8 +96,8 @@ export default function ProductsPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="border-b border-neutral-200 bg-white px-4 py-12 md:py-16">
-        <div className="mx-auto max-w-6xl">
+      <div className="border-b border-neutral-200 bg-white px-6 py-12 md:px-8 md:py-16">
+        <div className="max-w-2xl">
           <h2 className="text-sm font-semibold tracking-widest text-neutral-700 uppercase">
             Curated Collection
           </h2>
@@ -110,10 +110,13 @@ export default function ProductsPage() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-6xl px-4 py-12">
-        <div className="grid gap-8 lg:grid-cols-4">
-          {/* Filters Sidebar */}
-          <div className={`lg:col-span-1 ${showMobileFilters ? "block" : "hidden lg:block"}`}>
+      {/* Main Content - Full Width */}
+      <div className="w-full" style={{ backgroundColor: "#F5F5F5" }}>
+        <div className="flex flex-col gap-8 px-6 py-12 md:px-8 md:py-16 lg:py-20">
+          {/* Controls and Filters */}
+          <div className="flex flex-col lg:flex-row gap-8">
+            {/* Filters Sidebar */}
+            <div className={`lg:w-64 flex-shrink-0 ${showMobileFilters ? "block" : "hidden lg:block"}`}>
             <div className="rounded-2xl border border-neutral-200 bg-white p-8">
               <div className="flex items-center justify-between mb-8">
                 <h2 className="text-lg font-semibold text-neutral-900">Refine</h2>
@@ -221,8 +224,8 @@ export default function ProductsPage() {
             </div>
           </div>
 
-          {/* Products Grid */}
-          <div className="lg:col-span-3">
+          {/* Products Section */}
+          <div className="flex-1">
             {/* Toolbar */}
             <div className="mb-8 flex items-center justify-between">
               <div>
@@ -267,7 +270,7 @@ export default function ProductsPage() {
               </div>
             ) : (
               <>
-                <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-3">
+                <div className="grid gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 md:gap-8">
                   {paginatedProducts.map(product => (
                     <ProductCard key={product.id} product={product} />
                   ))}
