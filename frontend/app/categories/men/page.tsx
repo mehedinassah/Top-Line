@@ -182,15 +182,19 @@ export default function MenPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          backgroundImage: "linear-gradient(135deg, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.3) 100%), url('https://drive.google.com/uc?export=view&id=10zOKNSPsM_ZSuXSSIj7MjifZ86DE6F9-')",
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundColor: '#1a1a1a',
           minHeight: '350px'
         }}
       >
-        {/* Fallback overlay */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/40 to-black/60 opacity-50"></div>
+        <Image
+          src="https://drive.google.com/uc?export=view&id=10zOKNSPsM_ZSuXSSIj7MjifZ86DE6F9-"
+          alt="Men's Collection"
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
         
         {/* Content */}
         <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
