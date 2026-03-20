@@ -3,14 +3,27 @@ spring:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/topline}
     username: ${SPRING_DATASOURCE_USERNAME:topline}
     password: ${SPRING_DATASOURCE_PASSWORD:topline}
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 30000
+      idle-timeout: 600000
+      max-lifetime: 1800000
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: false
-
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+  
 server:
   port: 8080
-
+  shutdown: graceful
+  
 jwt:
   secret: ${JWT_SECRET:MySecureJWTSecretKey1234567890AbcdefghijklmnopqrstuvwxyzABCDEFGHIJ}
   expiration-ms: 86400000
