@@ -84,7 +84,7 @@ export const featuredProducts: Product[] = [
     category: "jeans",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC"
+      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -117,7 +117,7 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc"
+      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -154,7 +154,7 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1FYOWIROx3Xk-BLBKJj6Wx8v8sd5NAy6u"
+      "https://drive.google.com/uc?export=view&id=1Z9lQJXzn1EwBSMotxULQ8vE35PPYdP2t"
     ],
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -188,7 +188,7 @@ export const featuredProducts: Product[] = [
     category: "pants",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
+      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc"
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL"],
@@ -222,7 +222,7 @@ export const featuredProducts: Product[] = [
     category: "tops",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
+      "https://drive.google.com/uc?export=view&id=1iUNRUWfB9yTevUftNOuf1iC4E1jFXgHG"
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
@@ -248,31 +248,32 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 7,
-    name: "Elegant Midi Dress",
-    description: "Sophisticated midi dress in premium cotton blend fabric.",
-    price: 165,
-    discountPrice: 139,
-    category: "dresses",
-    collection: "women",
+    name: "Premium Linen Shirt",
+    description: "Lightweight premium linen shirt perfect for warm weather and casual elegance.",
+    price: 120,
+    category: "shirts",
+    collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1jzp_6a94RBTZ9-RwahMejdItGX3GwhqR"
+      "https://drive.google.com/uc?export=view&id=1FYOWIROx3Xk-BLBKJj6Wx8v8sd5NAy6u"
     ],
-    rating: 4.8,
-    sizes: ["XS", "S", "M", "L", "XL"],
+    rating: 4.7,
+    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: [
-      { name: "Black", code: "#000000" },
+      { name: "White", code: "#FFFFFF" },
       { name: "Navy", code: "#001F3F" },
       { name: "Cream", code: "#FFFDD0" }
     ],
     variants: [
-      { size: "XS", color: { name: "Black", code: "#000000" }, sku: "TL-007-BLK-XS", inStock: true, quantity: 8 },
-      { size: "S", color: { name: "Black", code: "#000000" }, sku: "TL-007-BLK-S", inStock: true, quantity: 12 },
-      { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-007-BLK-M", inStock: true, quantity: 15 },
-      { size: "L", color: { name: "Black", code: "#000000" }, sku: "TL-007-BLK-L", inStock: true, quantity: 10 },
-      { size: "XL", color: { name: "Black", code: "#000000" }, sku: "TL-007-BLK-XL", inStock: true, quantity: 6 },
-      { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-S", inStock: true, quantity: 10 },
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-M", inStock: true, quantity: 14 },
-      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-L", inStock: false, quantity: 0 },
+      { size: "XS", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-XS", inStock: true, quantity: 10 },
+      { size: "S", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-S", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-M", inStock: true, quantity: 20 },
+      { size: "L", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-L", inStock: true, quantity: 18 },
+      { size: "XL", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-XL", inStock: true, quantity: 14 },
+      { size: "XXL", color: { name: "White", code: "#FFFFFF" }, sku: "TL-007-WHT-XXL", inStock: true, quantity: 8 },
+      { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-S", inStock: true, quantity: 12 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-M", inStock: true, quantity: 15 },
+      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-L", inStock: true, quantity: 11 },
+      { size: "XL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-007-NAV-XL", inStock: false, quantity: 0 },
       { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-007-CRM-M", inStock: true, quantity: 9 },
       { size: "L", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-007-CRM-L", inStock: true, quantity: 7 }
     ]
