@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
-import { useCart } from "@/components/cart/CartContext";
+import { useCart, type CartItem } from "@/components/cart/CartContext";
 
 type CheckoutStep = "shipping" | "payment" | "confirmation";
 
@@ -22,6 +22,10 @@ interface OrderDetails {
   date: string;
   total: number;
   estimatedDelivery: string;
+  items: CartItem[];
+  subtotal: number;
+  shipping: number;
+  tax: number;
 }
 
 export default function CheckoutPage() {
@@ -77,15 +81,30 @@ export default function CheckoutPage() {
     setCurrentStep("payment");
   };
 
+  const handleContinueClick = () => {
+    router.push("/products");
+  };
+
   const handleContinueToConfirmation = () => {
     const orderNumber = `ORD-${Date.now().toString().slice(-8)}`;
     const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString();
     
+    // Capture cart items and pricing before clearing
+    const subtotal = cartSubtotal;
+    const orderTax = tax;
+    const orderShipping = shipping;
+    const orderTotal = cartTotal;
+    const orderItems = [...cartItems]; // Create a copy of items
+    
     setOrderDetails({
       number: orderNumber,
       date: new Date().toLocaleDateString(),
-      total: cartTotal,
-      estimatedDelivery: deliveryDate
+      total: orderTotal,
+      estimatedDelivery: deliveryDate,
+      items: orderItems,
+      subtotal: subtotal,
+      shipping: orderShipping,
+      tax: orderTax
     });
     setCurrentStep("confirmation");
     
@@ -298,12 +317,12 @@ export default function CheckoutPage() {
                   </button>
                 )}
                 {currentStep === "confirmation" && (
-                  <Link
-                    href="/products"
-                    className="flex-1 rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800 text-center"
+                  <button
+                    onClick={handleContinueClick}
+                    className="flex-1 rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
                   >
                     Continue Shopping
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>
@@ -312,32 +331,45 @@ export default function CheckoutPage() {
             <div className="h-fit rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
               <h3 className="font-semibold text-neutral-900">Order Summary</h3>
               <div className="mt-4 space-y-3 border-b border-neutral-200 pb-4">
-                {cartItems.map(item => (
-                  <div key={item.id} className="flex justify-between text-sm">
-                    <div>
-                      <p className="font-medium text-neutral-900">{item.name}</p>
-                      <p className="text-xs text-neutral-700">Qty: {item.quantity}</p>
-                    </div>
-                    <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
-                  </div>
-                ))}
+                {currentStep === "confirmation" && orderDetails
+                  ? // Display stored order items during confirmation
+                    orderDetails.items.map(item => (
+                      <div key={item.id} className="flex justify-between text-sm">
+                        <div>
+                          <p className="font-medium text-neutral-900">{item.name}</p>
+                          <p className="text-xs text-neutral-700">Qty: {item.quantity}</p>
+                        </div>
+                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                    ))
+                  : // Display live cart items during shipping and payment
+                    cartItems.map(item => (
+                      <div key={item.id} className="flex justify-between text-sm">
+                        <div>
+                          <p className="font-medium text-neutral-900">{item.name}</p>
+                          <p className="text-xs text-neutral-700">Qty: {item.quantity}</p>
+                        </div>
+                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                      </div>
+                    ))
+                }
               </div>
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-neutral-700">
                   <span>Subtotal</span>
-                  <span>${cartSubtotal.toFixed(2)}</span>
+                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.subtotal : cartSubtotal).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-neutral-700">
                   <span>Shipping</span>
-                  <span>${shipping.toFixed(2)}</span>
+                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.shipping : shipping).toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between text-neutral-700">
                   <span>Tax</span>
-                  <span>${tax.toFixed(2)}</span>
+                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.tax : tax).toFixed(2)}</span>
                 </div>
                 <div className="border-t border-neutral-200 pt-2 flex justify-between font-semibold text-neutral-900">
                   <span>Total</span>
-                  <span>${cartTotal.toFixed(2)}</span>
+                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.total : cartTotal).toFixed(2)}</span>
                 </div>
               </div>
             </div>
