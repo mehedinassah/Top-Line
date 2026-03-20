@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useLayoutEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
 import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
@@ -13,7 +14,10 @@ export default function Navbar() {
   const [userEmail, setUserEmail] = useState("");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
   const { totalQuantity } = useCart();
+  const router = useRouter();
+  const pathname = usePathname();
 
   // Check auth state synchronously as early as possible
   useLayoutEffect(() => {
@@ -47,6 +51,38 @@ export default function Navbar() {
     };
   }, []);
 
+  // Handle soft refresh on navigation
+  const handleNavigation = (href: string) => {
+    // Close mobile menu if open
+    if (mobileMenuOpen) {
+      setMobileMenuOpen(false);
+    }
+
+    setIsRefreshing(true);
+    
+    // Scroll to top immediately
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Check if we're already on this page
+    if (pathname === href || pathname === href + "/") {
+      // Soft refresh: revalidate the current page with a visible effect
+      setTimeout(() => {
+        router.refresh();
+        setTimeout(() => {
+          setIsRefreshing(false);
+        }, 500);
+      }, 300);
+    } else {
+      // Navigate to the new page
+      setTimeout(() => {
+        router.push(href);
+        setTimeout(() => {
+          setIsRefreshing(false);
+        }, 500);
+      }, 300);
+    }
+  };
+
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("userEmail");
@@ -65,7 +101,10 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur">
+      <header className={`sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 ${isRefreshing ? 'bg-blue-50/95' : ''}`}>
+        {isRefreshing && (
+          <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 animate-pulse" />
+        )}
         <div className="mx-auto flex max-w-6xl items-center px-3 sm:px-4 py-2 sm:py-3 md:py-4">
           {/* Logo - Far Left */}
           <Link 
@@ -86,48 +125,54 @@ export default function Navbar() {
 
           {/* Navigation - Hidden on mobile */}
           <nav className="hidden items-center gap-6 md:gap-8 text-xs sm:text-sm md:text-sm font-medium text-neutral-700 md:flex">
-            <Link 
-              href="/products" 
-              className="hover:text-neutral-900 transition duration-200"
+            <button
+              onClick={() => handleNavigation("/products")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="View all products"
             >
               New Arrivals
-            </Link>
-            <Link 
-              href="/categories/men" 
-              className="hover:text-neutral-900 transition duration-200"
+            </button>
+            <button
+              onClick={() => handleNavigation("/categories/men")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="Browse men's collection"
             >
               Men
-            </Link>
-            <Link 
-              href="/categories/women" 
-              className="hover:text-neutral-900 transition duration-200"
+            </button>
+            <button
+              onClick={() => handleNavigation("/categories/women")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="Browse women's collection"
             >
               Women
-            </Link>
-            <Link 
-              href="/categories/accessories" 
-              className="hover:text-neutral-900 transition duration-200"
+            </button>
+            <button
+              onClick={() => handleNavigation("/categories/accessories")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="Browse accessories collection"
             >
               Accessories
-            </Link>
-            <Link 
-              href="/about" 
-              className="hover:text-neutral-900 transition duration-200"
+            </button>
+            <button
+              onClick={() => handleNavigation("/about")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="About Top Line"
             >
               About
-            </Link>
-            <Link 
-              href="/faq" 
-              className="hover:text-neutral-900 transition duration-200"
+            </button>
+            <button
+              onClick={() => handleNavigation("/faq")}
+              disabled={isRefreshing}
+              className={`hover:text-neutral-900 transition duration-200 bg-none border-none cursor-pointer text-neutral-700 p-0 ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
               title="FAQ"
             >
               FAQ
-            </Link>
+            </button>
           </nav>
 
           {/* Search - Desktop only */}
@@ -237,54 +282,54 @@ export default function Navbar() {
 
               {/* Mobile Navigation Links */}
               <nav className="space-y-3 py-4 border-t border-neutral-200">
-                <Link
-                  href="/products"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                <button
+                  onClick={() => handleNavigation("/products")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="View all products"
                 >
                   New Arrivals
-                </Link>
-                <Link
-                  href="/categories/men"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/categories/men")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="Browse men's collection"
                 >
                   Men
-                </Link>
-                <Link
-                  href="/categories/women"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/categories/women")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="Browse women's collection"
                 >
                   Women
-                </Link>
-                <Link
-                  href="/categories/accessories"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/categories/accessories")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="Browse accessories collection"
                 >
                   Accessories
-                </Link>
-                <Link
-                  href="/about"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/about")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="About Top Line"
                 >
                   About
-                </Link>
-                <Link
-                  href="/faq"
-                  className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                  onClick={() => setMobileMenuOpen(false)}
+                </button>
+                <button
+                  onClick={() => handleNavigation("/faq")}
+                  disabled={isRefreshing}
+                  className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                   title="FAQ"
                 >
                   FAQ
-                </Link>
+                </button>
               </nav>
 
               {/* Mobile Auth Links */}
