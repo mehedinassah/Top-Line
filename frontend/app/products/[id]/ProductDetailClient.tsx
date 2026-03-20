@@ -296,11 +296,11 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
                 <div className="flex items-center gap-3">
                   <span className="text-3xl font-bold text-neutral-900 md:text-4xl">
-                    ${displayPrice.toFixed(2)}
+                    ৳{displayPrice.toFixed(0)}
                   </span>
                   {hasDiscount && (
                     <span className="text-sm text-neutral-500 line-through">
-                      ${props.price.toFixed(2)}
+                      ৳{props.price.toFixed(0)}
                     </span>
                   )}
                   <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-900">

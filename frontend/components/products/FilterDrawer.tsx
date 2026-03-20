@@ -133,8 +133,8 @@ export default function FilterDrawer({
               className="w-full accent-neutral-900"
             />
             <div className="flex justify-between text-xs sm:text-sm font-medium text-neutral-900">
-              <span>${priceRange[0]}</span>
-              <span>${priceRange[1]}</span>
+              <span>৳{priceRange[0]}</span>
+              <span>৳{priceRange[1]}</span>
             </div>
           </div>
         </div>

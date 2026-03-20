@@ -68,7 +68,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                       <div>
                         <p className="font-medium line-clamp-2">{item.name}</p>
                         <p className="text-xs text-neutral-600">
-                          Qty {item.quantity} • ${(item.price * item.quantity).toFixed(2)}
+                          Qty {item.quantity} • ৳{(item.price * item.quantity).toFixed(0)}
                         </p>
                       </div>
                       <button
@@ -85,7 +85,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-neutral-600">Subtotal</span>
                   <span className="font-semibold text-neutral-900">
-                    ${subtotal.toFixed(2)}
+                    ৳{subtotal.toFixed(0)}
                   </span>
                 </div>
                 <button

@@ -100,7 +100,7 @@ export default function WishlistPage() {
                 <div className="flex-1">
                   <h3 className="font-medium text-neutral-900">{item.name}</h3>
                   <p className="text-lg font-semibold text-neutral-900 mt-1">
-                    ${Number(item.price).toFixed(2)}
+                    ৳{Number(item.price).toFixed(0)}
                   </p>
                 </div>
                 <div className="flex gap-2">

@@ -163,7 +163,7 @@ export default function OrdersPage() {
                     </div>
                     <div>
                       <p className="text-neutral-700">Subtotal</p>
-                      <p className="mt-1 font-medium text-neutral-900">${order.subtotal.toFixed(2)}</p>
+                      <p className="mt-1 font-medium text-neutral-900">৳{order.subtotal.toFixed(0)}</p>
                     </div>
                     <div>
                       <p className="text-neutral-700">Estimated Delivery</p>
@@ -171,7 +171,7 @@ export default function OrdersPage() {
                     </div>
                     <div>
                       <p className="text-neutral-700">Total</p>
-                      <p className="mt-1 font-medium text-neutral-900">${order.total.toFixed(2)}</p>
+                      <p className="mt-1 font-medium text-neutral-900">৳{order.total.toFixed(0)}</p>
                     </div>
                   </div>
 

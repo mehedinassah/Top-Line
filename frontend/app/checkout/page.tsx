@@ -301,7 +301,7 @@ export default function CheckoutPage() {
                       </div>
                       <div>
                         <p className="text-neutral-700">Total</p>
-                        <p className="mt-1 font-semibold text-neutral-900">${orderDetails.total.toFixed(2)}</p>
+                        <p className="mt-1 font-semibold text-neutral-900">৳{orderDetails.total.toFixed(0)}</p>
                       </div>
                       <div>
                         <p className="text-neutral-700">Estimated Delivery</p>
@@ -356,7 +356,7 @@ export default function CheckoutPage() {
                           <p className="font-medium text-neutral-900">{item.name}</p>
                           <p className="text-xs text-neutral-700">Qty: {item.quantity}</p>
                         </div>
-                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-medium text-neutral-900">৳{(item.price * item.quantity).toFixed(0)}</p>
                       </div>
                     ))
                   : // Display live cart items during shipping and payment
@@ -366,7 +366,7 @@ export default function CheckoutPage() {
                           <p className="font-medium text-neutral-900">{item.name}</p>
                           <p className="text-xs text-neutral-700">Qty: {item.quantity}</p>
                         </div>
-                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-medium text-neutral-900">৳{(item.price * item.quantity).toFixed(0)}</p>
                       </div>
                     ))
                 }
@@ -374,19 +374,19 @@ export default function CheckoutPage() {
               <div className="mt-4 space-y-2 text-sm">
                 <div className="flex justify-between text-neutral-700">
                   <span>Subtotal</span>
-                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.subtotal : cartSubtotal).toFixed(2)}</span>
+                  <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.subtotal : cartSubtotal).toFixed(0)}</span>
                 </div>
                 <div className="flex justify-between text-neutral-700">
                   <span>Shipping</span>
-                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.shipping : shipping).toFixed(2)}</span>
+                  <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.shipping : shipping).toFixed(0)}</span>
                 </div>
                 <div className="flex justify-between text-neutral-700">
                   <span>Tax</span>
-                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.tax : tax).toFixed(2)}</span>
+                  <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.tax : tax).toFixed(0)}</span>
                 </div>
                 <div className="border-t border-neutral-200 pt-2 flex justify-between font-semibold text-neutral-900">
                   <span>Total</span>
-                  <span>${(currentStep === "confirmation" && orderDetails ? orderDetails.total : cartTotal).toFixed(2)}</span>
+                  <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.total : cartTotal).toFixed(0)}</span>
                 </div>
               </div>
             </div>

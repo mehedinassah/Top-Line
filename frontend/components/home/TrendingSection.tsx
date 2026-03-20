@@ -80,7 +80,7 @@ function TrendingProductCard({ product }: { product: Product }) {
               {product.name}
             </p>
             <p className="mt-2 text-sm text-white/90 font-light">
-              ${product.discountPrice || product.price}
+              ৳{(product.discountPrice || product.price).toFixed(0)}
             </p>
           </div>
         </div>

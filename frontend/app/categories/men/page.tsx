@@ -112,11 +112,11 @@ function MinimalProductCard({ product }: { product: Product }) {
         <div className="mt-auto flex items-center justify-between pt-2">
           <div className="flex items-center gap-2">
             <span className="text-sm font-light text-neutral-900">
-              ${displayPrice.toFixed(2)}
+              ৳{displayPrice.toFixed(0)}
             </span>
             {hasDiscount && (
               <span className="text-xs text-neutral-500 line-through">
-                ${product.price.toFixed(2)}
+                ৳{product.price.toFixed(0)}
               </span>
             )}
           </div>
@@ -131,15 +131,15 @@ function MinimalProductCard({ product }: { product: Product }) {
 }
 
 export default function MenPage() {
-  const [sortBy, setSortBy] = useState<SortOption>("newest");
-  const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
-
   const categoryProducts = useMemo(() => {
     return featuredProducts.filter(p => p.collection === "men");
   }, []);
 
   const maxPrice = Math.max(...categoryProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
+
+  const [sortBy, setSortBy] = useState<SortOption>("newest");
+  const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, maxPrice]);
 
   // Filter products
   const filteredProducts = useMemo(() => {

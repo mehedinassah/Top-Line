@@ -42,8 +42,8 @@ export const featuredProducts: Product[] = [
     id: 1,
     name: "Tailored Wool Blend Overcoat",
     description: "Slim fit, mid-length overcoat in a warm charcoal wool blend.",
-    price: 220,
-    discountPrice: 189,
+    price: 2200,
+    discountPrice: 1890,
     category: "outerwear",
     collection: "men",
     images: [
@@ -80,7 +80,7 @@ export const featuredProducts: Product[] = [
     id: 2,
     name: "Relaxed Fit Selvedge Denim",
     description: "Vintage-inspired selvedge jeans with a modern relaxed taper.",
-    price: 150,
+    price: 1500,
     category: "jeans",
     collection: "men",
     images: [
@@ -113,7 +113,7 @@ export const featuredProducts: Product[] = [
     id: 3,
     name: "Everyday Oxford Shirt",
     description: "Crisp cotton oxford shirt designed for everyday layering.",
-    price: 89,
+    price: 890,
     category: "shirts",
     collection: "men",
     images: [
@@ -149,8 +149,8 @@ export const featuredProducts: Product[] = [
     id: 4,
     name: "Classic White T-Shirt",
     description: "Premium cotton essentials tee for everyday wear.",
-    price: 45,
-    discountPrice: 36,
+    price: 450,
+    discountPrice: 360,
     category: "shirts",
     collection: "men",
     images: [
@@ -184,7 +184,7 @@ export const featuredProducts: Product[] = [
     id: 5,
     name: "Slim Fit Chinos",
     description: "Versatile chinos for casual and semi-formal occasions.",
-    price: 95,
+    price: 950,
     category: "pants",
     collection: "men",
     images: [
@@ -218,7 +218,7 @@ export const featuredProducts: Product[] = [
     id: 6,
     name: "Wool Sweater",
     description: "Cozy wool blend sweater perfect for layering in cooler weather.",
-    price: 125,
+    price: 1250,
     category: "tops",
     collection: "men",
     images: [
@@ -250,7 +250,7 @@ export const featuredProducts: Product[] = [
     id: 7,
     name: "Premium Linen Shirt",
     description: "Lightweight premium linen shirt perfect for warm weather and casual elegance.",
-    price: 120,
+    price: 1200,
     category: "shirts",
     collection: "men",
     images: [
@@ -282,8 +282,8 @@ export const featuredProducts: Product[] = [
     id: 8,
     name: "Elegant Silk Blouse",
     description: "Luxurious silk blouse with elegant draping and timeless appeal.",
-    price: 145,
-    discountPrice: 116,
+    price: 1450,
+    discountPrice: 1160,
     category: "tops",
     collection: "women",
     images: [
@@ -313,7 +313,7 @@ export const featuredProducts: Product[] = [
     id: 9,
     name: "Premium Knit Blazer",
     description: "Tailored blazer in soft knit fabric for structured elegance.",
-    price: 189,
+    price: 1890,
     category: "outerwear",
     collection: "women",
     images: [
@@ -343,7 +343,7 @@ export const featuredProducts: Product[] = [
     id: 10,
     name: "High-Waist Trousers",
     description: "Classic high-waist trousers with perfect drape and tailoring.",
-    price: 129,
+    price: 1290,
     category: "pants",
     collection: "women",
     images: [
@@ -372,8 +372,8 @@ export const featuredProducts: Product[] = [
     id: 11,
     name: "Luxury Cashmere Cardigan",
     description: "Soft and warm cashmere cardigan for ultimate comfort.",
-    price: 245,
-    discountPrice: 199,
+    price: 2450,
+    discountPrice: 1990,
     category: "tops",
     collection: "women",
     images: [
@@ -402,7 +402,7 @@ export const featuredProducts: Product[] = [
     id: 12,
     name: "Minimalist Leather Handbag",
     description: "Timeless leather handbag with elegant design and functionality.",
-    price: 199,
+    price: 1990,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -425,8 +425,8 @@ export const featuredProducts: Product[] = [
     id: 13,
     name: "Classic Wool Scarf",
     description: "Premium wool scarf for style and warmth in any season.",
-    price: 89,
-    discountPrice: 71,
+    price: 890,
+    discountPrice: 710,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -451,7 +451,7 @@ export const featuredProducts: Product[] = [
     id: 14,
     name: "Premium Leather Belt",
     description: "Versatile leather belt that works with any outfit.",
-    price: 75,
+    price: 750,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -474,8 +474,8 @@ export const featuredProducts: Product[] = [
     id: 15,
     name: "Italian Silk Pocket Square",
     description: "Luxurious silk pocket square for sophisticated style.",
-    price: 45,
-    discountPrice: 36,
+    price: 450,
+    discountPrice: 360,
     category: "accessories",
     collection: "accessories",
     images: [

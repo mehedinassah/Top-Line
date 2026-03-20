@@ -11,16 +11,15 @@ import type { Product, Size } from "@/lib/productData";
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
 
 export default function ProductsPage() {
+  const itemsPerPage = 12;
+  const maxPrice = Math.max(...featuredProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
+
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, 500]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, maxPrice]);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const itemsPerPage = 12;
-
-  const maxPrice = Math.max(...featuredProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
 
   // Filter products
   const filteredProducts = useMemo(() => {

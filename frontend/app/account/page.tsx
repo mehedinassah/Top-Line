@@ -133,7 +133,7 @@ export default function AccountPage() {
                         {item.color && <p className="text-sm text-neutral-700">Color: {item.color}</p>}
                       </div>
                       <div className="text-right">
-                        <p className="font-medium text-neutral-900">${(item.price * item.quantity).toFixed(2)}</p>
+                        <p className="font-medium text-neutral-900">৳{(item.price * item.quantity).toFixed(0)}</p>
                       </div>
                     </div>
                   ))}
@@ -161,7 +161,7 @@ export default function AccountPage() {
                     <div key={item.id} className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900">{item.name}</p>
-                        <p className="text-sm text-neutral-700">${item.price.toFixed(2)}</p>
+                        <p className="text-sm text-neutral-700">৳{item.price.toFixed(0)}</p>
                       </div>
                       <div className="text-right">
                         <Link

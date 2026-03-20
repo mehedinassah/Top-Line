@@ -77,7 +77,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
               {product.name}
             </p>
             <p className="mt-2 text-sm text-white/90 font-light">
-              ${product.discountPrice || product.price}
+              ৳{product.discountPrice || product.price}
             </p>
           </div>
         </div>

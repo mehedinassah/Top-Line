@@ -113,7 +113,7 @@ export default function ProductCard({ product }: { product: Product }) {
               <span className="text-sm text-white/90 font-light">{product.rating?.toFixed(1) ?? "4.5"}</span>
             </div>
             <p className="mt-2 text-sm text-white/90 font-light tracking-wide">
-              ${displayPrice.toFixed(2)}
+              ৳{displayPrice.toFixed(0)}
             </p>
             <p className="mt-3 text-sm text-white/90 font-light tracking-wide">
               View Details →
