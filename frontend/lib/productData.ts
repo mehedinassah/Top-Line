@@ -741,6 +741,31 @@ const detailedProducts: DetailedProduct[] = [
         comment: "Great belt. Perfect for any outfit."
       }
     ]
+  },
+  {
+    ...featuredProducts[13],
+    inStock: true,
+    stockCount: 22,
+    reviews: [
+      {
+        id: 29,
+        author: "Vincent T.",
+        rating: 5,
+        comment: "Exquisite Italian silk. The perfect accessory to elevate any ensemble!"
+      },
+      {
+        id: 30,
+        author: "Alessandro M.",
+        rating: 5,
+        comment: "Luxury pocket square with exceptional craftsmanship. Worth every penny."
+      },
+      {
+        id: 31,
+        author: "Marco R.",
+        rating: 4,
+        comment: "Beautiful colors and soft silk. Great addition to my collection."
+      }
+    ]
   }
 ];
 
