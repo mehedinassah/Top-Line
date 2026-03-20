@@ -164,13 +164,14 @@ export default function AboutPage() {
             >
               Top Line
             </button>
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 text-lg font-light text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white transition-all duration-300"
+            <button
+              type="button"
+              onClick={() => router.push("/contact")}
+              className="cursor-pointer inline-flex items-center justify-center px-8 py-4 text-lg font-light text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-900 hover:text-white transition-all duration-300 rounded"
               title="Get in touch with us"
             >
               Contact Us
-            </Link>
+            </button>
           </div>
         </div>
       </section>
