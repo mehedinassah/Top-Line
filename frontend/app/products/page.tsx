@@ -87,6 +87,12 @@ export default function ProductsPage() {
 
   const hasActiveFilters = selectedSizes.length > 0 || selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
 
+  // Pagination logic
+  const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const paginatedProducts = sortedProducts.slice(startIndex, endIndex);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
@@ -126,7 +132,10 @@ export default function ProductsPage() {
                 <p className="text-xs font-semibold text-neutral-900 mb-4 uppercase tracking-wide">Category</p>
                 <div className="space-y-2">
                   <button
-                    onClick={() => setSelectedCategory("")}
+                    onClick={() => {
+                      setSelectedCategory("");
+                      setCurrentPage(1);
+                    }}
                     className={`w-full text-left px-3 py-2 text-sm rounded-lg transition ${
                       !selectedCategory
                         ? "bg-neutral-900 text-white"
@@ -138,7 +147,10 @@ export default function ProductsPage() {
                   {categories.map(cat => (
                     <button
                       key={cat}
-                      onClick={() => setSelectedCategory(selectedCategory === cat ? "" : cat)}
+                      onClick={() => {
+                        setSelectedCategory(selectedCategory === cat ? "" : cat);
+                        setCurrentPage(1);
+                      }}
                       className={`w-full text-left px-3 py-2 text-sm rounded-lg transition capitalize ${
                         selectedCategory === cat
                           ? "bg-neutral-900 text-white"
@@ -160,7 +172,10 @@ export default function ProductsPage() {
                     min="0"
                     max={maxPrice}
                     value={priceRange[0]}
-                    onChange={(e) => setPriceRange([Number(e.target.value), priceRange[1]])}
+                    onChange={(e) => {
+                      setPriceRange([Number(e.target.value), priceRange[1]]);
+                      setCurrentPage(1);
+                    }}
                     className="w-full"
                   />
                   <input
@@ -168,7 +183,10 @@ export default function ProductsPage() {
                     min="0"
                     max={maxPrice}
                     value={priceRange[1]}
-                    onChange={(e) => setPriceRange([priceRange[0], Number(e.target.value)])}
+                    onChange={(e) => {
+                      setPriceRange([priceRange[0], Number(e.target.value)]);
+                      setCurrentPage(1);
+                    }}
                     className="w-full"
                   />
                   <div className="flex justify-between text-sm font-medium text-neutral-900">
@@ -185,7 +203,10 @@ export default function ProductsPage() {
                   {SIZES.map(size => (
                     <button
                       key={size}
-                      onClick={() => toggleSize(size)}
+                      onClick={() => {
+                        toggleSize(size);
+                        setCurrentPage(1);
+                      }}
                       className={`rounded-lg px-3 py-2.5 text-xs font-semibold transition ${
                         selectedSizes.includes(size)
                           ? "bg-neutral-900 text-white"
@@ -206,7 +227,7 @@ export default function ProductsPage() {
             <div className="mb-8 flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-neutral-700">
-                  {sortedProducts.length} {sortedProducts.length === 1 ? "item" : "items"} found
+                  {sortedProducts.length} {sortedProducts.length === 1 ? "item" : "items"} found • Page {currentPage} of {totalPages}
                 </p>
               </div>
               <div className="flex items-center gap-3">
@@ -245,11 +266,50 @@ export default function ProductsPage() {
                 </button>
               </div>
             ) : (
-              <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-3">
-                {sortedProducts.map(product => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
+              <>
+                <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-3">
+                  {paginatedProducts.map(product => (
+                    <ProductCard key={product.id} product={product} />
+                  ))}
+                </div>
+
+                {/* Pagination Controls */}
+                {totalPages > 1 && (
+                  <div className="mt-12 flex items-center justify-center gap-2">
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                    >
+                      Previous
+                    </button>
+
+                    <div className="flex gap-1">
+                      {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
+                        <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`h-10 w-10 rounded-lg text-sm font-medium transition ${
+                            currentPage === page
+                              ? "bg-neutral-900 text-white"
+                              : "border border-neutral-300 text-neutral-900 hover:bg-neutral-50"
+                          }`}
+                        >
+                          {page}
+                        </button>
+                      ))}
+                    </div>
+
+                    <button
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                      className="rounded-lg border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
