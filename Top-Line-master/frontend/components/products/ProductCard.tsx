@@ -190,12 +190,9 @@ export default function ProductCard({ product }: { product: Product }) {
                 <span>✓ Added to Cart</span>
               </button>
             )}
-            <Link
-              href={`/products/${product.id}`}
-              className="block text-white text-sm font-light tracking-wide hover:underline"
-            >
+            <div className="block text-white text-sm font-light tracking-wide">
               View Full Details →
-            </Link>
+            </div>
           </div>
         </div>
       </div>
