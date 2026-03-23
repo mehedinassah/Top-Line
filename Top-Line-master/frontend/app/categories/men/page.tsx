@@ -1,5 +1,8 @@
 "use client";
 
+// Disable caching to ensure fresh product data is always shown
+export const revalidate = 0;
+
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";

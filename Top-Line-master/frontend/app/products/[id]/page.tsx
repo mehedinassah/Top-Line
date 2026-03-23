@@ -1,3 +1,6 @@
+// Disable caching to ensure fresh product data is always shown
+export const revalidate = 0;
+
 import { notFound } from "next/navigation";
 import ProductDetailClient from "./ProductDetailClient";
 import { getProductById } from "@/lib/productData";
