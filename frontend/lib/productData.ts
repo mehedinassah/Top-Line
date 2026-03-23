@@ -14,6 +14,71 @@ export const COLORS = [
 export type Color = typeof COLORS[number];
 export type Size = typeof SIZES[number];
 
+export type Review = {
+  id: number;
+  author: string;
+  rating: number;
+  comment: string;
+};
+
+// All available reviews
+export const allReviews: Review[] = [
+  { id: 1, author: "Voirob", rating: 4, comment: "d**n banaiso vaya shei hoise" },
+  { id: 2, author: "Aowfi", rating: 4, comment: "suiii" },
+  { id: 3, author: "Zobir", rating: 4, comment: "Eto kom dam? Chi nibo na." },
+  { id: 4, author: "Badhon", rating: 4, comment: "Mama amar bhallage na" },
+  { id: 5, author: "Olif", rating: 5, comment: "bhaloi" },
+  { id: 6, author: "Rapid Khan", rating: 5, comment: "Shundor hoise" },
+  { id: 7, author: "Balakhtiar", rating: 3, comment: "Ei dost price ta ektu beshi lagtese" },
+  { id: 8, author: "Riad Kobra", rating: 5, comment: "Amar size nai kenee" },
+  { id: 9, author: "Sagid Majhi", rating: 4, comment: "Amar kache tw shundor lagse" },
+  { id: 10, author: "Shaon", rating: 4, comment: "Nah ager tai bhalo chilo" },
+  { id: 11, author: "Ponty", rating: 5, comment: "Kine deeeeee" },
+  { id: 12, author: "Myshur", rating: 4, comment: "nice" },
+  { id: 13, author: "Noor", rating: 5, comment: "Amar tw pochondo hoise, abbu ke dekhai." },
+  { id: 14, author: "Nagin", rating: 4, comment: "No comment" },
+  { id: 15, author: "Mash", rating: 5, comment: "Thik ache. shundor" },
+  { id: 16, author: "Rafi", rating: 5, comment: "premium feel, really impressed with the quality." },
+  { id: 17, author: "Tanvir", rating: 4, comment: "Nice design and fit, perfect for casual outings." },
+  { id: 18, author: "Sakib", rating: 5, comment: "Material is top-notch, feels way more expensive than it is." },
+  { id: 19, author: "Imran", rating: 4, comment: "Good quality overall, just a bit tight on the shoulders." },
+  { id: 20, author: "Nayeem", rating: 5, comment: "Loved the fabric and finishing, definitely ordering again." },
+  { id: 21, author: "Arif", rating: 4, comment: "Clean look and comfortable wear, great value for money." },
+  { id: 22, author: "Mahin", rating: 5, comment: "Fits perfectly and looks very stylish, highly recommended." },
+  { id: 23, author: "Rakib", rating: 5, comment: "Amazing quality, feels soft and durable at the same time." },
+  { id: 24, author: "Shuvo", rating: 4, comment: "Nice product, delivery was smooth and packaging was good." },
+  { id: 25, author: "Siam", rating: 5, comment: "Gives a premium vibe, exactly what I was looking for." },
+  { id: 26, author: "Jahid", rating: 4, comment: "Good fit and breathable fabric, ideal for daily wear." },
+  { id: 27, author: "Fahim", rating: 5, comment: "Excellent stitching and attention to detail, loved it." },
+  { id: 28, author: "Rasel", rating: 4, comment: "Very comfortable, but I'd love to see more color options." },
+  { id: 29, author: "Tarek", rating: 5, comment: "Stylish and high quality, exceeded my expectations." },
+  { id: 30, author: "Nabil", rating: 5, comment: "The fabric feels amazing on skin, super happy with this purchase." },
+  { id: 31, author: "Ashik", rating: 4, comment: "Great for the price, looks good and feels nice." },
+  { id: 32, author: "Shakil", rating: 5, comment: "Premium quality and perfect fitting, worth every taka." },
+  { id: 33, author: "Bappy", rating: 4, comment: "Nice design and comfort, good for regular use." },
+  { id: 34, author: "Mehedi", rating: 5, comment: "Loved the overall quality, definitely a must-buy." },
+  { id: 35, author: "Kamal", rating: 4, comment: "Good material and stitching, satisfied with the purchase." },
+  { id: 36, author: "Hasan", rating: 5, comment: "Very classy look and excellent comfort, highly recommended." },
+  { id: 37, author: "Parvez", rating: 4, comment: "Comfortable and stylish, just a bit long for my height." },
+  { id: 38, author: "Jubayer", rating: 5, comment: "Top-quality product, feels really premium." },
+  { id: 39, author: "Sumon", rating: 4, comment: "Nice and simple design, perfect for everyday wear." },
+  { id: 40, author: "Anik", rating: 5, comment: "Great fit and fabric, looks even better in real life." }
+];
+
+// Function to randomly assign reviews to products
+export function getRandomReviewsForProduct(productId: number, count: number): Review[] {
+  const shuffled = [...allReviews].sort(() => Math.random() - 0.5);
+  const selected = shuffled.slice((productId - 1) * count, (productId - 1) * count + count);
+  return selected.length > 0 ? selected : shuffled.slice(0, count);
+}
+
+// Function to calculate average rating from reviews
+export function calculateAverageRating(reviews: Review[]): number {
+  if (reviews.length === 0) return 0;
+  const sum = reviews.reduce((acc, review) => acc + review.rating, 0);
+  return Math.round((sum / reviews.length) * 10) / 10;
+}
+
 export type ProductVariant = {
   size: Size;
   color: Color;
@@ -26,30 +91,39 @@ export interface Product {
   id: number;
   name: string;
   description: string;
+  fabricDescription?: string;
+  fabricComposition?: string;
   price: number;
   discountPrice?: number;
   category: string;
   collection: "men" | "women" | "accessories";
   images: string[];
   rating: number;
+  reviewCount?: number;
   sizes: Size[];
   colors: Color[];
   variants: ProductVariant[];
+  isNew?: boolean;
+  isBestSeller?: boolean;
 }
 
 export const featuredProducts: Product[] = [
   {
     id: 1,
-    name: "Tailored Wool Blend Overcoat",
-    description: "Slim fit, mid-length overcoat in a warm charcoal wool blend.",
-    price: 2200,
-    discountPrice: 1890,
+    name: "Tropical Breeze Viscose Shirt",
+    description: "Built for warm days and effortless style. Feels as light as the air around you. Key Features: 120 GSM ultra-light viscose, Soft fluid drape, Breathable summer fabric, Relaxed comfort feel, Fade-resistant print",
+    fabricDescription: "Made from premium 120 GSM eco-viscose rayon with exceptional breathability and beautiful fluid drape. The ultra-light fabric is soft and comfortable, perfect for warm climates and summer wear. The material provides excellent moisture-wicking properties while maintaining a luxurious feel.",
+    fabricComposition: "100% Eco Viscose Rayon | 120 GSM",
+    price: 750,
+    discountPrice: 525,
     category: "outerwear",
     collection: "men",
     images: [
       "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
     ],
     rating: 4.8,
+    reviewCount: 48,
+    isBestSeller: true,
     sizes: ["S", "M", "L", "XL", "XXL"],
     colors: [
       { name: "Charcoal", code: "#36454F" },
@@ -78,15 +152,19 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 2,
-    name: "Relaxed Fit Selvedge Denim",
-    description: "Vintage-inspired selvedge jeans with a modern relaxed taper.",
-    price: 1500,
+    name: "Dotted Luxe Cotton Shirt",
+    description: "Refined details meet everyday comfort. A shirt that quietly stands out without trying too hard. Key Features: 140 GSM breathable cotton, Subtle dotted pattern design, Smooth poplin weave finish, Lightweight all-day comfort, Durable stitching",
+    fabricDescription: "Crafted from premium 140 GSM combed cotton with a refined poplin weave, this shirt offers exceptional breathability and a smooth, sophisticated finish. The subtle dotted pattern adds visual interest while maintaining versatility. The fabric is colorfast and durable, perfect for everyday wear with lasting quality.",
+    fabricComposition: "100% Combed Cotton | 140 GSM | Poplin Weave",
+    price: 1100,
     category: "jeans",
     collection: "men",
     images: [
       "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
     ],
     rating: 4.7,
+    reviewCount: 62,
+    isNew: true,
     sizes: ["XS", "S", "M", "L", "XL"],
     colors: [
       { name: "Navy", code: "#001F3F" },
@@ -111,15 +189,19 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 3,
-    name: "Everyday Oxford Shirt",
-    description: "Crisp cotton oxford shirt designed for everyday layering.",
-    price: 890,
+    name: "Core Essential Cotton Tee - Crimson Red",
+    description: "A bold essential made for everyday confidence. Simple, clean, and always reliable. Key Features: 180 GSM premium cotton, Soft jersey knit, Durable everyday wear, Fade-resistant color, Breathable fabric",
+    fabricDescription: "Made from 180 GSM premium organic cotton with soft single jersey knit construction. This tee offers durability combined with exceptional softness that improves with washing. The fabric resists fading while maintaining its vibrant crimson red color, perfect for everyday wear.",
+    fabricComposition: "100% Organic Cotton | 180 GSM | Single Jersey Knit",
+    price: 450,
     category: "shirts",
     collection: "men",
     images: [
       "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC"
     ],
     rating: 4.6,
+    reviewCount: 35,
+    isBestSeller: true,
     sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     colors: [
       { name: "White", code: "#FFFFFF" },
@@ -147,10 +229,12 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 4,
-    name: "Classic White T-Shirt",
-    description: "Premium cotton essentials tee for everyday wear.",
-    price: 450,
-    discountPrice: 360,
+    name: "Heritage Check Wool Shacket",
+    description: "Where warmth meets structure. Designed for layering through changing seasons. Key Features: 320 GSM wool blend, Structured overshirt design, Warm yet breathable, Durable outer layer, Classic check pattern",
+    fabricDescription: "This premium shacket features 320 GSM wool blend construction with a structured design perfect for layering. The fabric offers exceptional warmth without bulk, featuring a classic check pattern that adds visual interest. The tightly constructed weave ensures durability while maintaining breathability for transitional weather.",
+    fabricComposition: "70% Wool, 30% Polyester | 320 GSM",
+    price: 1199,
+    discountPrice: 839,
     category: "shirts",
     collection: "men",
     images: [
@@ -182,9 +266,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 5,
-    name: "Slim Fit Chinos",
-    description: "Versatile chinos for casual and semi-formal occasions.",
-    price: 950,
+    name: "Signature Black Cotton Tee",
+    description: "Minimal at its core, essential in every wardrobe. Built to go with everything. Key Features: 180 GSM cotton jersey, Soft and smooth texture, Shape retention fit, Breathable everyday wear, Clean minimalist design",
+    fabricDescription: "Crafted from 180 GSM premium cotton jersey, this signature tee features a smooth finish and exceptional durability. The fabric is engineered for shape retention, maintaining its perfect fit wash after wash. The breathable cotton provides comfort for all-day wear while the minimalist design pairs seamlessly with any wardrobe.",
+    fabricComposition: "100% Cotton Jersey | 180 GSM",
+    price: 320,
     category: "pants",
     collection: "men",
     images: [
@@ -216,9 +302,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 6,
-    name: "Wool Sweater",
-    description: "Cozy wool blend sweater perfect for layering in cooler weather.",
-    price: 1250,
+    name: "Forest Wool Blend Shirt",
+    description: "A balance of warmth and sophistication. Designed for cooler days with a refined edge. Key Features: 260 GSM wool blend, Soft insulated feel, Breathable warmth, Premium textured finish, Durable construction",
+    fabricDescription: "This premium shirt is crafted from 260 GSM wool blend fabric that combines warmth with refined sophistication. The soft insulation keeps you comfortable in cooler weather, while the breathable construction prevents overheating. The premium textured finish adds visual interest and ensures long-lasting durability.",
+    fabricComposition: "65% Wool, 35% Cotton | 260 GSM",
+    price: 899,
     category: "tops",
     collection: "men",
     images: [
@@ -248,9 +336,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 7,
-    name: "Premium Linen Shirt",
-    description: "Lightweight premium linen shirt perfect for warm weather and casual elegance.",
-    price: 1200,
+    name: "Artisan Printed Cotton Shirt",
+    description: "Designed to stand out without being loud. A perfect blend of comfort and expression. Key Features: 130 GSM lightweight cotton, High-definition print, Breathable fabric, Soft touch finish, Summer-friendly wear",
+    fabricDescription: "Made from 130 GSM lightweight cotton with high-definition print quality, this artisan shirt combines comfort with artistic expression. The breathable cotton provides exceptional comfort for summer wear, while the soft touch finish ensures durability. The premium print maintains its vibrancy through multiple washes.",
+    fabricComposition: "100% Cotton | 130 GSM",
+    price: 799,
     category: "shirts",
     collection: "men",
     images: [
@@ -280,10 +370,12 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 8,
-    name: "Elegant Silk Blouse",
-    description: "Luxurious silk blouse with elegant draping and timeless appeal.",
-    price: 1450,
-    discountPrice: 1160,
+    name: "Relaxed Drop Shoulder Tee - Noir Black",
+    description: "Effortless comfort meets modern street style. Made to move with you. Key Features: 190 GSM cotton fabric, Oversized drop shoulder fit, Soft breathable texture, Durable everyday wear, Minimalist design",
+    fabricDescription: "Crafted from 190 GSM premium cotton with comfortable, durable knit construction. The oversized drop shoulder design provides effortless style and ease of movement. The soft yet durable fabric is perfect for everyday wear, while the minimalist design ensures versatility and contemporary street style appeal.",
+    fabricComposition: "100% Cotton | 190 GSM",
+    price: 650,
+    discountPrice: 455,
     category: "tops",
     collection: "women",
     images: [
@@ -311,9 +403,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 9,
-    name: "Premium Knit Blazer",
-    description: "Tailored blazer in soft knit fabric for structured elegance.",
-    price: 1890,
+    name: "Essential White Cotton Tee",
+    description: "Clean, timeless, and endlessly versatile. The foundation of every wardrobe. Key Features: 180 GSM organic cotton, Smooth soft finish, Breathable fabric, Long-lasting quality, Minimal design",
+    fabricDescription: "Made from 180 GSM premium organic cotton with a smooth, soft finish and exceptional durability. The breathable fabric ensures all-day comfort while the quality construction guarantees longevity. The minimalist design makes it the perfect foundation piece for any wardrobe, pairing effortlessly with everything.",
+    fabricComposition: "100% Organic Cotton | 180 GSM",
+    price: 320,
     category: "outerwear",
     collection: "women",
     images: [
@@ -341,9 +435,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 10,
-    name: "High-Waist Trousers",
-    description: "Classic high-waist trousers with perfect drape and tailoring.",
-    price: 1290,
+    name: "Pure Cotton Full Sleeve Shirt",
+    description: "Elegance in simplicity. Designed for comfort that feels as good as it looks. Key Features: 150 GSM fine cotton, Smooth lightweight weave, Breathable comfort, Clean refined look, Durable stitching",
+    fabricDescription: "Crafted from 150 GSM fine cotton with a smooth, lightweight weave, this full sleeve shirt offers refined elegance with exceptional comfort. The breathable fabric ensures all-day wearability while maintaining a polished appearance. The durable stitching and premium construction make this a reliable piece for professional and casual settings alike.",
+    fabricComposition: "100% Fine Cotton | 150 GSM",
+    price: 890,
     category: "pants",
     collection: "women",
     images: [
@@ -370,10 +466,12 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 11,
-    name: "Luxury Cashmere Cardigan",
-    description: "Soft and warm cashmere cardigan for ultimate comfort.",
-    price: 2450,
-    discountPrice: 1990,
+    name: "Classic High-Rise Denim Jeans",
+    description: "Built to shape, move, and last. Denim that adapts to your everyday life. Key Features: 12 oz stretch denim, High-rise fit, Durable fabric, Shape retention, Comfortable flexibility",
+    fabricDescription: "Made from premium 12 oz stretch denim with 98% cotton and 2% elastane blend for comfortable flexibility. The high-rise cut provides a flattering fit while the durable weave ensures long-lasting wear. The fabric is designed for shape retention, maintaining its perfect fit through multiple wears and washes.",
+    fabricComposition: "98% Cotton, 2% Elastane | 12 oz Denim",
+    price: 1350,
+    discountPrice: 945,
     category: "tops",
     collection: "women",
     images: [
@@ -400,9 +498,10 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 12,
-    name: "Minimalist Leather Handbag",
-    description: "Timeless leather handbag with elegant design and functionality.",
-    price: 1990,
+    name: "Heritage Full-Grain Leather Belt",
+    description: "Timeless craftsmanship that only gets better with age. Built to last for years. Key Features: Full-grain genuine leather, 3.5mm thickness, Durable metal buckle, Scratch-resistant finish, Long-lasting build",
+    fabricDescription: "Crafted from premium full-grain leather with a substantial 3.5mm thickness, this belt offers unmatched durability and lasting quality. The full-grain construction develops a beautiful patina with age, creating unique character. The premium stitching and quality hardware ensure reliable performance for years to come.",
+    price: 1499,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -423,10 +522,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 13,
-    name: "Classic Wool Scarf",
-    description: "Premium wool scarf for style and warmth in any season.",
-    price: 890,
-    discountPrice: 710,
+    name: "Minimalist Gold-Tone Ring Set",
+    description: "Subtle elegance for everyday wear. Designed to complement every look. Key Features: Gold-plated finish, Lightweight design, Tarnish-resistant coating, Skin-friendly material, Stackable styling",
+    fabricDescription: "This elegant ring set features a premium gold-tone plated finish with a tarnish-resistant protective coating. The lightweight alloy construction ensures comfortable all-day wear, while the skin-friendly materials are gentle on sensitive skin. The minimalist design is perfect for stacking or wearing individually.",
+    price: 499,
+    discountPrice: 349,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -449,9 +549,10 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 14,
-    name: "Premium Leather Belt",
-    description: "Versatile leather belt that works with any outfit.",
-    price: 750,
+    name: "Classic Structured Leather Handbag",
+    description: "A statement of quiet luxury. Designed to carry more than just essentials. Key Features: Genuine leather exterior, Structured silhouette, Durable inner lining, Spacious compartments, Premium finish",
+    fabricDescription: "Crafted from high-quality genuine leather with a structured design that maintains its shape. The durable microfiber lining protects your essentials while the premium construction ensures lasting quality. Every detail has been carefully considered to create a timeless piece that only improves with age.",
+    price: 2450,
     category: "accessories",
     collection: "accessories",
     images: [
@@ -472,10 +573,11 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 15,
-    name: "Italian Silk Pocket Square",
-    description: "Luxurious silk pocket square for sophisticated style.",
-    price: 450,
-    discountPrice: 360,
+    name: "Elegant Jewelry Set - Earrings & Bracelet",
+    description: "Refined pieces that elevate every outfit. Simple, elegant, and timeless. Key Features: Polished alloy finish, Lightweight comfort, Anti-tarnish coating, Elegant design, Everyday wear friendly",
+    fabricDescription: "This elegant jewelry set features a polished alloy finish with premium anti-tarnish coating for lasting beauty. The lightweight construction ensures comfortable all-day wear, while the elegant design works with any style. Each piece has been carefully crafted to provide timeless appeal and durability.",
+    price: 999,
+    discountPrice: 699,
     category: "accessories",
     collection: "accessories",
     images: [
