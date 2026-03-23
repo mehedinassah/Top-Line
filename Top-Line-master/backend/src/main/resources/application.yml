@@ -1,0 +1,20 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+  
+server:
+  port: 8080
+  shutdown: graceful
+  
+jwt:
+  secret: ${JWT_SECRET:MySecureJWTSecretKey1234567890AbcdefghijklmnopqrstuvwxyzABCDEFGHIJ}
+  expiration-ms: 86400000
+
