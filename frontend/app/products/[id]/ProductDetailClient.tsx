@@ -235,7 +235,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
             <div className="space-y-3 md:space-y-4">
               {/* Main Image with Zoom */}
               <div
-                className="relative aspect-square w-full overflow-hidden rounded-2xl bg-neutral-100 cursor-zoom-in"
+                className="relative aspect-square w-full overflow-hidden bg-neutral-100 cursor-zoom-in"
                 onMouseEnter={() => setImageZoom(true)}
                 onMouseLeave={() => setImageZoom(false)}
                 onMouseMove={handleMouseMove}
@@ -252,7 +252,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   sizes="(min-width: 1024px) 50vw, 100vw"
                 />
                 {hasDiscount && (
-                  <div className="absolute right-4 top-4 rounded-full bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                  <div className="absolute right-4 top-4 bg-red-600 px-3 py-1 text-sm font-semibold text-white">
                     Sale
                   </div>
                 )}
@@ -265,7 +265,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     <button
                       key={idx}
                       onClick={() => setSelectedImageIndex(idx)}
-                      className={`relative h-16 w-16 overflow-hidden rounded-lg transition md:h-20 md:w-20 ${
+                      className={`relative h-16 w-16 overflow-hidden transition md:h-20 md:w-20 ${
                         idx === selectedImageIndex
                           ? "ring-2 ring-neutral-900"
                           : "border border-neutral-300 hover:border-neutral-400"
@@ -363,7 +363,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               {/* Quantity Selector & Add to Cart - MOVED UP */}
               <div className="flex flex-col gap-3 sm:gap-4">
                 {isVariantInStock && (
-                  <div className="flex items-center gap-3 rounded-full bg-neutral-100 px-4 py-2.5">
+                  <div className="flex items-center gap-3 bg-neutral-100 px-4 py-2.5">
                     <button
                       onClick={handleDecreaseQuantity}
                       disabled={quantity <= 1}
@@ -404,7 +404,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   <button
                     onClick={handleAddToCart}
                     disabled={!isVariantInStock || (props.collection !== "accessories" && (!selectedSize || !selectedColor))}
-                    className={`flex-1 rounded-full px-6 py-2.5 font-semibold text-sm shadow-minimal transition ${
+                    className={`flex-1 px-6 py-2.5 font-semibold text-sm shadow-minimal transition ${
                       addedToCart
                         ? "bg-green-600 text-white hover:bg-green-700"
                         : "bg-neutral-900 text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
@@ -420,7 +420,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </button>
                   <button
                     onClick={handleAddToWishlist}
-                    className={`rounded-full px-4 py-2.5 font-semibold text-sm transition ${
+                    className={`px-4 py-2.5 font-semibold text-sm transition ${
                       isInWishlist
                         ? "bg-red-100 text-red-600 hover:bg-red-200"
                         : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
@@ -439,7 +439,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
               {/* SKU Display */}
               {props.collection !== "accessories" && currentVariant && (
-                <div className="rounded-lg bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
+                <div className="bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
                   SKU: <span className="font-mono font-medium">{currentVariant.sku}</span>
                 </div>
               )}
@@ -557,7 +557,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
           {/* Add Review Form */}
           {isLoggedIn ? (
-            <div className="mb-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+            <div className="mb-8 border border-neutral-200 bg-neutral-50 p-6">
               {showReviewForm ? (
                 <form onSubmit={handleSubmitReview} className="space-y-4">
                   <div>
@@ -593,7 +593,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                       value={reviewComment}
                       onChange={(e) => setReviewComment(e.target.value)}
                       placeholder="Share your thoughts about this product..."
-                      className="w-full px-4 py-3 rounded-lg border border-neutral-200 bg-white text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 transition"
+                      className="w-full px-4 py-3 border border-neutral-200 bg-white text-neutral-900 placeholder-neutral-500 focus:outline-none focus:border-neutral-900 transition"
                       rows={4}
                     />
                   </div>
@@ -602,7 +602,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     <button
                       type="submit"
                       disabled={!reviewComment.trim()}
-                      className="rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                      className="bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed transition"
                     >
                       Submit review
                     </button>
@@ -613,7 +613,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                         setReviewComment("");
                         setReviewRating(5);
                       }}
-                      className="rounded-full bg-neutral-200 px-6 py-2 text-sm font-semibold text-neutral-900 hover:bg-neutral-300 transition"
+                      className="bg-neutral-200 px-6 py-2 text-sm font-semibold text-neutral-900 hover:bg-neutral-300 transition"
                     >
                       Cancel
                     </button>
@@ -622,20 +622,20 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               ) : (
                 <button
                   onClick={() => setShowReviewForm(true)}
-                  className="w-full rounded-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                  className="w-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
                 >
                   Write a review
                 </button>
               )}
             </div>
           ) : (
-            <div className="mb-8 rounded-2xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+            <div className="mb-8 border border-neutral-200 bg-neutral-50 p-6 text-center">
               <p className="text-neutral-700 mb-3">
                 Sign in to share your review of this product
               </p>
               <Link
                 href="/auth/login"
-                className="inline-block rounded-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                className="inline-block bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
                 Sign in to review
               </Link>
@@ -644,7 +644,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
           {/* Display Reviews */}
           {reviews.length === 0 ? (
-            <div className="rounded-2xl border border-neutral-200 bg-neutral-50 p-6 text-center">
+            <div className="border border-neutral-200 bg-neutral-50 p-6 text-center">
               <p className="text-neutral-700">No reviews yet. Be the first to review this product!</p>
             </div>
           ) : (
@@ -653,7 +653,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 {(showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
                   <div
                     key={review.id}
-                    className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 md:p-6 hover:border-neutral-300 transition"
+                    className="border border-neutral-200 bg-neutral-50 p-4 md:p-6 hover:border-neutral-300 transition"
                   >
                     <div className="flex flex-col gap-2 md:gap-3 md:flex-row md:items-start md:justify-between">
                       <div>
@@ -680,7 +680,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 <div className="flex justify-center pt-2">
                   <button
                     onClick={() => setShowAllReviews(!showAllReviews)}
-                    className="rounded-full bg-neutral-900 px-8 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                    className="bg-neutral-900 px-8 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
                   >
                     {showAllReviews 
                       ? "Hide reviews" 
@@ -704,7 +704,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
       {/* Size Guide Modal */}
       {showSizeGuide && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="relative w-full max-w-2xl rounded-2xl bg-white p-8 max-h-[90vh] overflow-y-auto">
+          <div className="relative w-full max-w-2xl bg-white p-8 max-h-[90vh] overflow-y-auto">
             {/* Close Button */}
             <button
               onClick={() => setShowSizeGuide(false)}
