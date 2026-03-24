@@ -126,18 +126,18 @@ function ProductsPageContent() {
       )}
 
       {/* Header */}
-      <div className="relative h-40 sm:h-56 md:h-72 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
+      <div className="relative w-full overflow-hidden bg-neutral-900 flex items-center" style={{ aspectRatio: '16 / 5' }}>
         <Image
           src="https://images.pexels.com/photos/3073037/pexels-photo-3073037.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000"
           alt="New Arrivals hero image"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
         {/* Content */}
-        <div className="absolute bottom-6 sm:bottom-12 md:bottom-20 lg:bottom-40 right-3 sm:right-4 md:right-6 lg:right-8">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-light text-white tracking-tight text-right">New Arrivals</h1>
+        <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 lg:bottom-20 right-3 sm:right-4 md:right-6 lg:right-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-6xl font-light text-white tracking-tight text-right">New Arrivals</h1>
         </div>
       </div>
 

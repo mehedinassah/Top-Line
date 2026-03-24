@@ -180,14 +180,14 @@ export default function MenPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          minHeight: '350px'
+          aspectRatio: '16 / 5'
         }}
       >
         <Image
           src="https://drive.google.com/uc?export=view&id=10zOKNSPsM_ZSuXSSIj7MjifZ86DE6F9-"
           alt="Men's Collection"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
@@ -195,9 +195,9 @@ export default function MenPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
         
         {/* Content */}
-        <div className="relative h-full flex items-start px-6 md:px-8 pt-10 md:pt-16">
-          <div className="space-y-4 max-w-2xl">
-            <h1 className="text-4xl font-light text-white md:text-5xl tracking-tight">Men's Collection</h1>
+        <div className="relative h-full flex items-start px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12">
+          <div className="space-y-2 max-w-2xl">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-light text-white tracking-tight">Men's Collection</h1>
           </div>
         </div>
       </div>

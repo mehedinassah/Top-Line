@@ -180,14 +180,14 @@ export default function AccessoriesPage() {
       <div 
         className="relative w-full border-b border-neutral-200 overflow-hidden"
         style={{
-          minHeight: '350px'
+          aspectRatio: '16 / 5'
         }}
       >
         <Image
           src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=2000&q=80"
           alt="Accessories"
           fill
-          className="object-cover"
+          className="object-cover object-center"
           priority
           sizes="100vw"
         />
@@ -195,9 +195,9 @@ export default function AccessoriesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-black/60 to-black/40"></div>
         
         {/* Content */}
-        <div className="relative h-full flex items-center px-6 md:px-8 py-16 md:py-20">
-          <div className="space-y-4 max-w-2xl">
-            <h1 className="text-5xl font-light text-white md:text-6xl tracking-tight">Accessories</h1>
+        <div className="relative h-full flex items-start px-4 sm:px-6 md:px-8 pt-6 sm:pt-8 md:pt-12">
+          <div className="space-y-2 max-w-2xl">
+            <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-5xl font-light text-white tracking-tight">Accessories</h1>
           </div>
         </div>
       </div>
