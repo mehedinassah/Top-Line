@@ -352,7 +352,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                       <SizeSelector
                         selectedSize={selectedSize}
                         onSizeChange={setSelectedSize}
-                        availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
+                        availableSizes={props.sizes || []}
                       />
                     </div>
                     <button
