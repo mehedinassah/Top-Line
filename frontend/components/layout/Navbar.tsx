@@ -7,7 +7,6 @@ import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/reac
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
 import { useCart } from "@/components/cart/CartContext";
-import { useIsClient } from "@/hooks/useIsClient";
 
 export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
@@ -17,7 +16,6 @@ export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const isClient = useIsClient();
   const { totalQuantity } = useCart();
   const router = useRouter();
   const pathname = usePathname();
@@ -193,82 +191,80 @@ export default function Navbar() {
           </button>
 
           {/* Icons - Right Side */}
-          {isClient && (
-            <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
-              <button
-                onClick={() => setCartOpen(true)}
-                className="relative p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
-                aria-label={`Open shopping cart (${totalQuantity} items)`}
-                title={`Open shopping cart (${totalQuantity} items)`}
-              >
-                <ShoppingBagIcon className="h-4 sm:h-5 w-4 sm:w-5" />
-                {totalQuantity > 0 && (
-                  <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-[1rem] items-center justify-center bg-neutral-900 px-1 text-[0.6rem] font-semibold text-white">
-                    {totalQuantity}
-                  </span>
-                )}
-              </button>
-
-              {isLoggedIn ? (
-                <div className="relative">
-                  <button
-                    onClick={() => setShowProfileMenu(!showProfileMenu)}
-                    className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
-                    title="Account menu"
-                  >
-                    <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
-                  </button>
-                  {showProfileMenu && (
-                    <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
-                      <div className="px-4 py-3 border-b border-neutral-200">
-                        <p className="text-xs text-neutral-600">Signed in as</p>
-                        <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
-                      </div>
-                      <Link
-                        href="/account"
-                        className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                        title="Go to account"
-                        onClick={() => setShowProfileMenu(false)}
-                      >
-                        My Account
-                      </Link>
-                      <Link
-                        href="/account/orders"
-                        className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                        title="View orders"
-                        onClick={() => setShowProfileMenu(false)}
-                      >
-                        My Orders
-                      </Link>
-                      <Link
-                        href="/wishlist"
-                        className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                        title="View wishlist"
-                        onClick={() => setShowProfileMenu(false)}
-                      >
-                        Wishlist
-                      </Link>
-                      <button
-                        onClick={handleLogout}
-                        className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-50 transition border-t border-neutral-200"
-                        title="Sign out"
-                      >
-                        Sign out
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <Link
-                  href="/auth/login"
-                  className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 md:inline-block"
-                  title="Sign in to your account"
-                >
-                  Sign in
-                </Link>
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+            <button
+              onClick={() => setCartOpen(true)}
+              className="relative p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
+              aria-label={`Open shopping cart (${totalQuantity} items)`}
+              title={`Open shopping cart (${totalQuantity} items)`}
+            >
+              <ShoppingBagIcon className="h-4 sm:h-5 w-4 sm:w-5" />
+              {totalQuantity > 0 && (
+                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-[1rem] items-center justify-center bg-neutral-900 px-1 text-[0.6rem] font-semibold text-white">
+                  {totalQuantity}
+                </span>
               )}
-            </div>
-          )}
+            </button>
+
+            {isLoggedIn ? (
+              <div className="relative">
+                <button
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
+                  title="Account menu"
+                >
+                  <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
+                </button>
+                {showProfileMenu && (
+                  <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
+                    <div className="px-4 py-3 border-b border-neutral-200">
+                      <p className="text-xs text-neutral-600">Signed in as</p>
+                      <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
+                    </div>
+                    <Link
+                      href="/account"
+                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                      title="Go to account"
+                      onClick={() => setShowProfileMenu(false)}
+                    >
+                      My Account
+                    </Link>
+                    <Link
+                      href="/account/orders"
+                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                      title="View orders"
+                      onClick={() => setShowProfileMenu(false)}
+                    >
+                      My Orders
+                    </Link>
+                    <Link
+                      href="/wishlist"
+                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                      title="View wishlist"
+                      onClick={() => setShowProfileMenu(false)}
+                    >
+                      Wishlist
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-50 transition border-t border-neutral-200"
+                      title="Sign out"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                href="/auth/login"
+                className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 md:inline-block"
+                title="Sign in to your account"
+              >
+                Sign in
+              </Link>
+            )}
+          </div>
         </div>
 
         {/* Mobile Menu */}
