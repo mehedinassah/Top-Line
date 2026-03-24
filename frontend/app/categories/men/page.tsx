@@ -106,7 +106,7 @@ function MinimalProductCard({ product }: { product: Product }) {
             {product.name}
           </p>
           <p className="text-xs text-neutral-600 line-clamp-1">
-            {product.description}
+            {typeof product.description === "object" ? product.description.story : product.description}
           </p>
         </div>
         <div className="mt-auto flex items-center justify-between pt-2">
