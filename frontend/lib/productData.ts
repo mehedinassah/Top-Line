@@ -70,6 +70,24 @@ function randomStock(): number {
   return Math.floor(Math.random() * 20) + 1;
 }
 
+// Helper function to generate SVG placeholder images
+function createPlaceholderImage(imageNumber: number): string {
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="500" height="500" viewBox="0 0 500 500">
+    <rect width="500" height="500" fill="#f3f4f6"/>
+    <rect width="500" height="500" fill="url(#grad)"/>
+    <defs>
+      <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#e5e7eb;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#d1d5db;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <text x="250" y="200" font-family="Arial, sans-serif" font-size="48" font-weight="bold" fill="#6b7280" text-anchor="middle" dominant-baseline="middle">Image ${imageNumber}</text>
+    <text x="250" y="280" font-family="Arial, sans-serif" font-size="20" fill="#9ca3af" text-anchor="middle" dominant-baseline="middle">Placeholder</text>
+  </svg>`;
+  
+  return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
+}
+
 export const featuredProducts: Product[] = [
   {
     id: 1,
@@ -117,7 +135,10 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
+      "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.8,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -203,7 +224,10 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR"
+      "https://drive.google.com/uc?export=view&id=15VbtSrK04WkbezbDqh2wum5haAeLXNIR",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -281,7 +305,10 @@ export const featuredProducts: Product[] = [
     category: "tees",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC"
+      "https://drive.google.com/uc?export=view&id=1b499K-a75hHTuFUHy6kZna1YKBa1XUtC",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -368,7 +395,10 @@ export const featuredProducts: Product[] = [
     category: "outerwear",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Z9lQJXzn1EwBSMotxULQ8vE35PPYdP2t"
+      "https://drive.google.com/uc?export=view&id=1Z9lQJXzn1EwBSMotxULQ8vE35PPYdP2t",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.5,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -446,7 +476,10 @@ export const featuredProducts: Product[] = [
     category: "tees",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc"
+      "https://drive.google.com/uc?export=view&id=1rUu2LKvcZcacmPB8ywYrwSjEPsseRYQc",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -532,7 +565,10 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1iUNRUWfB9yTevUftNOuf1iC4E1jFXgHG"
+      "https://drive.google.com/uc?export=view&id=1iUNRUWfB9yTevUftNOuf1iC4E1jFXgHG",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -610,7 +646,10 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "men",
     images: [
-      "https://drive.google.com/uc?export=view&id=1FYOWIROx3Xk-BLBKJj6Wx8v8sd5NAy6u"
+      "https://drive.google.com/uc?export=view&id=1FYOWIROx3Xk-BLBKJj6Wx8v8sd5NAy6u",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -689,7 +728,10 @@ export const featuredProducts: Product[] = [
     category: "tees",
     collection: "women",
     images: [
-      "https://drive.google.com/uc?export=view&id=1jzp_6a94RBTZ9-RwahMejdItGX3GwhqR"
+      "https://drive.google.com/uc?export=view&id=1jzp_6a94RBTZ9-RwahMejdItGX3GwhqR",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.8,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -767,7 +809,10 @@ export const featuredProducts: Product[] = [
     category: "tees",
     collection: "women",
     images: [
-      "https://drive.google.com/uc?export=view&id=1W4x1_YGmVfzsoP9lpaBKiVA2m63U52oR"
+      "https://drive.google.com/uc?export=view&id=1W4x1_YGmVfzsoP9lpaBKiVA2m63U52oR",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.7,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -845,7 +890,10 @@ export const featuredProducts: Product[] = [
     category: "shirts",
     collection: "women",
     images: [
-      "https://drive.google.com/uc?export=view&id=1pAK7tmREcuf9zwy9FAb18W4OMXj2g63F"
+      "https://drive.google.com/uc?export=view&id=1pAK7tmREcuf9zwy9FAb18W4OMXj2g63F",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.6,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -924,7 +972,10 @@ export const featuredProducts: Product[] = [
     category: "jeans",
     collection: "women",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Za6WZkyRXf3boTLtcuIKTHuOgB2Fs23y"
+      "https://drive.google.com/uc?export=view&id=1Za6WZkyRXf3boTLtcuIKTHuOgB2Fs23y",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.9,
     sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
@@ -1006,7 +1057,10 @@ export const featuredProducts: Product[] = [
     category: "accessories",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8"
+      "https://drive.google.com/uc?export=view&id=1dMW9pzl7ypEBrW81c5qfQrG615XuA-H8",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.8,
     sizes: ["M"],
@@ -1071,7 +1125,10 @@ export const featuredProducts: Product[] = [
     category: "jewelry",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Xc3V5kkCC5V1kjpSIV8KOyRmjlUn2cSy"
+      "https://drive.google.com/uc?export=view&id=1Xc3V5kkCC5V1kjpSIV8KOyRmjlUn2cSy",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.7,
     sizes: ["M"],
@@ -1137,7 +1194,10 @@ export const featuredProducts: Product[] = [
     category: "handbags",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1Kn6zZsgU52Cb9jBLB0fPb_TMo6b7hwWM"
+      "https://drive.google.com/uc?export=view&id=1Kn6zZsgU52Cb9jBLB0fPb_TMo6b7hwWM",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.6,
     sizes: ["M"],
@@ -1198,7 +1258,10 @@ export const featuredProducts: Product[] = [
     category: "jewelry",
     collection: "accessories",
     images: [
-      "https://drive.google.com/uc?export=view&id=1K4yEWh-fLjq8w6M7UJ2rs05GXEtZ3gp7"
+      "https://drive.google.com/uc?export=view&id=1K4yEWh-fLjq8w6M7UJ2rs05GXEtZ3gp7",
+      createPlaceholderImage(2),
+      createPlaceholderImage(3),
+      createPlaceholderImage(4)
     ],
     rating: 4.9,
     sizes: ["M"],

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { StarIcon, ChevronLeftIcon, MinusIcon, PlusIcon, HeartIcon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
+import { StarIcon, ChevronLeftIcon, ChevronRightIcon, MinusIcon, PlusIcon, HeartIcon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useCart } from "@/components/cart/CartContext";
 import { useToast } from "@/components/toast/ToastContext";
 import SizeSelector from "@/components/product/SizeSelector";
@@ -36,6 +36,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [isHoveringImage, setIsHoveringImage] = useState(false);
   const [isDesktopView, setIsDesktopView] = useState(true);
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const [swipeStart, setSwipeStart] = useState({ x: 0, y: 0 });
   const imageContainerRef = useRef<HTMLDivElement>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
@@ -234,6 +235,46 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     setCursorPosition({ x, y });
   };
 
+  const handlePreviousImage = () => {
+    setSelectedImageIndex((prev) =>
+      prev === 0 ? props.images.length - 1 : prev - 1
+    );
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) =>
+      prev === props.images.length - 1 ? 0 : prev + 1
+    );
+  };
+
+  const handleImageTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
+    setSwipeStart({
+      x: e.touches[0].clientX,
+      y: e.touches[0].clientY
+    });
+  };
+
+  const handleImageTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
+    const swipeEnd = {
+      x: e.changedTouches[0].clientX,
+      y: e.changedTouches[0].clientY
+    };
+
+    const swipeDeltaX = swipeEnd.x - swipeStart.x;
+    const swipeDeltaY = swipeEnd.y - swipeStart.y;
+
+    // Only consider horizontal swipes (ignore small touches)
+    if (Math.abs(swipeDeltaX) > Math.abs(swipeDeltaY) && Math.abs(swipeDeltaX) > 50) {
+      if (swipeDeltaX > 0) {
+        // Swiped right - show previous image
+        handlePreviousImage();
+      } else {
+        // Swiped left - show next image
+        handleNextImage();
+      }
+    }
+  };
+
   return (
     <>
       {/* Breadcrumb */}
@@ -257,10 +298,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
             <div className="space-y-2 sm:space-y-3 md:space-y-4">
               {/* Desktop: Cursor-Follow Zoom | Mobile: ProductImageZoom Component */}
               {isDesktopView ? (
-                // Desktop View: Custom cursor-follow zoom
+                // Desktop View: Custom cursor-follow zoom with arrows
                 <div
                   ref={imageContainerRef}
-                  className="relative aspect-square w-full overflow-hidden bg-neutral-100 border border-neutral-200"
+                  className="relative aspect-square w-full overflow-hidden bg-neutral-100 border border-neutral-200 group"
                   onMouseEnter={() => isDesktopView && setIsHoveringImage(true)}
                   onMouseLeave={() => {
                     setIsHoveringImage(false);
@@ -307,10 +348,41 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                       Sale
                     </div>
                   )}
+
+                  {/* Left Arrow Button */}
+                  {props.images.length > 1 && (
+                    <button
+                      onClick={handlePreviousImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
+                      aria-label="Previous image"
+                      title="Previous image"
+                    >
+                      <ChevronLeftIcon className="h-6 w-6" />
+                    </button>
+                  )}
+
+                  {/* Right Arrow Button */}
+                  {props.images.length > 1 && (
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-800 transition-all opacity-0 group-hover:opacity-100"
+                      aria-label="Next image"
+                      title="Next image"
+                    >
+                      <ChevronRightIcon className="h-6 w-6" />
+                    </button>
+                  )}
+
+                  {/* Image Counter */}
+                  {props.images.length > 1 && (
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1 rounded-full bg-black/50 text-white text-sm font-medium">
+                      {selectedImageIndex + 1} / {props.images.length}
+                    </div>
+                  )}
                 </div>
               ) : (
-                // Mobile View: ProductImageZoom Component
-                <div className="relative">
+                // Mobile View: ProductImageZoom Component with arrows and swipe
+                <div className="relative" onTouchStart={handleImageTouchStart} onTouchEnd={handleImageTouchEnd}>
                   <ProductImageZoom
                     src={image}
                     alt={props.name}
@@ -320,6 +392,37 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   {hasDiscount && (
                     <div className="absolute right-4 top-4 z-10 bg-red-600 px-3 py-1 text-sm font-semibold text-white">
                       Sale
+                    </div>
+                  )}
+
+                  {/* Left Arrow Button - Mobile */}
+                  {props.images.length > 1 && (
+                    <button
+                      onClick={handlePreviousImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 text-gray-800 touch-manipulation"
+                      aria-label="Previous image"
+                      title="Previous image"
+                    >
+                      <ChevronLeftIcon className="h-5 w-5" />
+                    </button>
+                  )}
+
+                  {/* Right Arrow Button - Mobile */}
+                  {props.images.length > 1 && (
+                    <button
+                      onClick={handleNextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/80 text-gray-800 touch-manipulation"
+                      aria-label="Next image"
+                      title="Next image"
+                    >
+                      <ChevronRightIcon className="h-5 w-5" />
+                    </button>
+                  )}
+
+                  {/* Image Counter - Mobile */}
+                  {props.images.length > 1 && (
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 px-3 py-1 rounded-full bg-black/50 text-white text-xs font-medium">
+                      {selectedImageIndex + 1} / {props.images.length}
                     </div>
                   )}
                 </div>
