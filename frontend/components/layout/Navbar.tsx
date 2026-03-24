@@ -12,7 +12,6 @@ import { useCart } from "@/components/cart/CartContext";
 // Dynamically import interactive icons to avoid hydration mismatch
 const NavbarIcons = dynamic(() => import("./NavbarIcons"), {
   ssr: false,
-  loading: () => <div className="flex items-center gap-1 sm:gap-2 md:gap-3" />,
 });
 
 export default function Navbar() {
@@ -23,11 +22,10 @@ export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const [authLoaded, setAuthLoaded] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  // Initialize on mount to avoid hydration mismatch
+  // Initialize on mount to load auth state from localStorage
   useEffect(() => {
     const updateAuthState = () => {
       const loggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -36,7 +34,6 @@ export default function Navbar() {
       setIsLoggedIn(loggedIn);
       setUserEmail(email);
       setUserName(name);
-      setAuthLoaded(true);
     };
 
     updateAuthState();
@@ -199,55 +196,53 @@ export default function Navbar() {
           </button>
 
           {/* Icons - Right Side */}
-          {authLoaded && (
-            <NavbarIcons
-              isLoggedIn={isLoggedIn}
-              userName={userName}
-              onCartOpen={() => setCartOpen(true)}
-              onProfileMenuToggle={() => setShowProfileMenu(!showProfileMenu)}
-              showProfileMenu={showProfileMenu}
-              onLogout={handleLogout}
-              profileMenuContent={
-                <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
-                  <div className="px-4 py-3 border-b border-neutral-200">
-                    <p className="text-xs text-neutral-600">Signed in as</p>
-                    <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
-                  </div>
-                  <Link
-                    href="/account"
-                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                    title="Go to account"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
-                    My Account
-                  </Link>
-                  <Link
-                    href="/account/orders"
-                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                    title="View orders"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
-                    My Orders
-                  </Link>
-                  <Link
-                    href="/wishlist"
-                    className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
-                    title="View wishlist"
-                    onClick={() => setShowProfileMenu(false)}
-                  >
-                    Wishlist
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-50 transition border-t border-neutral-200"
-                    title="Sign out"
-                  >
-                    Sign out
-                  </button>
+          <NavbarIcons
+            isLoggedIn={isLoggedIn}
+            userName={userName}
+            onCartOpen={() => setCartOpen(true)}
+            onProfileMenuToggle={() => setShowProfileMenu(!showProfileMenu)}
+            showProfileMenu={showProfileMenu}
+            onLogout={handleLogout}
+            profileMenuContent={
+              <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
+                <div className="px-4 py-3 border-b border-neutral-200">
+                  <p className="text-xs text-neutral-600">Signed in as</p>
+                  <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
                 </div>
-              }
-            />
-          )}
+                <Link
+                  href="/account"
+                  className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                  title="Go to account"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  My Account
+                </Link>
+                <Link
+                  href="/account/orders"
+                  className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                  title="View orders"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  My Orders
+                </Link>
+                <Link
+                  href="/wishlist"
+                  className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                  title="View wishlist"
+                  onClick={() => setShowProfileMenu(false)}
+                >
+                  Wishlist
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-50 transition border-t border-neutral-200"
+                  title="Sign out"
+                >
+                  Sign out
+                </button>
+              </div>
+            }
+          />
         </div>
 
         {/* Mobile Menu */}
