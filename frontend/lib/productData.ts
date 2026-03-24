@@ -25,10 +25,27 @@ export type ProductVariant = {
   quantity: number;
 };
 
+export interface ProductDescription {
+  story: string;
+  highlights: string[];
+  trustSignals: string[];
+  fabricBuild: {
+    description: string;
+    composition: string[];
+  };
+  fitAndSizing: {
+    fit: string;
+    model: string;
+    sizing: string;
+  };
+  whyYouLoveIt: string[];
+  careInstructions: string[];
+}
+
 export interface Product {
   id: number;
   name: string;
-  description: string;
+  description: ProductDescription;
   price: number;
   discountPrice?: number;
   category: string;
@@ -52,7 +69,48 @@ export const featuredProducts: Product[] = [
   {
     id: 1,
     name: "Tropical Breeze Viscose Shirt",
-    description: "Stay cool and comfortable with this ultra-lightweight Hawaiian viscose shirt. Designed for effortless summer elegance with a fluid drape and moisture-wicking properties that keep you fresh all day. KEY FEATURES: 120 GSM eco-viscose rayon, Ultra-light and breathable, Fluid natural drape, Moisture-wicking technology, Perfect for warm weather. FABRIC DETAILS: 100% Eco Viscose Rayon, 120 GSM, Fluid drape, Moisture-wicking, Soft touch, Breathable construction, Sustainable material. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Refined elegance meets effortless summer comfort. Designed with precision, this shirt delivers a clean, polished look without compromising breathability.",
+      highlights: [
+        "120 GSM Eco-Viscose Rayon",
+        "Ultra-Light & Breathable",
+        "Fluid Natural Drape",
+        "Moisture-Wicking Technology",
+        "Perfect for Warm Weather"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "Crafted from 120 GSM eco-viscose rayon with a smooth, fluid weave offering superior breathability and moisture-wicking properties.",
+        composition: [
+          "100% Eco Viscose Rayon",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable stitching"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Designed for effortless elegance and everyday versatility",
+        "Keeps you cool and comfortable in warm weather",
+        "Maintains shape and color after multiple washes",
+        "Perfect for transitioning from casual to semi-formal occasions"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 2200,
     discountPrice: 1890,
     category: "shirts",
@@ -90,7 +148,48 @@ export const featuredProducts: Product[] = [
   {
     id: 2,
     name: "Dotted Luxe Cotton Shirt",
-    description: "Premium dotted cotton shirt designed with refined elegance. This lightweight, breathable shirt balances comfort with sophistication, perfect for both casual and semi-formal occasions. KEY FEATURES: Premium 140 GSM combed cotton, Poplin weave construction, Breathable and lightweight design, Smooth finish with colorfast dye, All-day comfort fit. FABRIC DETAILS: 100% Combed Cotton, 140 GSM, Poplin Weave, Breathable and lightweight, Smooth finish, Colorfast dyed, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Premium elegance meets everyday comfort. Designed with refined details, this dotted shirt balances sophistication with breathability for any occasion.",
+      highlights: [
+        "140 GSM Premium Combed Cotton",
+        "Breathable Poplin Weave",
+        "Soft-Touch Finish",
+        "Colorfast Dye Technology",
+        "All-Day Comfort Fit"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "Crafted from 140 GSM combed cotton with a smooth poplin weave, offering perfect balance of durability and lightweight comfort.",
+        composition: [
+          "100% Combed Cotton",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable stitching"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Refined pattern adds sophistic appeal to any outfit",
+        "Comfortable enough for all-day wear",
+        "Clean finish and tailored cut for modern style",
+        "Versatile piece for both casual and professional settings"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1500,
     category: "shirts",
     collection: "men",
@@ -123,7 +222,48 @@ export const featuredProducts: Product[] = [
   {
     id: 3,
     name: "Core Essential Cotton Tee - Crimson Red",
-    description: "Crafted from premium 180 GSM organic cotton, this crimson red t-shirt delivers durability, softness, and exceptional long-lasting color for everyday wear. A timeless essential piece that never goes out of style. KEY FEATURES: 180 GSM organic cotton, Single jersey knit construction, Fade-resistant premium dye, Durable and soft feel, Perfect everyday essential. FABRIC DETAILS: 100% Organic Cotton, 180 GSM, Single Jersey Knit, Durable knit, Fade-resistant, Soft feel, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Timeless essentials deserve premium quality. This crimson tee combines durability with softness, delivering everyday comfort without compromise.",
+      highlights: [
+        "180 GSM Organic Cotton",
+        "Single Jersey Knit",
+        "Fade-Resistant Premium Dye",
+        "Durable & Soft Feel",
+        "Perfect Daily Essential"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "Made from 180 GSM organic cotton with a smooth single jersey knit, ensuring long-lasting color and exceptional comfort.",
+        composition: [
+          "100% Organic Cotton",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable knit construction"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Timeless design works with any wardrobe",
+        "Incredibly soft and comfortable from day one",
+        "Colors stay vibrant even after frequent washing",
+        "The perfect essential piece for modern living"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 890,
     category: "tees",
     collection: "men",
@@ -159,7 +299,48 @@ export const featuredProducts: Product[] = [
   {
     id: 4,
     name: "Heritage Check Wool Shacket",
-    description: "Premium 320 GSM wool blend shacket designed for warmth, durability, and versatile layering with a structured modern fit. The perfect balance of shirt and jacket for effortless style that transitions seamlessly from casual to refined. KEY FEATURES: 320 GSM wool blend construction, Structured modern fit, Exceptional warmth retention, Durable layering piece, Classic check pattern. FABRIC DETAILS: 70% Wool 30% Polyester, 320 GSM, Warm insulation, Durable weave, Wrinkle-resistant, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "The perfect layering piece. This wool blend shacket combines warmth, structure, and versatile style for effortless transitions from casual to refined.",
+      highlights: [
+        "320 GSM Wool Blend",
+        "Structured Modern Fit",
+        "Exceptional Warmth",
+        "Wrinkle-Resistant",
+        "Classic Check Pattern"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "Premium 320 GSM wool and polyester blend offering superior insulation and durability with a refined structured finish.",
+        composition: [
+          "70% Wool, 30% Polyester",
+          "Pre-shrunk fabric",
+          "Warm insulation properties",
+          "Durable weave construction"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "The perfect layering piece for transitional seasons",
+        "Keeps you warm without feeling heavy or restrictive",
+        "Maintains structure and shape after multiple washes",
+        "Effortlessly stylish for both casual and refined occasions"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 450,
     discountPrice: 360,
     category: "outerwear",
@@ -194,7 +375,48 @@ export const featuredProducts: Product[] = [
   {
     id: 5,
     name: "Signature Black Cotton Tee",
-    description: "A must-have 180 GSM black cotton t-shirt with a smooth finish, durable stitching, and perfect everyday comfort. This timeless essential delivers shape retention and breathable performance for all-day wear. KEY FEATURES: 180 GSM premium cotton jersey, Smooth refined finish, Minimal versatile design, Excellent shape retention, Breathable construction. FABRIC DETAILS: 100% Cotton Jersey, 180 GSM, Shape retention, Breathable, Minimal design, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "The wardrobe essential that never disappoints. Premium black cotton tee designed for perfect shape retention and all-day breathability.",
+      highlights: [
+        "180 GSM Premium Cotton",
+        "Smooth Refined Finish",
+        "Excellent Shape Retention",
+        "Minimal Versatile Design",
+        "Breathable Construction"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "180 GSM cotton jersey with exceptional durability and softness, designed to maintain shape through countless washes.",
+        composition: [
+          "100% Cotton Jersey",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable knit construction"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "So versatile it works with everything in your closet",
+        "Incredibly soft against your skin from day one",
+        "Perfect shape retention wash after wash",
+        "Timeless piece you'll wear for years to come"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 950,
     category: "tees",
     collection: "men",
@@ -228,7 +450,48 @@ export const featuredProducts: Product[] = [
   {
     id: 6,
     name: "Forest Wool Blend Shirt",
-    description: "Stay stylish with this 260 GSM wool blend shirt offering breathable warmth and a refined textured finish. Perfect for layering, this forest-tone piece brings sophisticated comfort to any wardrobe. KEY FEATURES: 260 GSM wool blend fabric, Soft insulation properties, Breathable warmth, Premium textured finish, Refined layering piece. FABRIC DETAILS: 65% Wool 35% Cotton, 260 GSM, Soft insulation, Breathable warmth, Premium texture, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Sophisticated comfort redefined. This wool blend shirt provides soft insulation with breathable warmth, perfect for layering with refined style.",
+      highlights: [
+        "260 GSM Wool Blend",
+        "Soft Insulation Properties",
+        "Breathable Warmth",
+        "Premium Textured Finish",
+        "Refined Layering Piece"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "Premium 260 GSM blend of wool and cotton offering soft insulation with breathable comfort and refined texture.",
+        composition: [
+          "65% Wool, 35% Cotton",
+          "Pre-shrunk fabric",
+          "Soft insulation properties",
+          "Premium durable weave"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "The perfect addition to your layering collection",
+        "Warm without being heavy or restrictive",
+        "Rich color adds sophistication to any outfit",
+        "Versatile enough for casual and professional settings"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1250,
     category: "shirts",
     collection: "men",
@@ -260,7 +523,48 @@ export const featuredProducts: Product[] = [
   {
     id: 7,
     name: "Artisan Printed Cotton Shirt",
-    description: "Stylish printed shirt crafted from 130 GSM cotton, delivering exceptional comfort, breathability, and long-lasting print quality. This lightweight premium piece combines artisanal design with everyday wearability. KEY FEATURES: 130 GSM premium cotton, High-quality artisan print, Lightweight and airy, Exceptional comfort, Breathable construction. FABRIC DETAILS: 100% Cotton, 130 GSM, High-quality print, Lightweight, Airy comfort, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Artisan craftsmanship meets everyday wearability. This printed shirt combines exceptional comfort with premium print quality that lasts.",
+      highlights: [
+        "130 GSM Premium Cotton",
+        "High-Quality Artisan Print",
+        "Lightweight & Airy",
+        "Exceptional Comfort",
+        "Breathable Construction"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "130 GSM premium cotton with artisan print quality, delivering lightweight comfort with lasting color vibrancy.",
+        composition: [
+          "100% Premium Cotton",
+          "Pre-shrunk fabric",
+          "High-quality print retention",
+          "Durable lightweight weave"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'10 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Unique artisan print makes you stand out",
+        "Breathable and comfortable for any season",
+        "Print stays vibrant through multiple washes",
+        "Perfect statement piece for casual or dressed-up looks"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1200,
     category: "shirts",
     collection: "men",
@@ -292,7 +596,48 @@ export const featuredProducts: Product[] = [
   {
     id: 8,
     name: "Relaxed Drop Shoulder Tee - Noir Black",
-    description: "Premium 190 GSM oversized black t-shirt with a relaxed drop shoulder design for ultimate comfort and modern style. Crafted from soft premium cotton for a contemporary look that feels effortlessly chic. KEY FEATURES: 190 GSM premium cotton, Relaxed drop shoulder silhouette, Oversized comfortable fit, Soft durable knit, Modern contemporary style. FABRIC DETAILS: 100% Cotton, 190 GSM, Oversized fit, Soft feel, Durable knit, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Oversized/Relaxed Fit, Model wearing size M is 5'6 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Contemporary comfort redefined. This oversized tee with relaxed drop shoulders delivers effortless modern style with premium softness.",
+      highlights: [
+        "190 GSM Premium Cotton",
+        "Relaxed Drop Shoulder",
+        "Oversized Comfortable Fit",
+        "Soft Durable Knit",
+        "Modern Contemporary Style"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "190 GSM premium cotton knit with relaxed construction, offering superior softness and durability for all-day wear.",
+        composition: [
+          "100% Premium Cotton",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable knit construction"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Oversized/Relaxed Fit",
+        model: "Model wearing size M is 5'6 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "So comfortable you'll want to wear it every day",
+        "Modern silhouette flatters all body types",
+        "Perfect for layering or wearing solo",
+        "Effortlessly cool and contemporary style"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1450,
     discountPrice: 1160,
     category: "tees",
@@ -323,7 +668,48 @@ export const featuredProducts: Product[] = [
   {
     id: 9,
     name: "Essential White Cotton Tee",
-    description: "Classic white tee made from 180 GSM organic cotton. Clean, breathable, and perfect for daily wear, this essential piece combines simplicity with premium quality and lasting durability. KEY FEATURES: 180 GSM organic cotton, Clean classic design, Smooth texture finish, Breathable construction, Perfect daily essential. FABRIC DETAILS: 100% Organic Cotton, 180 GSM, Smooth texture, Breathable, Long-lasting, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'6 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "The foundation of every wardrobe. Clean white cotton tee crafted from organic material for timeless everyday simplicity and quality.",
+      highlights: [
+        "180 GSM Organic Cotton",
+        "Clean Classic Design",
+        "Smooth Texture Finish",
+        "Breathable Construction",
+        "Perfect Daily Essential"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "180 GSM organic cotton with smooth texture finish, delivering breathability and durability for everyday wear.",
+        composition: [
+          "100% Organic Cotton",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable knit construction"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'6 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "The perfect white tee every wardrobe needs",
+        "Premium softness that improves with every wash",
+        "Clean design pairs seamlessly with everything",
+        "Timeless piece you'll reach for again and again"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1890,
     category: "tees",
     collection: "women",
@@ -353,7 +739,48 @@ export const featuredProducts: Product[] = [
   {
     id: 10,
     name: "Pure Cotton Full Sleeve Shirt",
-    description: "Elegant full sleeve shirt made from 150 GSM fine cotton, offering comfort, softness, and a polished everyday look. This versatile piece delivers sophisticated style with breathable performance and refined comfort. KEY FEATURES: 150 GSM fine cotton, Full sleeve design, Lightweight and comfortable, Smooth weave construction, Polished refined aesthetic. FABRIC DETAILS: 100% Fine Cotton, 150 GSM, Lightweight, Smooth weave, Comfortable fit, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'6 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Polished sophistication for everyday elegance. Fine cotton full sleeve shirt designed for professional comfort and refined personal style.",
+      highlights: [
+        "150 GSM Fine Cotton",
+        "Full Sleeve Design",
+        "Lightweight & Comfortable",
+        "Smooth Weave Construction",
+        "Polished Refined Look"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "150 GSM fine cotton with smooth weave construction offering lightweight comfort with a sophisticated finish.",
+        composition: [
+          "100% Fine Cotton",
+          "Pre-shrunk fabric",
+          "Color retention tested",
+          "Durable smooth weave"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Regular Fit",
+        model: "Model wearing size M is 5'6 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Professional enough for the office",
+        "Sophisticated enough for evening events",
+        "Lightweight yet structured for all-day comfort",
+        "Versatile piece that elevates any wardrobe"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Do not bleach",
+        "Low heat dry",
+        "Iron at low temperature"
+      ]
+    },
     price: 1290,
     category: "shirts",
     collection: "women",
@@ -382,7 +809,48 @@ export const featuredProducts: Product[] = [
   {
     id: 11,
     name: "Classic High-Rise Denim Jeans",
-    description: "Premium 12 oz denim jeans with stretch comfort and long-lasting durability, designed for a flattering high-rise fit. These versatile jeans combine classic style with modern comfort technology for all-day wear. KEY FEATURES: 12 oz premium denim fabric, Stretch comfort technology, High-rise flattering fit, Durable strong weave, Long-lasting color. FABRIC DETAILS: 98% Cotton 2% Elastane, 12 oz Denim, Stretch comfort, Strong weave, Shape retention, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: High-Rise Fit, Model wearing size M is 5'6 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    description: {
+      story: "Timeless denim perfected. High-rise jeans crafted with stretch comfort and premium durability for flattering, all-day wearability.",
+      highlights: [
+        "12 oz Premium Denim",
+        "Stretch Comfort Technology",
+        "High-Rise Flattering Fit",
+        "Durable Strong Weave",
+        "Long-Lasting Color"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Eco-Conscious Sourcing",
+        "Durability Tested"
+      ],
+      fabricBuild: {
+        description: "12 oz premium denim with 2% elastane providing comfortable stretch while maintaining shape and durability.",
+        composition: [
+          "98% Cotton, 2% Elastane",
+          "Pre-shrunk fabric",
+          "Stretch comfort technology",
+          "Strong durable weave"
+        ]
+      },
+      fitAndSizing: {
+        fit: "High-Rise Fit",
+        model: "Model wearing size M is 5'6 inches",
+        sizing: "True to size – take your usual size"
+      },
+      whyYouLoveIt: [
+        "Flattering high-rise cut that enhances your silhouette",
+        "Stretch fabric keeps you comfortable all day",
+        "Premium denim quality that lasts for years",
+        "Timeless style works with any outfit"
+      ],
+      careInstructions: [
+        "Machine wash cold (30°C)",
+        "Wash with similar colors",
+        "Turn inside out to preserve color",
+        "Air dry or low heat dry",
+        "Avoid bleach"
+      ]
+    },
     price: 2450,
     discountPrice: 1990,
     category: "jeans",
@@ -412,7 +880,48 @@ export const featuredProducts: Product[] = [
   {
     id: 12,
     name: "Heritage Full-Grain Leather Belt",
-    description: "Crafted from 100% full-grain leather, this belt offers unmatched durability, strength, and timeless style. This heritage piece improves with age and is built to last a lifetime of wear and adventures. KEY FEATURES: Full-grain leather construction, Crack-resistant material, Premium finish, Timeless heritage style, Durable and long-lasting. MATERIAL DETAILS: Full-Grain Leather, 3.5mm Thickness, Crack-resistant, Long-lasting, Premium finish, Ages beautifully, Ethically sourced. CARE INSTRUCTIONS: Clean with soft damp cloth, Condition monthly with leather oil, Keep away from excessive heat, Allow to air dry naturally.",
+    description: {
+      story: "Timeless quality that ages beautifully. Full-grain leather belt crafted to last a lifetime, improving with every wear.",
+      highlights: [
+        "100% Full-Grain Leather",
+        "Crack-Resistant Material",
+        "Premium Finish",
+        "Timeless Heritage Style",
+        "Lifetime Durability"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Ethically Sourced",
+        "Lifetime Durability"
+      ],
+      fabricBuild: {
+        description: "Premium full-grain leather with 3.5mm thickness, sourced ethically and finished with premium polish for lasting quality.",
+        composition: [
+          "Full-Grain Leather",
+          "3.5mm Thickness",
+          "Ethically sourced",
+          "Premium finish"
+        ]
+      },
+      fitAndSizing: {
+        fit: "One Size",
+        model: "Adjustable sizing",
+        sizing: "Fits waist sizes XS to XXL"
+      },
+      whyYouLoveIt: [
+        "Gets better looking with age",
+        "Lasts a lifetime with proper care",
+        "Timeless style never goes out of fashion",
+        "Perfect investment piece for any wardrobe"
+      ],
+      careInstructions: [
+        "Clean with soft damp cloth",
+        "Condition monthly with leather oil",
+        "Keep away from excessive heat",
+        "Allow to air dry naturally",
+        "Store in dry location"
+      ]
+    },
     price: 1990,
     category: "accessories",
     collection: "accessories",
@@ -435,7 +944,48 @@ export const featuredProducts: Product[] = [
   {
     id: 13,
     name: "Minimalist Gold-Tone Ring Set",
-    description: "Elegant gold-tone ring set with durable plating and lightweight comfort, perfect for everyday styling. These versatile rings combine minimalist design with premium craftsmanship for timeless elegance. KEY FEATURES: Gold plated finish, Minimalist design aesthetic, Lightweight comfort, Durable plating, Tarnish-resistant coating. MATERIAL DETAILS: Alloy and Gold Plating, Tarnish-resistant, Lightweight, Skin-friendly, Durable construction, Premium polish. CARE INSTRUCTIONS: Remove before water exposure, Clean with soft dry cloth, Store in jewelry box, Avoid harsh chemicals.",
+    description: {
+      story: "Elegant simplicity perfected. Gold-tone ring set combining minimalist design with premium craftsmanship for everyday elegance.",
+      highlights: [
+        "Gold Plated Finish",
+        "Minimalist Design",
+        "Lightweight Comfort",
+        "Durable Plating",
+        "Tarnish-Resistant"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Tarnish-Resistant",
+        "Durable Plating"
+      ],
+      fabricBuild: {
+        description: "Alloy base with durable gold plating and tarnish-resistant coating, offering lightweight comfort with premium finish.",
+        composition: [
+          "Alloy + Gold Plating",
+          "Tarnish-resistant coating",
+          "Lightweight construction",
+          "Skin-friendly materials"
+        ]
+      },
+      fitAndSizing: {
+        fit: "One Size",
+        model: "Universal sizing",
+        sizing: "Adjustable for comfortable fit"
+      },
+      whyYouLoveIt: [
+        "Mix and match rings for different looks",
+        "Lightweight so you barely notice wearing them",
+        "Elegant design that works with any style",
+        "Perfect everyday luxury at an accessible price"
+      ],
+      careInstructions: [
+        "Remove before water exposure",
+        "Clean with soft dry cloth",
+        "Store in jewelry box",
+        "Avoid harsh chemicals",
+        "Keep away from perfumes"
+      ]
+    },
     price: 890,
     discountPrice: 710,
     category: "jewelry",
@@ -461,7 +1011,48 @@ export const featuredProducts: Product[] = [
   {
     id: 14,
     name: "Classic Structured Leather Handbag",
-    description: "Elegant leather handbag crafted from high-quality genuine leather with a structured, long-lasting design. This timeless piece combines functionality with refined style, perfect for both professional and everyday use. KEY FEATURES: Genuine leather construction, Structured design aesthetic, Microfiber lining interior, Scratch-resistant surface, Durable timeless style. MATERIAL DETAILS: Genuine Leather, Microfiber Lining, Scratch-resistant, Durable build, Timeless style, High-quality craftsmanship, Professional aesthetic. CARE INSTRUCTIONS: Clean with soft damp cloth, Condition monthly with leather oil, Keep away from excessive heat, Allow to air dry naturally.",
+    description: {
+      story: "Timeless elegance meets everyday functionality. Structured leather handbag designed for professional and casual versatility.",
+      highlights: [
+        "Genuine Leather",
+        "Structured Design",
+        "Microfiber Lining",
+        "Scratch-Resistant",
+        "Durable & Timeless"
+      ],
+      trustSignals: [
+        "Genuine Leather",
+        "Scratch-Resistant",
+        "Lifetime Value"
+      ],
+      fabricBuild: {
+        description: "Premium genuine leather with microfiber lining, engineered for durability and scratch resistance while maintaining sophistication.",
+        composition: [
+          "Genuine Leather",
+          "Microfiber Interior Lining",
+          "Scratch-resistant surface",
+          "High-quality hardware"
+        ]
+      },
+      fitAndSizing: {
+        fit: "Standard Size",
+        model: "Professional carry capacity",
+        sizing: "Spacious interior compartments"
+      },
+      whyYouLoveIt: [
+        "Spacious enough for work and everyday essentials",
+        "Professional design suits any occasion",
+        "Genuine leather improves with age",
+        "Perfect investment piece for work and travel"
+      ],
+      careInstructions: [
+        "Clean with soft damp cloth",
+        "Condition monthly with leather oil",
+        "Keep away from excessive heat",
+        "Allow to air dry naturally",
+        "Store in dust bag when not in use"
+      ]
+    },
     price: 750,
     category: "handbags",
     collection: "accessories",
@@ -484,7 +1075,48 @@ export const featuredProducts: Product[] = [
   {
     id: 15,
     name: "Elegant Jewelry Set - Earrings and Bracelet",
-    description: "Stylish jewelry set crafted for comfort and shine, featuring durable materials and a premium polished finish. This elegant combination piece brings sophistication to any outfit with versatile, everyday elegance. KEY FEATURES: Protective anti-tarnish coating, Lightweight comfortable wear, Premium polished finish, Durable construction, Long-lasting shine. MATERIAL DETAILS: Alloy and Protective Coating, Anti-tarnish, Lightweight, Long-lasting shine, Skin-friendly materials, Premium polish. CARE INSTRUCTIONS: Remove before water exposure, Clean with soft dry cloth, Store in jewelry box, Avoid harsh chemicals and perfumes.",
+    description: {
+      story: "Complete sophistication. Jewelry set combining premium craftsmanship with versatile styling for everyday elegance.",
+      highlights: [
+        "Anti-Tarnish Coating",
+        "Lightweight Design",
+        "Premium Polished Finish",
+        "Durable Construction",
+        "Long-Lasting Shine"
+      ],
+      trustSignals: [
+        "Premium Quality Materials",
+        "Anti-Tarnish Coating",
+        "Durable Construction"
+      ],
+      fabricBuild: {
+        description: "Alloy with protective anti-tarnish coating, engineered for durability, lightweight comfort, and premium polish finish.",
+        composition: [
+          "Alloy + Protective Coating",
+          "Anti-tarnish technology",
+          "Lightweight materials",
+          "Premium polish finish"
+        ]
+      },
+      fitAndSizing: {
+        fit: "One Size",
+        model: "Universal sizing",
+        sizing: "Adjustable for comfortable wear"
+      },
+      whyYouLoveIt: [
+        "Complete look with one coordinated set",
+        "Mix and match with other pieces you own",
+        "Elegant enough for special occasions",
+        "Lightweight and comfortable for everyday wear"
+      ],
+      careInstructions: [
+        "Remove before water exposure",
+        "Clean with soft dry cloth",
+        "Store in jewelry box",
+        "Avoid harsh chemicals and perfumes",
+        "Keep away from moisture"
+      ]
+    },
     price: 450,
     discountPrice: 360,
     category: "jewelry",

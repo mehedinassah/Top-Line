@@ -9,7 +9,7 @@ import ColorSelector from "@/components/product/ColorSelector";
 import RelatedProducts from "@/components/products/RelatedProducts";
 import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
-import type { Product, Size, Color, ProductVariant } from "@/lib/productData";
+import type { Product, Size, Color, ProductVariant, ProductDescription } from "@/lib/productData";
 import type { Review } from "@/lib/reviewsData";
 import { calculateAverageRating } from "@/lib/reviewsData";
 
@@ -332,9 +332,111 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               </div>
 
               {/* Description */}
-              <p className="text-sm leading-relaxed text-neutral-800 md:text-base">
-                {props.description}
-              </p>
+              <div className="space-y-8 md:space-y-10 border-t border-neutral-200 pt-6 md:pt-8">
+                {/* Story - Emotional Hook */}
+                <p className="text-sm leading-relaxed text-neutral-700 md:text-base">
+                  {typeof props.description === 'string' 
+                    ? props.description 
+                    : (props.description as ProductDescription).story}
+                </p>
+
+                {/* Key Highlights - MOST VISIBLE */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).highlights && (
+                  <div className="space-y-4">
+                    <div className="space-y-3">
+                      <h3 className="text-base font-semibold text-neutral-900 uppercase tracking-wider">Key Highlights</h3>
+                      <ul className="space-y-2.5">
+                        {(props.description as ProductDescription).highlights.map((highlight, idx) => (
+                          <li key={idx} className="flex items-start gap-3 text-sm text-neutral-800">
+                            <span className="mt-0.5 text-lg font-bold text-neutral-900">✓</span>
+                            <span className="font-medium">{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                )}
+
+                {/* Trust Signals - Micro Trust Line */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).trustSignals && (
+                  <div className="flex flex-wrap gap-4 text-xs text-neutral-600">
+                    {(props.description as ProductDescription).trustSignals.map((signal, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <span className="text-neutral-900">✓</span>
+                        <span>{signal}</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Fabric & Build - Clean Text Section */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).fabricBuild && (
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Fabric & Build</h3>
+                    <p className="text-sm text-neutral-700">
+                      {(props.description as ProductDescription).fabricBuild.description}
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {(props.description as ProductDescription).fabricBuild.composition.map((comp, idx) => (
+                        <span key={idx} className="inline-block rounded-full bg-neutral-100 px-3 py-1.5 text-xs text-neutral-800">
+                          {comp.replace('✓ ', '')}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Fit & Sizing - Clean Spacing */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).fitAndSizing && (
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Fit & Sizing</h3>
+                    <div className="space-y-2.5 text-sm text-neutral-700">
+                      <div className="flex">
+                        <span className="w-24 font-medium text-neutral-900">Fit:</span>
+                        <span>{(props.description as ProductDescription).fitAndSizing.fit}</span>
+                      </div>
+                      <div className="flex">
+                        <span className="w-24 font-medium text-neutral-900">Model:</span>
+                        <span>{(props.description as ProductDescription).fitAndSizing.model}</span>
+                      </div>
+                      <div className="flex">
+                        <span className="w-24 font-medium text-neutral-900">Sizing:</span>
+                        <span>{(props.description as ProductDescription).fitAndSizing.sizing}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Why You'll Love It - Emotional Connection */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).whyYouLoveIt && (
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Why You'll Love It</h3>
+                    <ul className="space-y-2">
+                      {(props.description as ProductDescription).whyYouLoveIt.map((reason, idx) => (
+                        <li key={idx} className="flex items-start gap-3 text-sm text-neutral-700">
+                          <span className="mt-1 h-1 w-1 rounded-full bg-neutral-900"></span>
+                          <span>{reason}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* Care Instructions - Light Section */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
+                  <div className="space-y-3">
+                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Care</h3>
+                    <ul className="space-y-1.5 text-sm text-neutral-700">
+                      {(props.description as ProductDescription).careInstructions.map((instruction, idx) => (
+                        <li key={idx} className="flex gap-2">
+                          <span>•</span>
+                          <span>{instruction.replace('✓ ', '')}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
 
               {/* Size & Color Selectors */}
               {props.collection !== "accessories" && (
