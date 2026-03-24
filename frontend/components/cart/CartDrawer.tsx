@@ -3,6 +3,7 @@
 import { Fragment } from "react";
 import { useRouter } from "next/navigation";
 import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useCart } from "@/components/cart/CartContext";
 
 interface CartDrawerProps {
@@ -51,9 +52,11 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                 </Dialog.Title>
                 <button
                   onClick={onClose}
-                  className="text-xs text-neutral-600 hover:text-neutral-900 md:text-sm"
+                  className="text-neutral-600 hover:text-neutral-900 transition p-1"
+                  title="Close shopping cart"
+                  aria-label="Close shopping cart"
                 >
-                  Close
+                  <XMarkIcon className="h-6 w-6" />
                 </button>
               </div>
               <div className="mt-4 flex-1 space-y-3 overflow-y-auto">

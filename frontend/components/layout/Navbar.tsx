@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
@@ -46,6 +45,11 @@ export default function Navbar() {
       window.removeEventListener("storage", handleAuthStateChange);
     };
   }, []);
+
+  // Scroll to top when pathname changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   // Handle soft refresh on navigation
   const handleNavigation = (href: string) => {
@@ -103,18 +107,15 @@ export default function Navbar() {
         )}
         <div className="mx-auto flex max-w-6xl items-center px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3">
           {/* Logo - Far Left */}
-          <Link 
-            href="/" 
-            className="flex flex-shrink-0 items-center"
-            onClick={(e) => {
-              e.preventDefault();
-              window.location.href = '/';
-            }}
+          <button 
+            onClick={() => handleNavigation("/")}
+            className="flex flex-shrink-0 items-center bg-none border-none cursor-pointer p-0"
+            title="Go to home"
           >
             <span className="text-xs sm:text-sm md:text-lg font-bold tracking-tight text-neutral-900">
               Top Line
             </span>
-          </Link>
+          </button>
 
           {/* Spacer */}
           <div className="flex-1" />
@@ -221,30 +222,36 @@ export default function Navbar() {
                       <p className="text-xs text-neutral-600">Signed in as</p>
                       <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
                     </div>
-                    <Link
-                      href="/account"
-                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                    <button
+                      onClick={() => {
+                        handleNavigation("/account");
+                        setShowProfileMenu(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="Go to account"
-                      onClick={() => setShowProfileMenu(false)}
                     >
                       My Account
-                    </Link>
-                    <Link
-                      href="/account/orders"
-                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleNavigation("/account/orders");
+                        setShowProfileMenu(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="View orders"
-                      onClick={() => setShowProfileMenu(false)}
                     >
                       My Orders
-                    </Link>
-                    <Link
-                      href="/wishlist"
-                      className="block px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition"
+                    </button>
+                    <button
+                      onClick={() => {
+                        handleNavigation("/wishlist");
+                        setShowProfileMenu(false);
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="View wishlist"
-                      onClick={() => setShowProfileMenu(false)}
                     >
                       Wishlist
-                    </Link>
+                    </button>
                     <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-neutral-50 transition border-t border-neutral-200"
@@ -256,13 +263,14 @@ export default function Navbar() {
                 )}
               </div>
             ) : (
-              <Link
-                href="/auth/login"
-                className="hidden bg-neutral-900 px-2 sm:px-3 md:px-4 py-1 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 sm:inline-block"
+              <button
+                onClick={() => handleNavigation("/auth/login")}
+                disabled={isRefreshing}
+                className={`hidden bg-neutral-900 px-2 sm:px-3 md:px-4 py-1 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 sm:inline-block border-none ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                 title="Sign in to your account"
               >
                 Sign in
-              </Link>
+              </button>
             )}
           </div>
         </div>
@@ -331,30 +339,30 @@ export default function Navbar() {
                       <p className="text-xs text-neutral-600">Signed in as</p>
                       <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
                     </div>
-                    <Link
-                      href="/account"
-                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                      onClick={() => setMobileMenuOpen(false)}
+                    <button
+                      onClick={() => handleNavigation("/account")}
+                      disabled={isRefreshing}
+                      className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                       title="Go to account"
                     >
                       My Account
-                    </Link>
-                    <Link
-                      href="/account/orders"
-                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                      onClick={() => setMobileMenuOpen(false)}
+                    </button>
+                    <button
+                      onClick={() => handleNavigation("/account/orders")}
+                      disabled={isRefreshing}
+                      className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                       title="View orders"
                     >
                       My Orders
-                    </Link>
-                    <Link
-                      href="/wishlist"
-                      className="block px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200"
-                      onClick={() => setMobileMenuOpen(false)}
+                    </button>
+                    <button
+                      onClick={() => handleNavigation("/wishlist")}
+                      disabled={isRefreshing}
+                      className={`block w-full text-left px-3 py-2 text-sm font-medium text-neutral-700 hover:bg-neutral-100 rounded transition duration-200 bg-none border-none cursor-pointer ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                       title="View wishlist"
                     >
                       Wishlist
-                    </Link>
+                    </button>
                     <button
                       onClick={() => {
                         handleLogout();
@@ -367,14 +375,14 @@ export default function Navbar() {
                     </button>
                   </>
                 ) : (
-                  <Link
-                    href="/auth/login"
-                    className="block w-full px-3 py-2 text-sm font-medium text-center text-white bg-neutral-900 hover:bg-neutral-800 rounded transition duration-200"
-                    onClick={() => setMobileMenuOpen(false)}
+                  <button
+                    onClick={() => handleNavigation("/auth/login")}
+                    disabled={isRefreshing}
+                    className={`block w-full px-3 py-2 text-sm font-medium text-center text-white bg-neutral-900 hover:bg-neutral-800 rounded transition duration-200 border-none ${isRefreshing ? 'opacity-50 cursor-not-allowed' : ''}`}
                     title="Sign in to your account"
                   >
                     Sign in
-                  </Link>
+                  </button>
                 )}
               </div>
             </div>
