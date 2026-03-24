@@ -594,10 +594,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </button>
                   <button
                     onClick={handleAddToWishlist}
-                    className={`px-4 py-2.5 font-semibold text-sm transition ${
+                    className={`flex items-center gap-2 px-6 py-2.5 font-semibold text-sm transition border ${
                       isInWishlist
-                        ? "bg-red-100 text-red-600 hover:bg-red-200"
-                        : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
+                        ? "bg-red-100 text-red-600 border-red-300 hover:bg-red-200"
+                        : "bg-neutral-100 text-neutral-900 border-neutral-300 hover:bg-neutral-200"
                     }`}
                     title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
                     aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
@@ -607,6 +607,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     ) : (
                       <HeartIcon className="h-5 w-5" />
                     )}
+                    <span>Wishlist</span>
                   </button>
                 </div>
               </div>
