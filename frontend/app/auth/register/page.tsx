@@ -121,7 +121,7 @@ export default function RegisterPage() {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Voirob"
               className="mt-1 w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               disabled={isLoading}
             />

@@ -74,13 +74,11 @@ export default function AccountPage() {
   const handleSavePhone = () => {
     localStorage.setItem("userPhone", phoneInput);
     setUser(prev => prev ? { ...prev, phoneNumber: phoneInput } : null);
-    setPhoneInput(""); // Clear input to show saved value in placeholder
   };
 
   const handleSaveAddress = () => {
     localStorage.setItem("userAddress", addressInput);
     setUser(prev => prev ? { ...prev, address: addressInput } : null);
-    setAddressInput(""); // Clear input to show saved value in placeholder
   };
 
   if (!isLoggedIn || !user) {
@@ -161,13 +159,15 @@ export default function AccountPage() {
                       placeholder={user.phoneNumber ? user.phoneNumber : "Not added yet"}
                       className="flex-1 px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
                     />
-                    <button
-                      type="button"
-                      onClick={handleSavePhone}
-                      className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
-                    >
-                      Save
-                    </button>
+                    {phoneInput !== user.phoneNumber && (
+                      <button
+                        type="button"
+                        onClick={handleSavePhone}
+                        className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
+                      >
+                        Save
+                      </button>
+                    )}
                   </div>
                 </div>
 
@@ -182,13 +182,15 @@ export default function AccountPage() {
                       className="flex-1 px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900 resize-none"
                       rows={1}
                     />
-                    <button
-                      type="button"
-                      onClick={handleSaveAddress}
-                      className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
-                    >
-                      Save
-                    </button>
+                    {addressInput !== user.address && (
+                      <button
+                        type="button"
+                        onClick={handleSaveAddress}
+                        className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
+                      >
+                        Save
+                      </button>
+                    )}
                   </div>
                 </div>
               </form>

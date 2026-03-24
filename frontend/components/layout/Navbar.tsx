@@ -203,7 +203,7 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
             <button
               onClick={() => setCartOpen(true)}
-              className="relative border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
+              className="relative p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
               aria-label={`Open shopping cart (${totalQuantity} items)`}
               title={`Open shopping cart (${totalQuantity} items)`}
             >
@@ -219,7 +219,7 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
+                  className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
                   title="Account menu"
                 >
                   <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
