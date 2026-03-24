@@ -8,7 +8,8 @@ import { useToast } from "@/components/toast/ToastContext";
 import SizeSelector from "@/components/product/SizeSelector";
 import ColorSelector from "@/components/product/ColorSelector";
 import RelatedProducts from "@/components/products/RelatedProducts";
-import { useState, useEffect } from "react";
+import ProductImageZoom from "@/components/product/ProductImageZoom";
+import { useState, useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import type { Product, Size, Color, ProductVariant, ProductDescription } from "@/lib/productData";
 import type { Review } from "@/lib/reviewsData";
@@ -32,8 +33,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [addedToCart, setAddedToCart] = useState(false);
   const [addedToWishlist, setAddedToWishlist] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
-  const [imageZoom, setImageZoom] = useState(false);
-  const [zoomPosition, setZoomPosition] = useState({ x: 0, y: 0 });
+  const [isHoveringImage, setIsHoveringImage] = useState(false);
+  const [isDesktopView, setIsDesktopView] = useState(true);
+  const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
+  const imageContainerRef = useRef<HTMLDivElement>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showReviewForm, setShowReviewForm] = useState(false);
   const [reviewRating, setReviewRating] = useState(5);
@@ -44,6 +47,17 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [showProductInfo, setShowProductInfo] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+
+  // Detect if we're in desktop view
+  useEffect(() => {
+    const checkDesktop = () => {
+      setIsDesktopView(window.innerWidth >= 768); // md breakpoint
+    };
+
+    checkDesktop();
+    window.addEventListener("resize", checkDesktop);
+    return () => window.removeEventListener("resize", checkDesktop);
+  }, []);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -209,11 +223,15 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     }
   }
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setZoomPosition({ x, y });
+  const handleImageHoverMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDesktopView || !imageContainerRef.current) return;
+
+    const rect = imageContainerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    // Store cursor position relative to container
+    setCursorPosition({ x, y });
   };
 
   return (
@@ -237,30 +255,77 @@ export default function ProductDetailClient(props: ProductDetailProps) {
           <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
             {/* Product Images */}
             <div className="space-y-2 sm:space-y-3 md:space-y-4">
-              {/* Main Image with Zoom */}
-              <div
-                className="relative aspect-square w-full overflow-hidden bg-neutral-100 cursor-zoom-in border border-neutral-200"
-                onMouseEnter={() => setImageZoom(true)}
-                onMouseLeave={() => setImageZoom(false)}
-                onMouseMove={handleMouseMove}
-              >
-                <Image
-                  src={image}
-                  alt={props.name}
-                  fill
-                  className={`object-cover transition-transform ${imageZoom ? "scale-150" : "scale-100"}`}
-                  style={imageZoom ? {
-                    transformOrigin: `${zoomPosition.x}% ${zoomPosition.y}%`
-                  } : {}}
-                  priority
-                  sizes="(min-width: 1024px) 50vw, 100vw"
-                />
-                {hasDiscount && (
-                  <div className="absolute right-4 top-4 bg-red-600 px-3 py-1 text-sm font-semibold text-white">
-                    Sale
-                  </div>
-                )}
-              </div>
+              {/* Desktop: Cursor-Follow Zoom | Mobile: ProductImageZoom Component */}
+              {isDesktopView ? (
+                // Desktop View: Custom cursor-follow zoom
+                <div
+                  ref={imageContainerRef}
+                  className="relative aspect-square w-full overflow-hidden bg-neutral-100 border border-neutral-200"
+                  onMouseEnter={() => isDesktopView && setIsHoveringImage(true)}
+                  onMouseLeave={() => {
+                    setIsHoveringImage(false);
+                    setCursorPosition({ x: 0, y: 0 });
+                  }}
+                  onMouseMove={(e) => {
+                    handleImageHoverMove(e);
+                  }}
+                  style={{
+                    cursor: isDesktopView ? "zoom-in" : "default"
+                  }}
+                >
+                  <Image
+                    src={image}
+                    alt={props.name}
+                    fill
+                    className="object-cover"
+                    style={{
+                      transform: isDesktopView
+                        ? (() => {
+                            if (!isHoveringImage) return "scale(1)";
+                            
+                            const zoomScale = 2.2;
+                            const container = imageContainerRef.current;
+                            if (!container) return `scale(${zoomScale})`;
+                            
+                            const containerWidth = container.offsetWidth;
+                            const containerHeight = container.offsetHeight;
+                            
+                            // Calculate offset to zoom towards cursor
+                            const offsetX = -(cursorPosition.x - containerWidth / 2) * (zoomScale - 1) / zoomScale;
+                            const offsetY = -(cursorPosition.y - containerHeight / 2) * (zoomScale - 1) / zoomScale;
+                            
+                            return `scale(${zoomScale}) translate(${offsetX}px, ${offsetY}px)`;
+                          })()
+                        : `scale(${zoomLevel}) translate(${panPosition.x}px, ${panPosition.y}px)`,
+                      transformOrigin: "center",
+                      transition: isDesktopView && !isHoveringImage ? "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)" : "none"
+                    }}
+                    priority
+                    sizes="(min-width: 1024px) 50vw, 100vw"
+                  />
+
+                  {hasDiscount && (
+                    <div className="absolute right-4 top-4 bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                      Sale
+                    </div>
+                  )}
+                </div>
+              ) : (
+                // Mobile View: ProductImageZoom Component
+                <div className="relative">
+                  <ProductImageZoom
+                    src={image}
+                    alt={props.name}
+                    priority
+                    sizes="100vw"
+                  />
+                  {hasDiscount && (
+                    <div className="absolute right-4 top-4 z-10 bg-red-600 px-3 py-1 text-sm font-semibold text-white">
+                      Sale
+                    </div>
+                  )}
+                </div>
+              )}
 
               {/* Image Thumbnails */}
               {props.images.length > 1 && (
@@ -268,7 +333,9 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   {props.images.map((img, idx) => (
                     <button
                       key={idx}
-                      onClick={() => setSelectedImageIndex(idx)}
+                      onClick={() => {
+                        setSelectedImageIndex(idx);
+                      }}
                       className={`relative flex-shrink-0 h-14 w-14 sm:h-16 sm:w-16 overflow-hidden transition md:h-20 md:w-20 ${
                         idx === selectedImageIndex
                           ? "ring-2 ring-neutral-900"
