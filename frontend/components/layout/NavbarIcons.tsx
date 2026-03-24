@@ -1,9 +1,7 @@
 "use client";
 
 import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
-import { useIsClient } from "@/hooks/useIsClient";
 import { useCart } from "@/components/cart/CartContext";
-import { useEffect, useState } from "react";
 
 interface NavbarIconsProps {
   isLoggedIn: boolean;
@@ -24,20 +22,7 @@ export default function NavbarIcons({
   onLogout,
   profileMenuContent,
 }: NavbarIconsProps) {
-  const isClient = useIsClient();
   const { totalQuantity } = useCart();
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    if (isClient) {
-      setMounted(true);
-    }
-  }, [isClient]);
-
-  // Don't render anything until client is ready
-  if (!mounted) {
-    return null;
-  }
 
   return (
     <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
