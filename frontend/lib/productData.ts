@@ -51,8 +51,8 @@ function getProductReviews(productId: number): Review[] {
 export const featuredProducts: Product[] = [
   {
     id: 1,
-    name: "Dotted Luxe Cotton Shirt",
-    description: "Premium dotted cotton shirt designed with refined elegance. This lightweight, breathable shirt balances comfort with sophistication, perfect for both casual and semi-formal occasions. KEY FEATURES: Premium 140 GSM combed cotton, Poplin weave construction, Breathable and lightweight design, Smooth finish with colorfast dye, All-day comfort fit. FABRIC DETAILS: 100% Combed Cotton, 140 GSM, Poplin Weave, Breathable and lightweight, Smooth finish, Colorfast dyed, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    name: "Tropical Breeze Viscose Shirt",
+    description: "Stay cool and comfortable with this ultra-lightweight Hawaiian viscose shirt. Designed for effortless summer elegance with a fluid drape and moisture-wicking properties that keep you fresh all day. KEY FEATURES: 120 GSM eco-viscose rayon, Ultra-light and breathable, Fluid natural drape, Moisture-wicking technology, Perfect for warm weather. FABRIC DETAILS: 100% Eco Viscose Rayon, 120 GSM, Fluid drape, Moisture-wicking, Soft touch, Breathable construction, Sustainable material. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
     price: 2200,
     discountPrice: 1890,
     category: "shirts",
@@ -89,8 +89,8 @@ export const featuredProducts: Product[] = [
   },
   {
     id: 2,
-    name: "Tropical Breeze Viscose Shirt",
-    description: "Stay cool and comfortable with this ultra-lightweight Hawaiian viscose shirt. Designed for effortless summer elegance with a fluid drape and moisture-wicking properties that keep you fresh all day. KEY FEATURES: 120 GSM eco-viscose rayon, Ultra-light and breathable, Fluid natural drape, Moisture-wicking technology, Perfect for warm weather. FABRIC DETAILS: 100% Eco Viscose Rayon, 120 GSM, Fluid drape, Moisture-wicking, Soft touch, Breathable construction, Sustainable material. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
+    name: "Dotted Luxe Cotton Shirt",
+    description: "Premium dotted cotton shirt designed with refined elegance. This lightweight, breathable shirt balances comfort with sophistication, perfect for both casual and semi-formal occasions. KEY FEATURES: Premium 140 GSM combed cotton, Poplin weave construction, Breathable and lightweight design, Smooth finish with colorfast dye, All-day comfort fit. FABRIC DETAILS: 100% Combed Cotton, 140 GSM, Poplin Weave, Breathable and lightweight, Smooth finish, Colorfast dyed, Pre-shrunk fabric, Double-stitched seams. FIT AND SIZING: Regular Fit, Model wearing size M is 5'10 inches, True to size - take your usual size. CARE INSTRUCTIONS: Machine wash cold (30 degrees C), Do not bleach, Low heat dry, Iron at low temperature.",
     price: 1500,
     category: "shirts",
     collection: "men",
