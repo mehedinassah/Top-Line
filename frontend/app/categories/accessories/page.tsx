@@ -177,12 +177,7 @@ export default function AccessoriesPage() {
   return (
     <>
       {/* Hero Section with Background Image */}
-      <div 
-        className="relative w-full border-b border-neutral-200 overflow-hidden"
-        style={{
-          aspectRatio: '16 / 5'
-        }}
-      >
+      <div className="relative h-64 sm:h-80 md:h-96 lg:h-screen border-b border-neutral-200 overflow-hidden">
         <Image
           src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?auto=format&fit=crop&w=2000&q=80"
           alt="Accessories"

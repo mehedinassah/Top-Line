@@ -177,12 +177,7 @@ export default function MenPage() {
   return (
     <>
       {/* Hero Section with Background Image */}
-      <div 
-        className="relative w-full border-b border-neutral-200 overflow-hidden"
-        style={{
-          aspectRatio: '16 / 5'
-        }}
-      >
+      <div className="relative h-64 sm:h-80 md:h-96 lg:h-screen border-b border-neutral-200 overflow-hidden">
         <Image
           src="https://drive.google.com/uc?export=view&id=10zOKNSPsM_ZSuXSSIj7MjifZ86DE6F9-"
           alt="Men's Collection"

@@ -42,7 +42,7 @@ export default function HeroSection() {
   };
 
   return (
-    <section className="relative w-full h-screen overflow-hidden bg-neutral-900">
+    <section className="relative w-full h-96 sm:h-screen md:h-screen lg:h-screen overflow-hidden bg-neutral-900">
       {/* Image Carousel */}
       <AnimatePresence mode="wait">
         <motion.button
@@ -78,25 +78,25 @@ export default function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2 }}
       >
-        <div className="max-w-4xl px-4 sm:px-6 text-center space-y-4 sm:space-y-6">
+        <div className="max-w-4xl px-4 sm:px-6 text-center space-y-3 sm:space-y-4">
           <div>
-            <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight text-white mb-4">
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-white mb-2 sm:mb-3">
               Clean lines.<br /> Premium fit.
             </h1>
 
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center pt-4 sm:pt-6">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center pt-2 sm:pt-4">
             <Link
               href="/products"
-              className="rounded-sm bg-white px-6 sm:px-8 py-2.5 sm:py-3 text-center text-xs sm:text-sm font-semibold text-neutral-900 hover:bg-neutral-100 transition duration-200 shadow-lg"
+              className="rounded-sm bg-white px-5 sm:px-7 py-2 sm:py-2.5 text-center text-xs sm:text-sm font-semibold text-neutral-900 hover:bg-neutral-100 transition duration-200 shadow-lg"
               title="Shop collection"
             >
               Shop collection
             </Link>
             <Link
               href="/products?sort=newest"
-              className="rounded-sm border-2 border-white px-6 sm:px-8 py-2.5 sm:py-3 text-center text-xs sm:text-sm font-semibold text-white hover:bg-white/10 transition duration-200"
+              className="rounded-sm border-2 border-white px-5 sm:px-7 py-2 sm:py-2.5 text-center text-xs sm:text-sm font-semibold text-white hover:bg-white/10 transition duration-200"
               title="View new arrivals"
             >
               What's new
