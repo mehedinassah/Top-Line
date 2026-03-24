@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
@@ -16,12 +16,15 @@ export default function Navbar() {
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const { totalQuantity } = useCart();
   const router = useRouter();
   const pathname = usePathname();
 
-  // Check auth state synchronously as early as possible
-  useLayoutEffect(() => {
+  // Initialize on mount to avoid hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+    
     const updateAuthState = () => {
       const loggedIn = localStorage.getItem("isLoggedIn") === "true";
       const email = localStorage.getItem("userEmail") || "";
@@ -32,22 +35,13 @@ export default function Navbar() {
     };
 
     updateAuthState();
-  }, []);
 
-  // Listen for auth state changes from login/register pages and storage events
-  useEffect(() => {
+    // Listen for auth state changes
     const handleAuthStateChange = () => {
-      const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
-      const updatedEmail = localStorage.getItem("userEmail") || "";
-      const updatedName = localStorage.getItem("userName") || "User";
-      setIsLoggedIn(updatedLoggedIn);
-      setUserEmail(updatedEmail);
-      setUserName(updatedName);
+      updateAuthState();
     };
 
-    // Listen for custom auth event from login/register
     window.addEventListener("authStateChanged", handleAuthStateChange);
-    // Listen for storage changes (cross-tab updates)
     window.addEventListener("storage", handleAuthStateChange);
     
     return () => {
@@ -106,7 +100,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 ${isRefreshing ? 'bg-blue-50/95' : ''}`}>
+      <header suppressHydrationWarning className={`sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 ${isRefreshing ? 'bg-blue-50/95' : ''}`}>
         {isRefreshing && (
           <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 animate-pulse" />
         )}
