@@ -90,14 +90,14 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Wishlist Heart */}
         <button
           onClick={handleWishlistClick}
-          className="absolute bottom-2 right-2 p-1.5 hover:opacity-80 transition z-10 bg-white/80 hover:bg-white rounded-full"
+          className="absolute bottom-4 right-4 p-2 hover:opacity-80 transition z-20"
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
           {isInWishlist ? (
-            <HeartSolidIcon className="h-5 w-5 text-red-500" />
+            <HeartSolidIcon className="h-6 w-6 text-red-500" />
           ) : (
-            <HeartIcon className="h-5 w-5 text-neutral-900" />
+            <HeartIcon className="h-6 w-6 text-white drop-shadow-lg" />
           )}
         </button>
       </div>
