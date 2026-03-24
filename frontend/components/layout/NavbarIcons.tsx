@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { ShoppingBagIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useCart } from "@/components/cart/CartContext";
 
@@ -23,17 +22,7 @@ export default function NavbarIcons({
   onLogout,
   profileMenuContent,
 }: NavbarIconsProps) {
-  const [isMounted, setIsMounted] = useState(false);
   const { totalQuantity } = useCart();
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  // Don't render anything until mounted (this component is loaded with ssr: false)
-  if (!isMounted) {
-    return null;
-  }
 
   return (
     <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
