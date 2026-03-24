@@ -172,7 +172,7 @@ export default function Navbar() {
           </nav>
 
           {/* Search - Visible on all sizes */}
-          <div className="flex-grow-0 sm:flex-1 px-1 sm:px-2 md:px-4">
+          <div className="flex-grow-0 sm:flex-1 px-0.5 sm:px-2 md:px-4 max-w-[140px] sm:max-w-none">
             <SearchBar />
           </div>
 
