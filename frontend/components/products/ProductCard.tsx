@@ -61,11 +61,13 @@ export default function ProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group relative aspect-square overflow-hidden bg-neutral-100 cursor-pointer"
+      className="group relative bg-white overflow-hidden cursor-pointer border border-neutral-200 hover:border-neutral-300 transition"
       title={`View ${product.name}`}
     >
+      {/* Image Container */}
       <div 
-        className="relative w-full h-full"
+        className="relative w-full overflow-hidden bg-neutral-100"
+        style={{ aspectRatio: "3 / 4" }}
         onMouseEnter={() => secondaryImage && setShowSecondImage(true)}
         onMouseLeave={() => setShowSecondImage(false)}
       >
@@ -75,12 +77,9 @@ export default function ProductCard({ product }: { product: Product }) {
           fill
           className="object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
-          sizes="(min-width: 1024px) 33.33vw, (min-width: 640px) 50vw, 100vw"
+          sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
         />
         
-        {/* Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/0 via-black/0 to-black/0 group-hover:from-black/20 group-hover:via-black/20 group-hover:to-black/40 transition-all duration-500" />
-
         {/* Discount Badge */}
         {hasDiscount && (
           <div className="absolute right-2 top-2 bg-red-600 px-2 py-1 text-xs font-semibold text-white z-10">
@@ -91,34 +90,38 @@ export default function ProductCard({ product }: { product: Product }) {
         {/* Wishlist Heart */}
         <button
           onClick={handleWishlistClick}
-          className="absolute bottom-2 right-2 p-2 hover:opacity-80 transition z-10"
+          className="absolute bottom-2 right-2 p-1.5 hover:opacity-80 transition z-10 bg-white/80 hover:bg-white rounded-full"
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
           {isInWishlist ? (
-            <HeartSolidIcon className="h-6 w-6 text-red-500" />
+            <HeartSolidIcon className="h-5 w-5 text-red-500" />
           ) : (
-            <HeartIcon className="h-6 w-6 text-white drop-shadow-lg" />
+            <HeartIcon className="h-5 w-5 text-neutral-900" />
           )}
         </button>
+      </div>
 
-        {/* Product Info on Hover */}
-        <div className="absolute inset-0 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
-          <div className="text-center px-4">
-            <p className="text-xs font-semibold tracking-[0.15em] text-white uppercase line-clamp-2">
-              {product.name}
-            </p>
-            <div className="flex items-center justify-center gap-1 mt-2">
-              <StarIcon className="h-4 w-4 text-yellow-400" />
-              <span className="text-sm text-white/90 font-light">{product.rating?.toFixed(1) ?? "4.5"}</span>
-            </div>
-            <p className="mt-2 text-sm text-white/90 font-light tracking-wide">
-              ৳{displayPrice.toFixed(0)}
-            </p>
-            <p className="mt-3 text-sm text-white/90 font-light tracking-wide">
-              View Details →
-            </p>
-          </div>
+      {/* Product Info - Always visible on mobile, visible on hover on desktop */}
+      <div className="p-3 sm:p-4">
+        <p className="text-xs sm:text-sm font-light text-neutral-900 line-clamp-2 mb-2">
+          {product.name}
+        </p>
+        
+        <div className="flex items-center gap-2 mb-2">
+          <span className="text-sm sm:text-base font-semibold text-neutral-900">
+            ৳{displayPrice.toFixed(0)}
+          </span>
+          {hasDiscount && (
+            <span className="text-xs text-neutral-500 line-through">
+              ৳{product.price.toFixed(0)}
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-1 text-xs">
+          <StarIcon className="h-3.5 w-3.5 text-neutral-900" />
+          <span className="font-light text-neutral-700">{product.rating?.toFixed(1) ?? "4.5"}</span>
         </div>
       </div>
     </Link>

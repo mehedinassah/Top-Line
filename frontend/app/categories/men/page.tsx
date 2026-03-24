@@ -64,7 +64,7 @@ function MinimalProductCard({ product }: { product: Product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group flex flex-col bg-white"
+      className="group flex flex-col bg-white border border-neutral-200 hover:border-neutral-300 transition"
       title={`View ${product.name}`}
     >
       <div 
@@ -82,36 +82,33 @@ function MinimalProductCard({ product }: { product: Product }) {
           sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
         />
         {hasDiscount && (
-          <div className="absolute right-4 top-4 bg-black px-3 py-1 text-xs font-semibold text-white">
+          <div className="absolute right-2 top-2 sm:right-3 sm:top-3 bg-black px-2.5 py-1 text-xs font-semibold text-white">
             Sale
           </div>
         )}
         {/* Wishlist Heart */}
         <button
           onClick={handleWishlistClick}
-          className="absolute bottom-4 right-4 p-2 hover:opacity-80 transition"
+          className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 p-1.5 sm:p-2 hover:opacity-80 transition bg-white/80 hover:bg-white rounded-full"
           title={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
           aria-label={isInWishlist ? "Remove from wishlist" : "Add to wishlist"}
         >
           {isInWishlist ? (
-            <HeartSolidIcon className="h-6 w-6 text-red-500" />
+            <HeartSolidIcon className="h-5 w-5 text-red-500" />
           ) : (
-            <HeartIcon className="h-6 w-6 text-white drop-shadow-lg" />
+            <HeartIcon className="h-5 w-5 text-neutral-900" />
           )}
         </button>
       </div>
-      <div className="flex flex-grow flex-col gap-3 px-4 py-4">
+      <div className="flex flex-grow flex-col gap-2 px-3 py-3 sm:px-4 sm:py-4">
         <div>
-          <p className="line-clamp-2 text-sm font-light text-neutral-900">
+          <p className="line-clamp-2 text-xs sm:text-sm font-light text-neutral-900">
             {product.name}
           </p>
-          <p className="text-xs text-neutral-600 line-clamp-1">
-            {typeof product.description === "object" ? product.description.story : product.description}
-          </p>
         </div>
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-light text-neutral-900">
+        <div className="mt-auto flex items-center justify-between pt-1">
+          <div className="flex items-center gap-2 flex-wrap">
+            <span className="text-sm sm:text-base font-semibold text-neutral-900">
               ৳{displayPrice.toFixed(0)}
             </span>
             {hasDiscount && (
@@ -121,7 +118,7 @@ function MinimalProductCard({ product }: { product: Product }) {
             )}
           </div>
           <div className="flex items-center gap-1 text-xs text-neutral-700">
-            <StarIcon className="h-3 w-3 text-neutral-900" />
+            <StarIcon className="h-3.5 w-3.5 text-neutral-900" />
             <span className="font-light">{product.rating?.toFixed(1) ?? "4.5"}</span>
           </div>
         </div>
@@ -233,7 +230,7 @@ export default function MenPage() {
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <div className="overflow-x-auto">
-              <div className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8" style={{ gridTemplateColumns: 'repeat(4, minmax(120px, 1fr))', minWidth: 'min-content' }}>
+              <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                 {filteredProducts.map(product => (
                   <MinimalProductCard key={product.id} product={product} />
                 ))}

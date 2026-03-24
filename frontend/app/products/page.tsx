@@ -126,7 +126,7 @@ function ProductsPageContent() {
       )}
 
       {/* Header */}
-      <div className="relative h-64 sm:h-72 md:h-96 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
+      <div className="relative h-40 sm:h-56 md:h-72 lg:h-screen overflow-hidden bg-neutral-900 flex items-center w-full">
         <Image
           src="https://images.pexels.com/photos/3073037/pexels-photo-3073037.jpeg?auto=compress&cs=tinysrgb&w=2000&h=2000"
           alt="New Arrivals hero image"
@@ -136,8 +136,8 @@ function ProductsPageContent() {
           sizes="100vw"
         />
         {/* Content */}
-        <div className="absolute bottom-16 sm:bottom-20 md:bottom-32 lg:bottom-40 right-4 sm:right-6 md:right-8">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white tracking-tight text-right">New Arrivals</h1>
+        <div className="absolute bottom-6 sm:bottom-12 md:bottom-20 lg:bottom-40 right-3 sm:right-4 md:right-6 lg:right-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-light text-white tracking-tight text-right">New Arrivals</h1>
         </div>
       </div>
 
@@ -178,28 +178,28 @@ function ProductsPageContent() {
 
         {/* Main Content - Flex Item */}
         <div className="flex-1">
-        <div ref={productsGridRef} className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
+        <div ref={productsGridRef} className="flex flex-col gap-4 sm:gap-6 px-3 sm:px-4 md:px-6 py-6 sm:py-8 md:py-12 lg:py-16">
           {/* Search Results Header */}
           {searchQuery && (
-            <div className="pb-4 border-b border-neutral-200">
-              <p className="text-sm text-neutral-600">
+            <div className="pb-3 border-b border-neutral-200">
+              <p className="text-xs sm:text-sm text-neutral-600">
                 Search results for: <span className="font-semibold text-neutral-900">"{searchQuery}"</span>
               </p>
             </div>
           )}
 
           {/* Toolbar */}
-          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
+          <div className="flex flex-col gap-3 items-start">
             <div>
-              <p className="text-xs sm:text-sm font-medium text-neutral-700">
+              <p className="text-xs font-medium text-neutral-700">
                 {sortedProducts.length} {sortedProducts.length === 1 ? "item" : "items"} found • Page {currentPage} of {totalPages}
               </p>
             </div>
-            <div className="flex items-center gap-2 sm:gap-3 w-full sm:w-auto">
+            <div className="flex items-center gap-2 w-full flex-wrap">
               {/* Filter Toggle Button */}
               <button
                 onClick={() => setShowFilterDrawer(true)}
-                className="flex items-center gap-2 border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition flex-1 sm:flex-none"
+                className="flex items-center gap-2 border border-neutral-300 px-3 py-2.5 text-xs font-medium text-neutral-900 hover:bg-neutral-50 transition flex-1 sm:flex-none min-h-[40px]"
               >
                 <FunnelIcon className="h-4 w-4" />
                 Filters
@@ -209,9 +209,9 @@ function ProductsPageContent() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="border border-neutral-300 bg-white px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition flex-1 sm:flex-none"
+                className="border border-neutral-300 bg-white px-3 py-2.5 text-xs font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition flex-1 sm:flex-none min-h-[40px]"
               >
-                <option value="newest">Newest First</option>
+                <option value="newest">Newest</option>
                 <option value="price-low">Price: Low to High</option>
                 <option value="price-high">Price: High to Low</option>
                 <option value="rating">Top Rated</option>
@@ -233,8 +233,8 @@ function ProductsPageContent() {
               </div>
             ) : (
               <>
-                <div className="overflow-x-auto">
-                  <div className="grid gap-2 sm:gap-3 md:gap-4" style={{ gridTemplateColumns: 'repeat(4, minmax(120px, 1fr))', minWidth: 'min-content' }}>
+                <div>
+                  <div className="grid gap-3 sm:gap-4 md:gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                     {paginatedProducts.map(product => (
                       <ProductCard key={product.id} product={product} />
                     ))}
@@ -243,21 +243,21 @@ function ProductsPageContent() {
 
                 {/* Pagination Controls */}
                 {totalPages > 1 && (
-                  <div className="mt-8 sm:mt-10 md:mt-12 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
+                  <div className="mt-6 sm:mt-8 md:mt-10 flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3">
                     <button
                       onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                       disabled={currentPage === 1}
-                      className="border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
+                      className="border border-neutral-300 px-4 py-3 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto min-h-[48px]"
                     >
                       Previous
                     </button>
 
-                    <div className="flex gap-1 flex-wrap justify-center">
+                    <div className="flex gap-1.5 flex-wrap justify-center">
                       {Array.from({ length: totalPages }, (_, i) => i + 1).map(page => (
                         <button
                           key={page}
                           onClick={() => setCurrentPage(page)}
-                          className={`h-8 sm:h-10 w-8 sm:w-10 text-xs sm:text-sm font-medium transition ${
+                          className={`h-10 w-10 text-xs font-medium transition min-h-[40px] ${
                             currentPage === page
                               ? "bg-neutral-900 text-white"
                               : "border border-neutral-300 text-neutral-900 hover:bg-neutral-50"
@@ -271,7 +271,7 @@ function ProductsPageContent() {
                     <button
                       onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                       disabled={currentPage === totalPages}
-                      className="border border-neutral-300 px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto"
+                      className="border border-neutral-300 px-4 py-3 text-xs sm:text-sm font-medium text-neutral-900 hover:bg-neutral-50 disabled:opacity-50 disabled:cursor-not-allowed transition w-full sm:w-auto min-h-[48px]"
                     >
                       Next
                     </button>
