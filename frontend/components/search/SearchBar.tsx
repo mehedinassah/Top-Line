@@ -18,24 +18,24 @@ export default function SearchBar() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex items-center border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-sm text-neutral-900"
+      className="flex items-center border border-neutral-300 bg-neutral-100 px-2 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm text-neutral-900"
       title="Search for products"
     >
-      <MagnifyingGlassIcon className="mr-2 h-4 w-4 text-neutral-600 flex-shrink-0" />
+      <MagnifyingGlassIcon className="mr-1.5 h-3.5 sm:h-4 w-3.5 sm:w-4 text-neutral-600 flex-shrink-0" />
       <input
         className="flex-1 bg-transparent outline-none placeholder:text-neutral-600"
-        placeholder="Search products..."
+        placeholder="Search..."
         value={q}
         onChange={(e) => setQ(e.target.value)}
         aria-label="Search for products"
       />
       <button
         type="submit"
-        className="ml-2 px-2 py-1 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200 transition rounded flex-shrink-0"
+        className="ml-1 px-1.5 py-0.5 text-neutral-600 hover:text-neutral-900 hover:bg-neutral-200 transition rounded flex-shrink-0"
         aria-label="Submit search"
         title="Search"
       >
-        <MagnifyingGlassIcon className="h-5 w-5" />
+        <MagnifyingGlassIcon className="h-4 w-4" />
       </button>
     </form>
   );

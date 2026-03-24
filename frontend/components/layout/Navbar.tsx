@@ -101,7 +101,7 @@ export default function Navbar() {
         {isRefreshing && (
           <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 animate-pulse" />
         )}
-        <div className="mx-auto flex max-w-6xl items-center px-3 sm:px-4 py-2 sm:py-3 md:py-4">
+        <div className="mx-auto flex max-w-6xl items-center px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3">
           {/* Logo - Far Left */}
           <Link 
             href="/" 
@@ -111,7 +111,7 @@ export default function Navbar() {
               window.location.href = '/';
             }}
           >
-            <span className="text-sm sm:text-base md:text-lg font-bold tracking-tight text-neutral-900">
+            <span className="text-xs sm:text-sm md:text-lg font-bold tracking-tight text-neutral-900">
               Top Line
             </span>
           </Link>
@@ -120,7 +120,7 @@ export default function Navbar() {
           <div className="flex-1" />
 
           {/* Navigation - Hidden on mobile */}
-          <nav className="hidden items-center gap-6 md:gap-8 text-xs sm:text-sm md:text-sm font-medium text-neutral-700 md:flex">
+          <nav className="hidden items-center gap-4 md:gap-8 text-xs sm:text-sm md:text-sm font-medium text-neutral-700 md:flex">
             <button
               onClick={() => handleNavigation("/products")}
               disabled={isRefreshing}
@@ -172,14 +172,14 @@ export default function Navbar() {
           </nav>
 
           {/* Search - Visible on all sizes */}
-          <div className="flex-1 px-2 sm:px-4 md:px-8">
+          <div className="flex-1 px-1 sm:px-2 md:px-4">
             <SearchBar />
           </div>
 
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="block md:hidden border border-neutral-300 p-1.5 text-neutral-700 hover:bg-neutral-100 transition duration-200 mr-2"
+            className="block md:hidden border border-neutral-300 p-1 text-neutral-700 hover:bg-neutral-100 transition duration-200 ml-1"
             aria-label="Toggle navigation menu"
             title="Toggle navigation menu"
           >
@@ -191,10 +191,10 @@ export default function Navbar() {
           </button>
 
           {/* Icons - Right Side */}
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2">
             <button
               onClick={() => setCartOpen(true)}
-              className="relative p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
+              className="relative p-1 sm:p-1.5 md:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
               aria-label={`Open shopping cart (${totalQuantity} items)`}
               title={`Open shopping cart (${totalQuantity} items)`}
             >
@@ -210,7 +210,7 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 sm:inline-flex items-center justify-center"
+                  className="hidden p-1 sm:p-1.5 md:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 sm:inline-flex items-center justify-center"
                   title="Account menu"
                 >
                   <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
@@ -258,7 +258,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 sm:inline-block"
+                className="hidden bg-neutral-900 px-2 sm:px-3 md:px-4 py-1 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 sm:inline-block"
                 title="Sign in to your account"
               >
                 Sign in
