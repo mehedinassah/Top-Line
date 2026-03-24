@@ -331,118 +331,9 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 </div>
               </div>
 
-              {/* Description */}
-              <div className="space-y-8 md:space-y-10 border-t border-neutral-200 pt-6 md:pt-8">
-                {/* Story - Emotional Hook */}
-                <p className="text-sm leading-relaxed text-neutral-700 md:text-base">
-                  {typeof props.description === 'string' 
-                    ? props.description 
-                    : (props.description as ProductDescription).story}
-                </p>
-
-                {/* Key Highlights - MOST VISIBLE */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).highlights && (
-                  <div className="space-y-4">
-                    <div className="space-y-3">
-                      <h3 className="text-base font-semibold text-neutral-900 uppercase tracking-wider">Key Highlights</h3>
-                      <ul className="space-y-2.5">
-                        {(props.description as ProductDescription).highlights.map((highlight, idx) => (
-                          <li key={idx} className="flex items-start gap-3 text-sm text-neutral-800">
-                            <span className="mt-0.5 text-lg font-bold text-neutral-900">✓</span>
-                            <span className="font-medium">{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                )}
-
-                {/* Trust Signals - Micro Trust Line */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).trustSignals && (
-                  <div className="flex flex-wrap gap-4 text-xs text-neutral-600">
-                    {(props.description as ProductDescription).trustSignals.map((signal, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <span className="text-neutral-900">✓</span>
-                        <span>{signal}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Fabric & Build - Clean Text Section */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).fabricBuild && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Fabric & Build</h3>
-                    <p className="text-sm text-neutral-700">
-                      {(props.description as ProductDescription).fabricBuild.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {(props.description as ProductDescription).fabricBuild.composition.map((comp, idx) => (
-                        <span key={idx} className="inline-block rounded-full bg-neutral-100 px-3 py-1.5 text-xs text-neutral-800">
-                          {comp.replace('✓ ', '')}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-
-                {/* Why You'll Love It - Compact with Icons */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).whyYouLoveIt && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Why You'll Love It</h3>
-                    <ul className="space-y-1.5">
-                      {(props.description as ProductDescription).whyYouLoveIt.map((reason, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-neutral-700">
-                          <span className="mt-0.5 text-neutral-900 font-bold">✓</span>
-                          <span>{reason}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* Care Instructions - Icon Based */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Care</h3>
-                    <div className="flex gap-6">
-                      {/* Cold Water Wash */}
-                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
-                        <div className="text-3xl" title="Machine wash cold (30°C)">❄️</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Cold 30°C</span>
-                      </div>
-                      
-                      {/* Wash Similar Colors */}
-                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
-                        <div className="text-3xl" title="Wash with similar colors">🎨</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Similar Colors</span>
-                      </div>
-                      
-                      {/* No Bleach */}
-                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
-                        <div className="text-3xl" title="Do not bleach">🚫</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">No Bleach</span>
-                      </div>
-                      
-                      {/* Low Heat Dry */}
-                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
-                        <div className="text-3xl" title="Low heat dry">🌬️</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Low Heat</span>
-                      </div>
-                      
-                      {/* Iron Low */}
-                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
-                        <div className="text-3xl" title="Iron at low temperature">🔥</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Iron Low</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              {/* Size & Color Selectors */}
+              {/* Color & Size Selectors - MOVED UP */}
               {props.collection !== "accessories" && (
-                <div className="space-y-4 border-t border-neutral-200 pt-4 md:pt-6">
+                <div className="space-y-4">
                   <ColorSelector
                     selectedColor={selectedColor}
                     onColorChange={setSelectedColor}
@@ -454,17 +345,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     onSizeChange={setSelectedSize}
                     availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
                   />
-
-                  {/* SKU Display */}
-                  {currentVariant && (
-                    <div className="rounded-lg bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
-                      SKU: <span className="font-mono font-medium">{currentVariant.sku}</span>
-                    </div>
-                  )}
                 </div>
               )}
 
-              {/* Quantity Selector & Add to Cart */}
+              {/* Quantity Selector & Add to Cart - MOVED UP */}
               <div className="flex flex-col gap-3 sm:gap-4">
                 {isVariantInStock && (
                   <div className="flex items-center gap-3 rounded-full bg-neutral-100 px-4 py-2.5">
@@ -541,24 +425,86 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 </div>
               </div>
 
-              {/* Additional Info */}
-              <div className="grid grid-cols-2 gap-3 border-t border-neutral-200 pt-4 text-xs md:grid-cols-3">
-                <div>
-                  <p className="text-neutral-700">Availability</p>
-                  <p className="mt-1 font-medium text-neutral-900">
-                    {isVariantInStock ? "In Stock" : "Out of Stock"}
-                  </p>
+              {/* SKU Display */}
+              {props.collection !== "accessories" && currentVariant && (
+                <div className="rounded-lg bg-neutral-50 px-3 py-2 text-xs text-neutral-700">
+                  SKU: <span className="font-mono font-medium">{currentVariant.sku}</span>
                 </div>
-                {isVariantInStock && (
+              )}
+
+              {/* Product Details Section - Moved Below CTA */}
+              <div className="space-y-6 border-t border-neutral-200 pt-6">
+                {/* Story - Emotional Hook */}
+                <p className="text-xs leading-relaxed text-neutral-700">
+                  {typeof props.description === 'string' 
+                    ? props.description 
+                    : (props.description as ProductDescription).story}
+                </p>
+
+                {/* Key Highlights - Compact */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).highlights && (
                   <div>
-                    <p className="text-neutral-700">Ships from</p>
-                    <p className="mt-1 font-medium text-neutral-900">Warehouse</p>
+                    <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5">Key Highlights</h3>
+                    <ul className="space-y-1">
+                      {(props.description as ProductDescription).highlights.map((highlight, idx) => (
+                        <li key={idx} className="flex items-start gap-2 text-xs text-neutral-800">
+                          <span className="mt-0.5 text-sm font-bold text-neutral-900">✓</span>
+                          <span>{highlight}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 )}
-                <div>
-                  <p className="text-neutral-700">Returns</p>
-                  <p className="mt-1 font-medium text-neutral-900">30 days</p>
-                </div>
+
+                {/* Trust Signals - Micro Trust Line */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).trustSignals && (
+                  <div className="flex flex-wrap gap-2 text-xs text-neutral-600">
+                    {(props.description as ProductDescription).trustSignals.map((signal, idx) => (
+                      <span key={idx} className="inline-flex items-center gap-1">
+                        <span className="text-neutral-900">✓</span>
+                        <span>{signal}</span>
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Care Instructions - Icon Based */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
+                  <div>
+                    <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5">Care</h3>
+                    <div className="flex gap-3">
+                      {/* Cold Water Wash */}
+                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                        <div className="text-2xl" title="Machine wash cold (30°C)">❄️</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Cold</span>
+                      </div>
+                      
+                      {/* Wash Similar Colors */}
+                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                        <div className="text-2xl" title="Wash with similar colors">🎨</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Color</span>
+                      </div>
+                      
+                      {/* No Bleach */}
+                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                        <div className="text-2xl" title="Do not bleach">🚫</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">No Bleach</span>
+                      </div>
+                      
+                      {/* Low Heat Dry */}
+                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                        <div className="text-2xl" title="Low heat dry">🌬️</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Low Heat</span>
+                      </div>
+                      
+                      {/* Iron Low */}
+                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                        <div className="text-2xl" title="Iron at low temperature">🔥</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Iron</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>
