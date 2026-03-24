@@ -15,9 +15,11 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [pinchZoom, setPinchZoom] = useState(1);
   const imageRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
+  const lastPinchDistance = useRef(0);
 
   useEffect(() => {
     // Check if mobile on component mount
@@ -67,20 +69,64 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
+    
+    // If two fingers, start tracking pinch
+    if (e.touches.length === 2) {
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+      lastPinchDistance.current = distance;
+    }
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    // Handle pinch zoom with two fingers
+    if (e.touches.length === 2) {
+      e.preventDefault();
+      const touch1 = e.touches[0];
+      const touch2 = e.touches[1];
+      const distance = Math.hypot(
+        touch2.clientX - touch1.clientX,
+        touch2.clientY - touch1.clientY
+      );
+
+      if (lastPinchDistance.current > 0) {
+        const scale = distance / lastPinchDistance.current;
+        const newZoom = Math.max(1, Math.min(3, pinchZoom * scale));
+        setPinchZoom(newZoom);
+      }
+      lastPinchDistance.current = distance;
+    }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    const touchEndX = e.changedTouches[0].clientX;
-    const touchEndY = e.changedTouches[0].clientY;
-    const deltaX = touchStartX.current - touchEndX;
-    const deltaY = touchStartY.current - touchEndY;
+    // Reset pinch distance tracking
+    lastPinchDistance.current = 0;
+    
+    // If no more touches, gradually reset zoom (with a small delay for better UX)
+    if (e.touches.length === 0) {
+      setTimeout(() => {
+        setPinchZoom(1);
+      }, 100);
+    }
+    
+    // Handle swipe navigation only if not zoomed
+    if (pinchZoom === 1 && e.touches.length === 0) {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const deltaX = touchStartX.current - touchEndX;
+      const deltaY = touchStartY.current - touchEndY;
 
-    // Only register as horizontal swipe if movement is primarily horizontal
-    if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-      if (deltaX > 0) {
-        handleNext();
-      } else {
-        handlePrev();
+      // Only register as horizontal swipe if movement is primarily horizontal
+      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+        if (deltaX > 0) {
+          handleNext();
+        } else {
+          handlePrev();
+        }
       }
     }
   };
@@ -99,8 +145,9 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ cursor: isHovering ? 'crosshair' : isMobile ? 'grab' : 'default' }}
+        style={{ cursor: isHovering ? 'crosshair' : isMobile ? (pinchZoom > 1 ? 'grab' : 'grab') : 'default' }}
       >
         <Image
           src={displayImage}
@@ -108,9 +155,9 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
           fill
           className="object-cover transition-transform duration-200"
           style={{
-            transform: isHovering ? 'scale(1.5)' : 'scale(1)',
+            transform: isHovering ? `scale(1.5)` : isMobile && pinchZoom > 1 ? `scale(${pinchZoom})` : 'scale(1)',
             transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
-            willChange: isHovering ? 'transform' : 'auto',
+            willChange: isHovering || (isMobile && pinchZoom > 1) ? 'transform' : 'auto',
           }}
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
@@ -153,9 +200,9 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         )}
 
         {/* Swipe Indicator on Mobile */}
-        {isMobile && images.length > 1 && (
-          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 text-xs font-medium">
-            Swipe to navigate
+        {isMobile && images.length > 1 && pinchZoom === 1 && (
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 text-xs font-medium text-center">
+            Swipe to navigate • Pinch to zoom
           </div>
         )}
       </div>
