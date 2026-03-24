@@ -1,3 +1,6 @@
+import { allReviews, calculateAverageRating } from "./reviewsData";
+import type { Review } from "./reviewsData";
+
 export const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
 
 export const COLORS = [
@@ -35,6 +38,14 @@ export interface Product {
   sizes: Size[];
   colors: Color[];
   variants: ProductVariant[];
+}
+
+// Helper function to get random reviews for each product
+function getProductReviews(productId: number): Review[] {
+  const seed = productId * 7; // Use product ID as seed for consistent random selection
+  const reviewCount = 4 + (seed % 2); // 4 or 5 reviews
+  const startIndex = (seed % (allReviews.length - reviewCount));
+  return allReviews.slice(startIndex, startIndex + reviewCount);
 }
 
 export const featuredProducts: Product[] = [
@@ -498,109 +509,26 @@ export const featuredProducts: Product[] = [
   }
 ];
 
-type DetailedProduct = Product & {
+export type DetailedProduct = Product & {
   inStock: boolean;
   stockCount: number;
-  reviews: {
-    id: number;
-    author: string;
-    rating: number;
-    comment: string;
-  }[];
+  reviews: Review[];
+  reviewCount: number;
 };
 
-const detailedProducts: DetailedProduct[] = [
-  {
-    ...featuredProducts[0],
-    inStock: true,
-    stockCount: 18,
-    reviews: []
-  },
-  {
-    ...featuredProducts[1],
-    inStock: true,
-    stockCount: 22,
-    reviews: []
-  },
-  {
-    ...featuredProducts[2],
-    inStock: false,
-    stockCount: 0,
-    reviews: []
-  },
-  {
-    ...featuredProducts[3],
-    inStock: true,
-    stockCount: 25,
-    reviews: []
-  },
-  {
-    ...featuredProducts[4],
-    inStock: true,
-    stockCount: 12,
-    reviews: []
-  },
-  {
-    ...featuredProducts[5],
-    inStock: true,
-    stockCount: 8,
-    reviews: []
-  },
-  {
-    ...featuredProducts[6],
-    inStock: true,
-    stockCount: 16,
-    reviews: []
-  },
-  {
-    ...featuredProducts[7],
-    inStock: true,
-    stockCount: 12,
-    reviews: []
-  },
-  {
-    ...featuredProducts[8],
-    inStock: true,
-    stockCount: 11,
-    reviews: []
-  },
-  {
-    ...featuredProducts[9],
-    inStock: true,
-    stockCount: 14,
-    reviews: []
-  },
-  {
-    ...featuredProducts[10],
-    inStock: true,
-    stockCount: 10,
-    reviews: []
-  },
-  {
-    ...featuredProducts[11],
-    inStock: true,
-    stockCount: 13,
-    reviews: []
-  },
-  {
-    ...featuredProducts[12],
-    inStock: true,
-    stockCount: 16,
-    reviews: []
-  },
-  {
-    ...featuredProducts[13],
-    inStock: true,
-    stockCount: 22,
-    reviews: []
-  },
-  {
-    ...featuredProducts[14],
-    inStock: true,
-    stockCount: 19,
-    reviews: []
-  }
-];
+const detailedProducts: DetailedProduct[] = featuredProducts.map((product, index) => {
+  const reviews = getProductReviews(product.id);
+  const avgRating = calculateAverageRating(reviews);
+  
+  return {
+    ...product,
+    rating: avgRating,
+    inStock: index % 3 !== 2, // Make every 3rd product out of stock for variety
+    stockCount: index % 3 !== 2 ? Math.floor(Math.random() * 25) + 5 : 0,
+    reviews: reviews,
+    reviewCount: reviews.length
+  };
+});
 
 export function getProductById(id: number): DetailedProduct | undefined {
   return detailedProducts.find((p) => p.id === id);

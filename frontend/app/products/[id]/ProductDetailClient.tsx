@@ -10,18 +10,14 @@ import RelatedProducts from "@/components/products/RelatedProducts";
 import { useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import type { Product, Size, Color, ProductVariant } from "@/lib/productData";
-
-type Review = {
-  id: number;
-  author: string;
-  rating: number;
-  comment: string;
-};
+import type { Review } from "@/lib/reviewsData";
+import { calculateAverageRating } from "@/lib/reviewsData";
 
 type ProductDetailProps = Product & {
   inStock: boolean;
   stockCount: number;
   reviews: Review[];
+  reviewCount: number;
   allProducts?: Product[];
 };
 
@@ -41,6 +37,8 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [reviewRating, setReviewRating] = useState(5);
   const [reviewComment, setReviewComment] = useState("");
   const [reviews, setReviews] = useState<Review[]>(props.reviews);
+  const [productRating, setProductRating] = useState(props.rating);
+  const [showAllReviews, setShowAllReviews] = useState(false);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -84,7 +82,13 @@ export default function ProductDetailClient(props: ProductDetailProps) {
       comment: reviewComment
     };
 
-    setReviews([newReview, ...reviews]);
+    const updatedReviews = [newReview, ...reviews];
+    setReviews(updatedReviews);
+    
+    // Update product rating based on all reviews (including new one)
+    const newAverageRating = calculateAverageRating(updatedReviews);
+    setProductRating(newAverageRating);
+    
     setReviewComment("");
     setReviewRating(5);
     setShowReviewForm(false);
@@ -316,13 +320,13 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                 {/* Rating */}
                 <div className="flex items-center gap-2 text-sm">
                   <div className="flex items-center gap-1">
-                    {renderStars(props.rating)}
+                    {renderStars(productRating)}
                     <span className="ml-1 font-semibold text-neutral-900">
-                      {props.rating.toFixed(1)}
+                      {productRating.toFixed(1)}
                     </span>
                   </div>
                   <span className="text-neutral-700">
-                    ({props.reviews.length} {props.reviews.length === 1 ? "review" : "reviews"})
+                    ({reviews.length} {reviews.length === 1 ? "review" : "reviews"})
                   </span>
                 </div>
               </div>
@@ -560,30 +564,46 @@ export default function ProductDetailClient(props: ProductDetailProps) {
               <p className="text-neutral-700">No reviews yet. Be the first to review this product!</p>
             </div>
           ) : (
-            <div className="grid gap-4 md:gap-6">
-              {reviews.map((review) => (
-                <div
-                  key={review.id}
-                  className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 md:p-6 hover:border-neutral-300 transition"
-                >
-                  <div className="flex flex-col gap-2 md:gap-3 md:flex-row md:items-start md:justify-between">
-                    <div>
-                      <p className="font-semibold text-neutral-900">{review.author}</p>
-                      <div className="mt-1 flex items-center gap-2">
-                        <div className="flex gap-0.5">
-                          {renderStars(review.rating)}
+            <div className="space-y-4 md:space-y-6">
+              <div className="grid gap-4 md:gap-6">
+                {(showAllReviews ? reviews : reviews.slice(0, 3)).map((review) => (
+                  <div
+                    key={review.id}
+                    className="rounded-2xl border border-neutral-200 bg-neutral-50 p-4 md:p-6 hover:border-neutral-300 transition"
+                  >
+                    <div className="flex flex-col gap-2 md:gap-3 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <p className="font-semibold text-neutral-900">{review.author}</p>
+                        <div className="mt-1 flex items-center gap-2">
+                          <div className="flex gap-0.5">
+                            {renderStars(review.rating)}
+                          </div>
+                          <span className="text-xs text-neutral-700">
+                            {review.rating.toFixed(1)} out of 5
+                          </span>
                         </div>
-                        <span className="text-xs text-neutral-700">
-                          {review.rating.toFixed(1)} out of 5
-                        </span>
                       </div>
                     </div>
+                    <p className="mt-3 text-sm leading-relaxed text-neutral-800 md:text-base">
+                      {review.comment}
+                    </p>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-neutral-800 md:text-base">
-                    {review.comment}
-                  </p>
+                ))}
+              </div>
+
+              {/* Show All / Hide Reviews Button */}
+              {reviews.length > 3 && (
+                <div className="flex justify-center pt-2">
+                  <button
+                    onClick={() => setShowAllReviews(!showAllReviews)}
+                    className="rounded-full bg-neutral-900 px-8 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                  >
+                    {showAllReviews 
+                      ? "Hide reviews" 
+                      : `Show all reviews (${reviews.length})`}
+                  </button>
                 </div>
-              ))}
+              )}
             </div>
           )}
         </div>
