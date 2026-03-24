@@ -386,35 +386,14 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </div>
                 )}
 
-                {/* Fit & Sizing - Clean Spacing */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).fitAndSizing && (
-                  <div className="space-y-3">
-                    <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Fit & Sizing</h3>
-                    <div className="space-y-2.5 text-sm text-neutral-700">
-                      <div className="flex">
-                        <span className="w-24 font-medium text-neutral-900">Fit:</span>
-                        <span>{(props.description as ProductDescription).fitAndSizing.fit}</span>
-                      </div>
-                      <div className="flex">
-                        <span className="w-24 font-medium text-neutral-900">Model:</span>
-                        <span>{(props.description as ProductDescription).fitAndSizing.model}</span>
-                      </div>
-                      <div className="flex">
-                        <span className="w-24 font-medium text-neutral-900">Sizing:</span>
-                        <span>{(props.description as ProductDescription).fitAndSizing.sizing}</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Why You'll Love It - Emotional Connection */}
+                {/* Why You'll Love It - Compact with Icons */}
                 {typeof props.description === 'object' && (props.description as ProductDescription).whyYouLoveIt && (
                   <div className="space-y-3">
                     <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Why You'll Love It</h3>
-                    <ul className="space-y-2">
+                    <ul className="space-y-1.5">
                       {(props.description as ProductDescription).whyYouLoveIt.map((reason, idx) => (
-                        <li key={idx} className="flex items-start gap-3 text-sm text-neutral-700">
-                          <span className="mt-1 h-1 w-1 rounded-full bg-neutral-900"></span>
+                        <li key={idx} className="flex items-start gap-2 text-xs text-neutral-700">
+                          <span className="mt-0.5 text-neutral-900 font-bold">✓</span>
                           <span>{reason}</span>
                         </li>
                       ))}
@@ -422,18 +401,41 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </div>
                 )}
 
-                {/* Care Instructions - Light Section */}
+                {/* Care Instructions - Icon Based */}
                 {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
                   <div className="space-y-3">
                     <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider">Care</h3>
-                    <ul className="space-y-1.5 text-sm text-neutral-700">
-                      {(props.description as ProductDescription).careInstructions.map((instruction, idx) => (
-                        <li key={idx} className="flex gap-2">
-                          <span>•</span>
-                          <span>{instruction.replace('✓ ', '')}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="flex gap-6">
+                      {/* Cold Water Wash */}
+                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
+                        <div className="text-3xl" title="Machine wash cold (30°C)">❄️</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Cold 30°C</span>
+                      </div>
+                      
+                      {/* Wash Similar Colors */}
+                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
+                        <div className="text-3xl" title="Wash with similar colors">🎨</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Similar Colors</span>
+                      </div>
+                      
+                      {/* No Bleach */}
+                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
+                        <div className="text-3xl" title="Do not bleach">🚫</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">No Bleach</span>
+                      </div>
+                      
+                      {/* Low Heat Dry */}
+                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
+                        <div className="text-3xl" title="Low heat dry">🌬️</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Low Heat</span>
+                      </div>
+                      
+                      {/* Iron Low */}
+                      <div className="flex flex-col items-center gap-1.5 group cursor-help">
+                        <div className="text-3xl" title="Iron at low temperature">🔥</div>
+                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center max-w-[60px]">Iron Low</span>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>
