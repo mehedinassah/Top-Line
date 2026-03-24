@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 
 interface ImageGalleryProps {
@@ -12,27 +12,20 @@ interface ImageGalleryProps {
 
 export default function ImageGallery({ images, productName, onImageSelect }: ImageGalleryProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  
+  // Press-and-hold zoom state
+  const [isPressing, setIsPressing] = useState(false);
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [panOffset, setPanOffset] = useState({ x: 0, y: 0 });
-  const [isZooming, setIsZooming] = useState(false);
+  const [transformOrigin, setTransformOrigin] = useState('50% 50%');
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showBounceFeedback, setShowBounceFeedback] = useState(false);
   
   const imageRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef(0);
-  const touchStartY = useRef(0);
-  const touchStartTime = useRef(0);
-  const panStartX = useRef(0);
-  const panStartY = useRef(0);
-  const lastDistanceRef = useRef(0);
-  const velocityRef = useRef({ x: 0, y: 0 });
-  const lastPanPosRef = useRef({ x: 0, y: 0 });
-  const lastPanTimeRef = useRef(0);
-  const doubleTapTimerRef = useRef<NodeJS.Timeout | null>(null);
-  const lastTapTimeRef = useRef(0);
+  const pressTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
@@ -45,13 +38,13 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
 
   // Lock background scroll when zoomed
   useEffect(() => {
-    if (isZooming && isMobile) {
+    if (isPressing && isMobile) {
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = '';
       };
     }
-  }, [isZooming, isMobile]);
+  }, [isPressing, isMobile]);
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
@@ -63,17 +56,10 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
     onImageSelect?.(currentIndex === images.length - 1 ? 0 : currentIndex + 1);
   };
 
+  // Desktop hover zoom
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!imageRef.current || isMobile) return;
-
-    const rect = imageRef.current.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-    setZoomPos({ 
-      x: Math.max(0, Math.min(100, x)), 
-      y: Math.max(0, Math.min(100, y)) 
-    });
+    setIsHovering(true);
   };
 
   const handleMouseEnter = () => {
@@ -84,160 +70,68 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
 
   const handleMouseLeave = () => {
     setIsHovering(false);
-    setZoomPos({ x: 50, y: 50 });
   };
 
-  const resetZoom = useCallback(() => {
+  // Press-and-hold zoom handlers
+  const updateZoomPosition = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!imageRef.current) return;
+    
+    const rect = imageRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    const percentX = (x / rect.width) * 100;
+    const percentY = (y / rect.height) * 100;
+    
+    setTransformOrigin(`${Math.max(0, Math.min(100, percentX))}% ${Math.max(0, Math.min(100, percentY))}%`);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (e.button !== 0 || !isMobile) return; // Only left pointer on mobile
+    
+    setIsPressing(true);
+    setIsAnimating(false);
+    updateZoomPosition(e);
+    
+    // Micro bounce feedback
+    setShowBounceFeedback(true);
+    setTimeout(() => setShowBounceFeedback(false), 150);
+    
+    // Activate zoom with micro-scale bounce
+    setZoomLevel(0.95);
+    setTimeout(() => setZoomLevel(2.5), 50);
+  };
+
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPressing || !isMobile) return;
+    
+    e.preventDefault();
+    updateZoomPosition(e);
+  };
+
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPressing) return;
+    
+    setIsPressing(false);
     setIsAnimating(true);
     setZoomLevel(1);
-    setPanOffset({ x: 0, y: 0 });
-    setIsZooming(false);
+    setTransformOrigin('50% 50%');
+    
     setTimeout(() => setIsAnimating(false), 300);
-  }, []);
-
-  const handleDoubleTap = useCallback((tapX: number, tapY: number) => {
-    if (zoomLevel >= 3) {
-      resetZoom();
-    } else {
-      setIsAnimating(true);
-      const newZoom = zoomLevel === 1 ? 2 : 3.5;
-      setZoomLevel(newZoom);
-      setZoomPos({ x: tapX, y: tapY });
-      setIsZooming(true);
-      setTimeout(() => setIsAnimating(false), 300);
-    }
-  }, [zoomLevel, resetZoom]);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    if (e.touches.length === 1) {
-      const now = Date.now();
-      const timeSinceLastTap = now - lastTapTimeRef.current;
-
-      touchStartX.current = e.touches[0].clientX;
-      touchStartY.current = e.touches[0].clientY;
-      touchStartTime.current = now;
-      panStartX.current = panOffset.x;
-      panStartY.current = panOffset.y;
-      lastPanPosRef.current = { x: touchStartX.current, y: touchStartY.current };
-      lastPanTimeRef.current = now;
-
-      // Double tap detection
-      if (timeSinceLastTap < 300) {
-        if (doubleTapTimerRef.current) clearTimeout(doubleTapTimerRef.current);
-        
-        if (!imageRef.current) return;
-        const rect = imageRef.current.getBoundingClientRect();
-        const tapX = ((touchStartX.current - rect.left) / rect.width) * 100;
-        const tapY = ((touchStartY.current - rect.top) / rect.height) * 100;
-        
-        handleDoubleTap(tapX, tapY);
-        lastTapTimeRef.current = 0;
-      } else {
-        lastTapTimeRef.current = now;
-      }
-    } else if (e.touches.length === 2) {
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const distance = Math.hypot(
-        touch2.clientX - touch1.clientX,
-        touch2.clientY - touch1.clientY
-      );
-      lastDistanceRef.current = distance;
-    }
   };
 
-  const handleTouchMove = (e: React.TouchEvent) => {
-    // Pinch zoom with two fingers
-    if (e.touches.length === 2) {
-      e.preventDefault();
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const distance = Math.hypot(
-        touch2.clientX - touch1.clientX,
-        touch2.clientY - touch1.clientY
-      );
-
-      if (lastDistanceRef.current > 0) {
-        const scale = distance / lastDistanceRef.current;
-        const newZoom = Math.max(1, Math.min(4, zoomLevel * scale));
-        setZoomLevel(newZoom);
-        setIsZooming(newZoom > 1);
-        
-        // Center pinch point
-        const centerX = ((touch1.clientX + touch2.clientX) / 2 - (imageRef.current?.getBoundingClientRect().left || 0)) / (imageRef.current?.clientWidth || 1) * 100;
-        const centerY = ((touch1.clientY + touch2.clientY) / 2 - (imageRef.current?.getBoundingClientRect().top || 0)) / (imageRef.current?.clientHeight || 1) * 100;
-        setZoomPos({ x: Math.max(0, Math.min(100, centerX)), y: Math.max(0, Math.min(100, centerY)) });
-      }
-      lastDistanceRef.current = distance;
-    } 
-    // Single finger pan when zoomed
-    else if (e.touches.length === 1 && zoomLevel > 1) {
-      e.preventDefault();
-      const currentX = e.touches[0].clientX;
-      const currentY = e.touches[0].clientY;
-      const deltaX = currentX - touchStartX.current;
-      const deltaY = currentY - touchStartY.current;
-
-      // Calculate velocity for momentum
-      const now = Date.now();
-      const timeDelta = now - lastPanTimeRef.current;
-      if (timeDelta > 0) {
-        velocityRef.current = {
-          x: (currentX - lastPanPosRef.current.x) / timeDelta,
-          y: (currentY - lastPanPosRef.current.y) / timeDelta,
-        };
-      }
-      lastPanPosRef.current = { x: currentX, y: currentY };
-      lastPanTimeRef.current = now;
-
-      setPanOffset({ x: panStartX.current + deltaX, y: panStartY.current + deltaY });
-    }
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (e.touches.length === 0) {
-      lastDistanceRef.current = 0;
-
-      // Swipe down to exit zoom
-      const touchDuration = Date.now() - touchStartTime.current;
-      const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-      
-      if (zoomLevel > 1 && deltaY > 80 && touchDuration < 300) {
-        resetZoom();
-        return;
-      }
-
-      // Apply momentum/inertia
-      if (zoomLevel > 1) {
-        const momentumX = velocityRef.current.x * 50;
-        const momentumY = velocityRef.current.y * 50;
-        
-        setIsAnimating(true);
-        setPanOffset({
-          x: panOffset.x + momentumX,
-          y: panOffset.y + momentumY,
-        });
-        
-        setTimeout(() => setIsAnimating(false), 300);
-      } else if (zoomLevel === 1) {
-        // Swipe navigation
-        const touchEndX = e.changedTouches[0].clientX;
-        const deltaX = touchStartX.current - touchEndX;
-
-        if (Math.abs(deltaX) > 50 && touchDuration < 300) {
-          if (deltaX > 0) {
-            handleNext();
-          } else {
-            handlePrev();
-          }
-        }
-      }
-    }
+  const handlePointerLeave = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (!isPressing) return;
+    
+    setIsPressing(false);
+    setIsAnimating(true);
+    setZoomLevel(1);
+    setTransformOrigin('50% 50%');
+    
+    setTimeout(() => setIsAnimating(false), 300);
   };
 
   const displayImage = images[currentIndex] || '/placeholder-product.png';
-  const panX = isZooming ? (panOffset.x / (imageRef.current?.clientWidth || 1)) * 100 : 0;
-  const panY = isZooming ? (panOffset.y / (imageRef.current?.clientHeight || 1)) * 100 : 0;
 
   return (
     <div className="w-full space-y-3 md:space-y-4">
@@ -250,34 +144,35 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         onMouseMove={handleMouseMove}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerLeave}
         style={{ 
-          touchAction: zoomLevel > 1 ? 'none' : 'auto',
-          cursor: isHovering ? 'crosshair' : isMobile ? (zoomLevel > 1 ? 'grab' : 'pointer') : 'default',
-          backgroundColor: isZooming ? 'rgba(0, 0, 0, 0.3)' : 'transparent'
+          touchAction: isPressing ? 'none' : 'auto',
+          cursor: isHovering ? 'zoom-in' : isMobile ? (isPressing ? 'grabbing' : 'pointer') : 'default',
         }}
       >
-        {/* Backdrop Blur when zoomed */}
-        {isZooming && isMobile && (
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0 transition-opacity duration-300" />
+        {/* Backdrop Blur when pressing */}
+        {isPressing && isMobile && (
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm z-0 transition-opacity duration-300 pointer-events-none" />
         )}
 
-        {/* Image */}
+        {/* Image Container with GPU-Accelerated Zoom */}
         <div
           style={{
             transform: isHovering 
               ? `scale(1.5)` 
-              : isMobile 
-                ? `translate3d(${panX}px, ${panY}px, 0) scale(${zoomLevel})`
-                : 'scale(1)',
-            transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
-            transition: isAnimating ? 'transform 0.3s cubic-bezier(0.16, 1, 0.3, 1)' : 'none',
+              : `translate3d(0, 0, 0) scale(${zoomLevel})`,
+            transformOrigin: isMobile ? transformOrigin : '50% 50%',
+            transition: isAnimating && !isPressing 
+              ? 'transform 300ms cubic-bezier(0.16, 1, 0.3, 1)' 
+              : 'none',
             willChange: 'transform',
             width: '100%',
             height: '100%',
             position: 'relative',
+            filter: isPressing ? 'brightness(1.05)' : 'brightness(1)',
           }}
         >
           <Image
@@ -287,8 +182,14 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
             className="object-cover"
             priority
             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
+            draggable={false}
           />
         </div>
+
+        {/* Micro Bounce Feedback */}
+        {showBounceFeedback && isPressing && (
+          <div className="absolute inset-0 animate-pulse bg-white/5 pointer-events-none" />
+        )}
 
         {/* Hover Hint - Desktop Only */}
         {!isMobile && !isHovering && (
@@ -300,7 +201,7 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         )}
 
         {/* Navigation Arrows */}
-        {images.length > 1 && !isZooming && (
+        {images.length > 1 && !isPressing && (
           <>
             <button
               onClick={handlePrev}
@@ -320,30 +221,30 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         )}
 
         {/* Image Counter */}
-        {images.length > 1 && !isZooming && (
-          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 bg-black/60 text-white px-2 md:px-3 py-1 text-xs md:text-sm font-medium z-10">
+        {images.length > 1 && !isPressing && (
+          <div className="absolute bottom-2 md:bottom-4 left-2 md:left-4 bg-black/60 text-white px-2 md:px-3 py-1 text-xs md:text-sm font-medium z-10 transition-opacity duration-300">
             {currentIndex + 1} / {images.length}
           </div>
         )}
 
-        {/* Mobile Hints */}
-        {isMobile && zoomLevel === 1 && (
-          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 text-xs font-medium text-center z-10 transition-opacity duration-300">
-            Double-tap to zoom • Swipe to navigate
+        {/* Mobile Press Hint */}
+        {isMobile && !isPressing && (
+          <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 text-xs font-medium text-center z-10 transition-opacity duration-300 pointer-events-none">
+            Press and hold to zoom
           </div>
         )}
 
-        {/* Zoom Info */}
-        {isZooming && isMobile && (
-          <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-2 text-xs font-medium rounded backdrop-blur-sm z-20 transition-opacity duration-300">
-            <div>Zoom: {Math.round(zoomLevel * 100) / 100}x</div>
-            <div className="text-white/70 text-xs mt-1">Tap to close</div>
+        {/* Zoom Level Display */}
+        {isPressing && isMobile && (
+          <div className="absolute top-4 right-4 bg-black/70 text-white px-3 py-2 text-xs font-medium rounded backdrop-blur-sm z-20 transition-all duration-200 pointer-events-none">
+            <div className="text-lg font-semibold">{Math.round(zoomLevel * 10) / 10}x</div>
+            <div className="text-white/70 text-xs mt-0.5">Magnified</div>
           </div>
         )}
       </div>
 
       {/* Thumbnail Gallery */}
-      {images.length > 1 && !isZooming && (
+      {images.length > 1 && !isPressing && (
         <div className="grid grid-cols-3 gap-2 md:gap-3 px-2 md:px-0">
           {images.map((image, index) => (
             <button
