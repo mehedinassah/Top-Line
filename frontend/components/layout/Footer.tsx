@@ -1,12 +1,29 @@
+'use client';
+
+import { useState } from 'react';
 import Link from "next/link";
+import SizeGuideModal from "@/components/product/SizeGuideModal";
+
+const SIZE_CHART = [
+  { size: 'XS', chest: '32"', length: '27"', sleeves: '31"' },
+  { size: 'S', chest: '34"', length: '28"', sleeves: '32"' },
+  { size: 'M', chest: '36"', length: '29"', sleeves: '33"' },
+  { size: 'L', chest: '38"', length: '30"', sleeves: '34"' },
+  { size: 'XL', chest: '40"', length: '31"', sleeves: '35"' },
+  { size: 'XXL', chest: '42"', length: '32"', sleeves: '36"' },
+  { size: 'XXXL', chest: '44"', length: '33"', sleeves: '37"' },
+];
 
 export default function Footer() {
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
+
   return (
-    <footer className="border-t border-neutral-900 bg-neutral-900 text-white">
+    <>
+      <footer className="border-t border-neutral-900 bg-neutral-900 text-white">
       <div className="mx-auto max-w-6xl px-4 py-12 md:py-16">
-        <div className="grid gap-8 md:grid-cols-5">
-          {/* Brand */}
-          <div>
+        <div className="grid gap-6 md:gap-8 grid-cols-2 md:grid-cols-5">
+          {/* Brand - Hidden on mobile, visible on md+ */}
+          <div className="hidden md:block">
             <h3 className="text-lg font-bold tracking-tight mb-4">Top Line</h3>
             <p className="text-sm text-neutral-300 leading-relaxed"></p>
           </div>
@@ -27,7 +44,7 @@ export default function Footer() {
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Support</h4>
             <ul className="space-y-2 text-sm">
               <li><Link href="/account/orders" className="text-neutral-300 hover:text-white transition duration-200" title="Track your orders">Order Status</Link></li>
-              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Visit size guide">Size Guide</Link></li>
+              <li><button onClick={() => setShowSizeGuide(true)} className="text-neutral-300 hover:text-white transition duration-200 cursor-pointer" title="View size guide">Size Guide</button></li>
               <li><Link href="/contact" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</Link></li>
               <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Shipping information">Shipping Info</Link></li>
             </ul>
@@ -72,6 +89,13 @@ export default function Footer() {
         </div>
       </div>
     </footer>
+
+    <SizeGuideModal 
+      isOpen={showSizeGuide}
+      onClose={() => setShowSizeGuide(false)}
+      sizeChart={SIZE_CHART}
+    />
+    </>
   );
 }
 
