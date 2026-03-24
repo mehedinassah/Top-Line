@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useRef, useEffect } from "react";
+import { useState, useMemo, useRef, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
 import FilterDrawer from "@/components/products/FilterDrawer";
@@ -10,7 +11,10 @@ import type { Product, Size } from "@/lib/productData";
 
 type SortOption = "newest" | "price-low" | "price-high" | "rating";
 
-export default function ProductsPage() {
+function ProductsPageContent() {
+  const searchParams = useSearchParams();
+  const searchQuery = searchParams.get("search") || "";
+  
   const itemsPerPage = 12;
   const maxPrice = Math.max(...featuredProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
 
@@ -33,6 +37,15 @@ export default function ProductsPage() {
   const filteredProducts = useMemo(() => {
     let result = [...featuredProducts];
 
+    // Search filter
+    if (searchQuery) {
+      result = result.filter(p =>
+        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.story.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        p.description.highlights.some(h => h.toLowerCase().includes(searchQuery.toLowerCase()))
+      );
+    }
+
     // Category filter
     if (selectedCategory) {
       result = result.filter(p => p.category === selectedCategory);
@@ -52,7 +65,7 @@ export default function ProductsPage() {
     }
 
     return result;
-  }, [selectedCategory, priceRange, selectedSizes]);
+  }, [searchQuery, selectedCategory, priceRange, selectedSizes]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -161,6 +174,15 @@ export default function ProductsPage() {
         {/* Main Content - Flex Item */}
         <div className="flex-1">
         <div className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
+          {/* Search Results Header */}
+          {searchQuery && (
+            <div className="pb-4 border-b border-neutral-200">
+              <p className="text-sm text-neutral-600">
+                Search results for: <span className="font-semibold text-neutral-900">"{searchQuery}"</span>
+              </p>
+            </div>
+          )}
+
           {/* Toolbar */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-6">
             <div>
@@ -255,6 +277,14 @@ export default function ProductsPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-white" />}>
+      <ProductsPageContent />
+    </Suspense>
   );
 }
 
