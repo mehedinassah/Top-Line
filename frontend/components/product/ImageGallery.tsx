@@ -15,11 +15,12 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
   const [zoomPos, setZoomPos] = useState({ x: 50, y: 50 });
   const [isHovering, setIsHovering] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
-  const [pinchZoom, setPinchZoom] = useState(1);
+  const [mobileZoom, setMobileZoom] = useState(1);
   const imageRef = useRef<HTMLDivElement>(null);
   const touchStartX = useRef(0);
   const touchStartY = useRef(0);
-  const lastPinchDistance = useRef(0);
+  const touchStartTime = useRef(0);
+  const isSwiping = useRef(false);
 
   useEffect(() => {
     // Check if mobile on component mount
@@ -69,59 +70,68 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
     touchStartY.current = e.touches[0].clientY;
-    
-    // If two fingers, start tracking pinch
-    if (e.touches.length === 2) {
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const distance = Math.hypot(
-        touch2.clientX - touch1.clientX,
-        touch2.clientY - touch1.clientY
-      );
-      lastPinchDistance.current = distance;
-    }
+    touchStartTime.current = Date.now();
+    isSwiping.current = false;
   };
 
   const handleTouchMove = (e: React.TouchEvent) => {
-    // Handle pinch zoom with two fingers
-    if (e.touches.length === 2) {
-      e.preventDefault();
-      const touch1 = e.touches[0];
-      const touch2 = e.touches[1];
-      const distance = Math.hypot(
-        touch2.clientX - touch1.clientX,
-        touch2.clientY - touch1.clientY
-      );
+    if (e.touches.length !== 1 || !imageRef.current) return;
+    
+    const touchCurrentX = e.touches[0].clientX;
+    const touchCurrentY = e.touches[0].clientY;
+    const deltaX = touchStartX.current - touchCurrentX;
+    const deltaY = touchStartY.current - touchCurrentY;
 
-      if (lastPinchDistance.current > 0) {
-        const scale = distance / lastPinchDistance.current;
-        const newZoom = Math.max(1, Math.min(3, pinchZoom * scale));
-        setPinchZoom(newZoom);
-      }
-      lastPinchDistance.current = distance;
+    // If moving significantly, mark as swiping
+    if (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10) {
+      isSwiping.current = true;
+    }
+
+    // If zoomed in, allow panning
+    if (mobileZoom > 1) {
+      const rect = imageRef.current.getBoundingClientRect();
+      const x = ((touchCurrentX - rect.left) / rect.width) * 100;
+      const y = ((touchCurrentY - rect.top) / rect.height) * 100;
+      setZoomPos({
+        x: Math.max(0, Math.min(100, x)),
+        y: Math.max(0, Math.min(100, y))
+      });
     }
   };
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    // Reset pinch distance tracking
-    lastPinchDistance.current = 0;
+    const touchDuration = Date.now() - touchStartTime.current;
     
-    // If no more touches, gradually reset zoom (with a small delay for better UX)
-    if (e.touches.length === 0) {
-      setTimeout(() => {
-        setPinchZoom(1);
-      }, 100);
-    }
-    
-    // Handle swipe navigation only if not zoomed
-    if (pinchZoom === 1 && e.touches.length === 0) {
+    // If it's a quick tap (not a long press) and not swiping
+    if (touchDuration < 300 && !isSwiping.current) {
+      if (!imageRef.current) return;
+      
+      // Calculate tap position
+      const rect = imageRef.current.getBoundingClientRect();
       const touchEndX = e.changedTouches[0].clientX;
       const touchEndY = e.changedTouches[0].clientY;
+      
+      const tapX = ((touchEndX - rect.left) / rect.width) * 100;
+      const tapY = ((touchEndY - rect.top) / rect.height) * 100;
+      
+      // Toggle zoom: if already zoomed, reset; otherwise zoom to tap position
+      if (mobileZoom > 1) {
+        setMobileZoom(1);
+        setZoomPos({ x: 50, y: 50 });
+      } else {
+        setZoomPos({
+          x: Math.max(0, Math.min(100, tapX)),
+          y: Math.max(0, Math.min(100, tapY))
+        });
+        setMobileZoom(2.5);
+      }
+    } else if (isSwiping.current && mobileZoom === 1) {
+      // Handle swipe navigation only if not zoomed
+      const touchEndX = e.changedTouches[0].clientX;
       const deltaX = touchStartX.current - touchEndX;
-      const deltaY = touchStartY.current - touchEndY;
 
-      // Only register as horizontal swipe if movement is primarily horizontal
-      if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
+      // Only register as horizontal swipe if movement is significant
+      if (Math.abs(deltaX) > 50) {
         if (deltaX > 0) {
           handleNext();
         } else {
@@ -129,6 +139,8 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         }
       }
     }
+    
+    isSwiping.current = false;
   };
 
   const displayImage = images[currentIndex] || '/placeholder-product.png';
@@ -147,7 +159,7 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
-        style={{ cursor: isHovering ? 'crosshair' : isMobile ? (pinchZoom > 1 ? 'grab' : 'grab') : 'default' }}
+        style={{ cursor: isHovering ? 'crosshair' : isMobile ? (mobileZoom > 1 ? 'grab' : 'pointer') : 'default' }}
       >
         <Image
           src={displayImage}
@@ -155,9 +167,9 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
           fill
           className="object-cover transition-transform duration-200"
           style={{
-            transform: isHovering ? `scale(1.5)` : isMobile && pinchZoom > 1 ? `scale(${pinchZoom})` : 'scale(1)',
+            transform: isHovering ? `scale(1.5)` : isMobile && mobileZoom > 1 ? `scale(${mobileZoom})` : 'scale(1)',
             transformOrigin: `${zoomPos.x}% ${zoomPos.y}%`,
-            willChange: isHovering || (isMobile && pinchZoom > 1) ? 'transform' : 'auto',
+            willChange: isHovering || (isMobile && mobileZoom > 1) ? 'transform' : 'auto',
           }}
           priority
           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 600px"
@@ -200,9 +212,16 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
         )}
 
         {/* Swipe Indicator on Mobile */}
-        {isMobile && images.length > 1 && pinchZoom === 1 && (
+        {isMobile && images.length > 1 && mobileZoom === 1 && (
           <div className="absolute bottom-16 left-1/2 -translate-x-1/2 text-white/70 text-xs font-medium text-center">
-            Swipe to navigate • Pinch to zoom
+            Tap to zoom • Swipe to navigate
+          </div>
+        )}
+        
+        {/* Zoom Reset Hint */}
+        {isMobile && mobileZoom > 1 && (
+          <div className="absolute top-4 right-4 bg-black/60 text-white px-3 py-1.5 text-xs font-medium rounded">
+            Tap to reset
           </div>
         )}
       </div>
