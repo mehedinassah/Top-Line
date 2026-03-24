@@ -39,7 +39,8 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [reviews, setReviews] = useState<Review[]>(props.reviews);
   const [productRating, setProductRating] = useState(props.rating);
   const [showAllReviews, setShowAllReviews] = useState(false);
-  const [showHighlights, setShowHighlights] = useState(true);
+  const [showProductDetails, setShowProductDetails] = useState(false);
+  const [showProductInfo, setShowProductInfo] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   useEffect(() => {
@@ -55,6 +56,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     } catch (error) {
       console.error("Failed to load wishlist:", error);
     }
+
+    // Reset dropdown states when product changes
+    setShowProductDetails(false);
+    setShowProductInfo(false);
   }, [props.id]);
 
   // Listen for auth state changes
@@ -446,94 +451,107 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
               {/* Product Details Section - Moved Below CTA */}
               <div className="space-y-6 border-t border-neutral-200 pt-6">
-                {/* Story - Emotional Hook */}
-                <p className="text-xs leading-relaxed text-neutral-700">
-                  {typeof props.description === 'string' 
-                    ? props.description 
-                    : (props.description as ProductDescription).story}
-                </p>
-
-                {/* Key Highlights - Collapsible Dropdown */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).highlights && (
+                {/* Product Details - Collapsible Dropdown */}
+                {typeof props.description === 'object' && (props.description as ProductDescription).story && (
                   <div>
                     <button
-                      onClick={() => setShowHighlights(!showHighlights)}
+                      onClick={() => setShowProductDetails(!showProductDetails)}
                       className="flex items-center gap-2 text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5 hover:text-neutral-700 transition"
                     >
-                      <span>Key Highlights</span>
-                      <ChevronDownIcon className={`h-3 w-3 transition-transform ${showHighlights ? 'rotate-180' : ''}`} />
+                      <span>Product Details</span>
+                      <ChevronDownIcon className={`h-3 w-3 transition-transform ${showProductDetails ? 'rotate-180' : ''}`} />
                     </button>
-                    {showHighlights && (
-                      <ul className="space-y-1 border-t border-neutral-200 pt-2">
-                        {(props.description as ProductDescription).highlights.map((highlight, idx) => (
-                          <li key={idx} className="flex items-start gap-2 text-xs text-neutral-800">
-                            <span className="mt-0.5 text-sm font-bold text-neutral-900">✓</span>
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
+                    {showProductDetails && (
+                      <div className="border-t border-neutral-200 pt-4">
+                        <p className="text-xs leading-relaxed text-neutral-700">
+                          {(props.description as ProductDescription).story}
+                        </p>
+                      </div>
                     )}
                   </div>
                 )}
 
-                {/* Trust Signals - Micro Trust Line */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).trustSignals && (
-                  <div className="flex flex-wrap gap-2 text-xs text-neutral-600">
-                    {(props.description as ProductDescription).trustSignals.map((signal, idx) => (
-                      <span key={idx} className="inline-flex items-center gap-1">
-                        <span className="text-neutral-900">✓</span>
-                        <span>{signal}</span>
-                      </span>
-                    ))}
+                {/* Product Info - Collapsible Dropdown */}
+                {typeof props.description === 'object' && ((props.description as ProductDescription).highlights || (props.description as ProductDescription).trustSignals) && (
+                  <div>
+                    <button
+                      onClick={() => setShowProductInfo(!showProductInfo)}
+                      className="flex items-center gap-2 text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5 hover:text-neutral-700 transition"
+                    >
+                      <span>Product Info</span>
+                      <ChevronDownIcon className={`h-3 w-3 transition-transform ${showProductInfo ? 'rotate-180' : ''}`} />
+                    </button>
+                    {showProductInfo && (
+                      <div className="space-y-4 border-t border-neutral-200 pt-4">
+                        {/* Key Highlights */}
+                        {(props.description as ProductDescription).highlights && (
+                          <ul className="space-y-1">
+                            {(props.description as ProductDescription).highlights.map((highlight, idx) => (
+                              <li key={idx} className="flex items-start gap-2 text-xs text-neutral-800">
+                                <span className="mt-0.5 text-sm font-bold text-neutral-900">✓</span>
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+
+                        {/* Trust Signals */}
+                        {(props.description as ProductDescription).trustSignals && (
+                          <div className="flex flex-wrap gap-2 text-xs text-neutral-600">
+                            {(props.description as ProductDescription).trustSignals.map((signal, idx) => (
+                              <span key={idx} className="inline-flex items-center gap-1">
+                                <span className="text-neutral-900">✓</span>
+                                <span>{signal}</span>
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 )}
 
-                {/* Care Instructions - Boxed Icons */}
-                {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
+                {/* Care Instructions - Always Visible with Descriptions (Not for Accessories) */}
+                {props.collection !== "accessories" && typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
                   <div>
-                    <div className="grid grid-cols-5 gap-2">
+                    <div className="grid grid-cols-4 gap-2">
                       {/* Cold Water Wash */}
-                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
+                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Machine wash cold (30°C)">❄️</div>
                         <div className="text-center">
                           <p className="text-xs font-semibold text-neutral-900">Cold</p>
-                          <p className="text-xs text-neutral-600 mt-0.5">30°C</p>
-                        </div>
-                      </div>
-                      
-                      {/* Wash Similar Colors */}
-                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
-                        <div className="text-2xl" title="Wash with similar colors">🎨</div>
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-neutral-900">Similar</p>
-                          <p className="text-xs text-neutral-600 mt-0.5">Colors</p>
+                          <p className="text-xs text-neutral-600 mt-1">30°C Max</p>
+                          <p className="text-xs text-neutral-500 mt-1.5">Machine wash in cold water to prevent color fading</p>
                         </div>
                       </div>
                       
                       {/* No Bleach */}
-                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
+                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Do not bleach">🚫</div>
                         <div className="text-center">
                           <p className="text-xs font-semibold text-neutral-900">No</p>
-                          <p className="text-xs text-neutral-600 mt-0.5">Bleach</p>
+                          <p className="text-xs text-neutral-600 mt-1">Bleach</p>
+                          <p className="text-xs text-neutral-500 mt-1.5">Do not use bleach or bleaching agents</p>
                         </div>
                       </div>
                       
                       {/* Low Heat Dry */}
-                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
+                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Low heat dry">🌬️</div>
                         <div className="text-center">
                           <p className="text-xs font-semibold text-neutral-900">Low</p>
-                          <p className="text-xs text-neutral-600 mt-0.5">Heat</p>
+                          <p className="text-xs text-neutral-600 mt-1">Heat Dry</p>
+                          <p className="text-xs text-neutral-500 mt-1.5">Tumble dry on low heat or air dry</p>
                         </div>
                       </div>
                       
                       {/* Iron Low */}
-                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
+                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Iron at low temperature">🔥</div>
                         <div className="text-center">
                           <p className="text-xs font-semibold text-neutral-900">Iron</p>
-                          <p className="text-xs text-neutral-600 mt-0.5">Low Temp</p>
+                          <p className="text-xs text-neutral-600 mt-1">Low Temp</p>
+                          <p className="text-xs text-neutral-500 mt-1.5">If ironing needed, use low heat setting</p>
                         </div>
                       </div>
                     </div>

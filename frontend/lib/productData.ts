@@ -78,11 +78,7 @@ export const featuredProducts: Product[] = [
         "Moisture-Wicking Technology",
         "Perfect for Warm Weather"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Crafted from 120 GSM eco-viscose rayon with a smooth, fluid weave offering superior breathability and moisture-wicking properties.",
         composition: [
@@ -161,11 +157,7 @@ export const featuredProducts: Product[] = [
         "Colorfast Dye Technology",
         "All-Day Comfort Fit"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Crafted from 140 GSM combed cotton with a smooth poplin weave, offering perfect balance of durability and lightweight comfort.",
         composition: [
@@ -241,11 +233,7 @@ export const featuredProducts: Product[] = [
         "Durable & Soft Feel",
         "Perfect Daily Essential"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Made from 180 GSM organic cotton with a smooth single jersey knit, ensuring long-lasting color and exceptional comfort.",
         composition: [
@@ -325,11 +313,7 @@ export const featuredProducts: Product[] = [
         "Wrinkle-Resistant",
         "Classic Check Pattern"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Premium 320 GSM wool and polyester blend offering superior insulation and durability with a refined structured finish.",
         composition: [
@@ -405,11 +389,7 @@ export const featuredProducts: Product[] = [
         "Minimal Versatile Design",
         "Breathable Construction"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "180 GSM cotton jersey with exceptional durability and softness, designed to maintain shape through countless washes.",
         composition: [
@@ -488,11 +468,7 @@ export const featuredProducts: Product[] = [
         "Premium Textured Finish",
         "Refined Layering Piece"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Premium 260 GSM blend of wool and cotton offering soft insulation with breathable comfort and refined texture.",
         composition: [
@@ -566,11 +542,7 @@ export const featuredProducts: Product[] = [
         "Exceptional Comfort",
         "Breathable Construction"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "130 GSM premium cotton with artisan print quality, delivering lightweight comfort with lasting color vibrancy.",
         composition: [
@@ -644,11 +616,7 @@ export const featuredProducts: Product[] = [
         "Soft Durable Knit",
         "Modern Contemporary Style"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "190 GSM premium cotton knit with relaxed construction, offering superior softness and durability for all-day wear.",
         composition: [
@@ -722,11 +690,7 @@ export const featuredProducts: Product[] = [
         "Breathable Construction",
         "Perfect Daily Essential"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "180 GSM organic cotton with smooth texture finish, delivering breathability and durability for everyday wear.",
         composition: [
@@ -799,11 +763,7 @@ export const featuredProducts: Product[] = [
         "Smooth Weave Construction",
         "Polished Refined Look"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "150 GSM fine cotton with smooth weave construction offering lightweight comfort with a sophisticated finish.",
         composition: [
@@ -875,11 +835,7 @@ export const featuredProducts: Product[] = [
         "Durable Strong Weave",
         "Long-Lasting Color"
       ],
-      trustSignals: [
-        "Premium Quality Materials",
-        "Eco-Conscious Sourcing",
-        "Durability Tested"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "12 oz premium denim with 2% elastane providing comfortable stretch while maintaining shape and durability.",
         composition: [
@@ -1017,9 +973,9 @@ export const featuredProducts: Product[] = [
         "Tarnish-Resistant"
       ],
       trustSignals: [
-        "Premium Quality Materials",
-        "Tarnish-Resistant",
-        "Durable Plating"
+        "Genuine Leather",
+        "Scratch-Resistant",
+        "Lifetime Value"
       ],
       fabricBuild: {
         description: "Alloy base with durable gold plating and tarnish-resistant coating, offering lightweight comfort with premium finish.",
@@ -1148,9 +1104,9 @@ export const featuredProducts: Product[] = [
         "Long-Lasting Shine"
       ],
       trustSignals: [
-        "Premium Quality Materials",
         "Anti-Tarnish Coating",
-        "Durable Construction"
+        "Durable Construction",
+        "Premium Polish Finish"
       ],
       fabricBuild: {
         description: "Alloy with protective anti-tarnish coating, engineered for durability, lightweight comfort, and premium polish finish.",
