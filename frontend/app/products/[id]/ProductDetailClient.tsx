@@ -279,24 +279,22 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     fill
                     className="object-cover"
                     style={{
-                      transform: isDesktopView
-                        ? (() => {
-                            if (!isHoveringImage) return "scale(1)";
-                            
-                            const zoomScale = 2.2;
-                            const container = imageContainerRef.current;
-                            if (!container) return `scale(${zoomScale})`;
-                            
-                            const containerWidth = container.offsetWidth;
-                            const containerHeight = container.offsetHeight;
-                            
-                            // Calculate offset to zoom towards cursor
-                            const offsetX = -(cursorPosition.x - containerWidth / 2) * (zoomScale - 1) / zoomScale;
-                            const offsetY = -(cursorPosition.y - containerHeight / 2) * (zoomScale - 1) / zoomScale;
-                            
-                            return `scale(${zoomScale}) translate(${offsetX}px, ${offsetY}px)`;
-                          })()
-                        : `scale(${zoomLevel}) translate(${panPosition.x}px, ${panPosition.y}px)`,
+                      transform: (() => {
+                        if (!isHoveringImage) return "scale(1)";
+                        
+                        const zoomScale = 2.2;
+                        const container = imageContainerRef.current;
+                        if (!container) return `scale(${zoomScale})`;
+                        
+                        const containerWidth = container.offsetWidth;
+                        const containerHeight = container.offsetHeight;
+                        
+                        // Calculate offset to zoom towards cursor
+                        const offsetX = -(cursorPosition.x - containerWidth / 2) * (zoomScale - 1) / zoomScale;
+                        const offsetY = -(cursorPosition.y - containerHeight / 2) * (zoomScale - 1) / zoomScale;
+                        
+                        return `scale(${zoomScale}) translate(${offsetX}px, ${offsetY}px)`;
+                      })(),
                       transformOrigin: "center",
                       transition: isDesktopView && !isHoveringImage ? "transform 500ms cubic-bezier(0.4, 0, 0.2, 1)" : "none"
                     }}
