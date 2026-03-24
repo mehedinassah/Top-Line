@@ -13,6 +13,7 @@ function FeaturedProductCard({ product }: { product: Product }) {
   const router = useRouter();
   const [isInWishlist, setIsInWishlist] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Check if product is in wishlist on mount
   useEffect(() => {
@@ -24,6 +25,15 @@ function FeaturedProductCard({ product }: { product: Product }) {
     } catch (error) {
       console.error("Failed to load wishlist:", error);
     }
+
+    // Detect touch device capability
+    const hasTouch = () => {
+      return (
+        window.matchMedia("(hover: none)").matches ||
+        window.matchMedia("(pointer: coarse)").matches
+      );
+    };
+    setIsTouchDevice(hasTouch());
   }, [product.id]);
 
   const handleWishlistClick = (e: React.MouseEvent) => {
@@ -61,11 +71,18 @@ function FeaturedProductCard({ product }: { product: Product }) {
     e.preventDefault();
     e.stopPropagation();
 
-    // On mobile, first click shows details, second click navigates
-    if (!isExpanded) {
-      setIsExpanded(true);
-    } else {
+    // On desktop (non-touch): single click navigates directly
+    // On mobile (touch): first click expands, second click navigates
+    if (!isTouchDevice) {
+      // Desktop: navigate immediately
       router.push(`/products/${product.id}`);
+    } else {
+      // Mobile: use expand logic
+      if (!isExpanded) {
+        setIsExpanded(true);
+      } else {
+        router.push(`/products/${product.id}`);
+      }
     }
   };
 
