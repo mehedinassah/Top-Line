@@ -190,3 +190,4 @@ export default function ImageGallery({ images, productName, onImageSelect }: Ima
     </div>
   );
 }
+

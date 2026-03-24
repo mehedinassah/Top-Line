@@ -17,7 +17,7 @@ export default function StepIndicator({ currentStep, steps }: StepIndicatorProps
           <div key={step} className="flex items-center flex-1 last:flex-none">
             {/* Step Circle */}
             <div
-              className={`flex h-10 w-10 items-center justify-center rounded-full font-semibold text-sm transition ${
+              className={`flex h-10 w-10 items-center justify-center font-semibold text-sm transition ${
                 isCompleted
                   ? "bg-green-600 text-white"
                   : isCurrent
@@ -61,3 +61,4 @@ export default function StepIndicator({ currentStep, steps }: StepIndicatorProps
     </div>
   );
 }
+

@@ -79,13 +79,13 @@ export default function WishlistPage() {
 
         {/* Wishlist Items */}
         {wishlist.length === 0 ? (
-          <div className="rounded-lg border border-neutral-200 bg-neutral-50 py-12 text-center">
+          <div className="border border-neutral-200 bg-neutral-50 py-12 text-center">
             <HeartIcon className="mx-auto h-12 w-12 text-neutral-400 mb-4" />
             <p className="text-lg font-medium text-neutral-900">Your wishlist is empty</p>
             <p className="mt-2 text-neutral-700">Start adding items you love!</p>
             <Link
               href="/products"
-              className="mt-6 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+              className="mt-6 inline-block bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
             >
               Continue Shopping
             </Link>
@@ -95,7 +95,7 @@ export default function WishlistPage() {
             {wishlist.map(item => (
               <div
                 key={item.id}
-                className="flex items-center justify-between rounded-lg border border-neutral-200 bg-white p-4 hover:border-neutral-300 transition"
+                className="flex items-center justify-between border border-neutral-200 bg-white p-4 hover:border-neutral-300 transition"
               >
                 <div className="flex-1">
                   <h3 className="font-medium text-neutral-900">{item.name}</h3>
@@ -106,13 +106,13 @@ export default function WishlistPage() {
                 <div className="flex gap-2">
                   <Link
                     href={`/products/${item.id}`}
-                    className="rounded-full border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
+                    className="border border-neutral-900 px-4 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
                   >
                     View
                   </Link>
                   <button
                     onClick={() => removeFromWishlist(item.id)}
-                    className="rounded-full border border-neutral-300 p-2 text-neutral-700 hover:bg-red-50 hover:border-red-300 hover:text-red-600 transition"
+                    className="border border-neutral-300 p-2 text-neutral-700 hover:bg-red-50 hover:border-red-300 hover:text-red-600 transition"
                     title="Remove from wishlist"
                   >
                     <TrashIcon className="h-5 w-5" />
@@ -126,3 +126,4 @@ export default function WishlistPage() {
     </div>
   );
 }
+

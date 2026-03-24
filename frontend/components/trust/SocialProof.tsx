@@ -43,7 +43,7 @@ export default function SocialProof() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {testimonials.map((testimonial, index) => (
-          <div key={index} className="bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow">
+          <div key={index} className="bg-white border border-gray-200 p-6 hover:shadow-lg transition-shadow">
             <div className="flex items-center mb-4">
               <span className="text-4xl mr-3">{testimonial.image}</span>
               <div className="flex-1">
@@ -65,3 +65,4 @@ export default function SocialProof() {
     </section>
   );
 }
+

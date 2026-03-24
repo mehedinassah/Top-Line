@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { StarIcon, ChevronLeftIcon, MinusIcon, PlusIcon, HeartIcon } from "@heroicons/react/24/solid";
+import { StarIcon, ChevronLeftIcon, MinusIcon, PlusIcon, HeartIcon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useCart } from "@/components/cart/CartContext";
 import SizeSelector from "@/components/product/SizeSelector";
 import ColorSelector from "@/components/product/ColorSelector";
@@ -39,6 +39,8 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [reviews, setReviews] = useState<Review[]>(props.reviews);
   const [productRating, setProductRating] = useState(props.rating);
   const [showAllReviews, setShowAllReviews] = useState(false);
+  const [showHighlights, setShowHighlights] = useState(true);
+  const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -340,11 +342,21 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     colors={props.colors}
                   />
                   
-                  <SizeSelector
-                    selectedSize={selectedSize}
-                    onSizeChange={setSelectedSize}
-                    availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
-                  />
+                  <div className="flex items-end gap-4">
+                    <div className="flex-1">
+                      <SizeSelector
+                        selectedSize={selectedSize}
+                        onSizeChange={setSelectedSize}
+                        availableSizes={selectedSize ? availableColorsForSize.map((_, i) => props.sizes?.[i]) as Size[] : props.sizes || []}
+                      />
+                    </div>
+                    <button
+                      onClick={() => setShowSizeGuide(true)}
+                      className="text-xs font-semibold text-neutral-900 underline hover:text-neutral-700 transition cursor-pointer pb-1.5"
+                    >
+                      Size Guide
+                    </button>
+                  </div>
                 </div>
               )}
 
@@ -441,18 +453,26 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     : (props.description as ProductDescription).story}
                 </p>
 
-                {/* Key Highlights - Compact */}
+                {/* Key Highlights - Collapsible Dropdown */}
                 {typeof props.description === 'object' && (props.description as ProductDescription).highlights && (
                   <div>
-                    <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5">Key Highlights</h3>
-                    <ul className="space-y-1">
-                      {(props.description as ProductDescription).highlights.map((highlight, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-xs text-neutral-800">
-                          <span className="mt-0.5 text-sm font-bold text-neutral-900">✓</span>
-                          <span>{highlight}</span>
-                        </li>
-                      ))}
-                    </ul>
+                    <button
+                      onClick={() => setShowHighlights(!showHighlights)}
+                      className="flex items-center gap-2 text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5 hover:text-neutral-700 transition"
+                    >
+                      <span>Key Highlights</span>
+                      <ChevronDownIcon className={`h-3 w-3 transition-transform ${showHighlights ? 'rotate-180' : ''}`} />
+                    </button>
+                    {showHighlights && (
+                      <ul className="space-y-1 border-t border-neutral-200 pt-2">
+                        {(props.description as ProductDescription).highlights.map((highlight, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-xs text-neutral-800">
+                            <span className="mt-0.5 text-sm font-bold text-neutral-900">✓</span>
+                            <span>{highlight}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 )}
 
@@ -468,39 +488,53 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </div>
                 )}
 
-                {/* Care Instructions - Icon Based */}
+                {/* Care Instructions - Boxed Icons */}
                 {typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
                   <div>
-                    <h3 className="text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5">Care</h3>
-                    <div className="flex gap-3">
+                    <div className="grid grid-cols-5 gap-2">
                       {/* Cold Water Wash */}
-                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Machine wash cold (30°C)">❄️</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Cold</span>
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-neutral-900">Cold</p>
+                          <p className="text-xs text-neutral-600 mt-0.5">30°C</p>
+                        </div>
                       </div>
                       
                       {/* Wash Similar Colors */}
-                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Wash with similar colors">🎨</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Color</span>
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-neutral-900">Similar</p>
+                          <p className="text-xs text-neutral-600 mt-0.5">Colors</p>
+                        </div>
                       </div>
                       
                       {/* No Bleach */}
-                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Do not bleach">🚫</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">No Bleach</span>
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-neutral-900">No</p>
+                          <p className="text-xs text-neutral-600 mt-0.5">Bleach</p>
+                        </div>
                       </div>
                       
                       {/* Low Heat Dry */}
-                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Low heat dry">🌬️</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Low Heat</span>
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-neutral-900">Low</p>
+                          <p className="text-xs text-neutral-600 mt-0.5">Heat</p>
+                        </div>
                       </div>
                       
                       {/* Iron Low */}
-                      <div className="flex flex-col items-center gap-1 group cursor-help">
+                      <div className="flex flex-col items-center gap-1.5 p-2 border border-neutral-200 rounded-lg hover:border-neutral-400 transition">
                         <div className="text-2xl" title="Iron at low temperature">🔥</div>
-                        <span className="text-xs text-neutral-600 group-hover:text-neutral-900 text-center">Iron</span>
+                        <div className="text-center">
+                          <p className="text-xs font-semibold text-neutral-900">Iron</p>
+                          <p className="text-xs text-neutral-600 mt-0.5">Low Temp</p>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -665,6 +699,138 @@ export default function ProductDetailClient(props: ProductDetailProps) {
           products={props.allProducts} 
           currentProductId={props.id}
         />
+      )}
+
+      {/* Size Guide Modal */}
+      {showSizeGuide && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="relative w-full max-w-2xl rounded-2xl bg-white p-8 max-h-[90vh] overflow-y-auto">
+            {/* Close Button */}
+            <button
+              onClick={() => setShowSizeGuide(false)}
+              className="absolute top-4 right-4 p-2 text-neutral-500 hover:text-neutral-900 transition"
+              aria-label="Close size guide"
+            >
+              <XMarkIcon className="h-6 w-6" />
+            </button>
+
+            {/* Modal Content */}
+            <div className="pr-8">
+              <h2 className="text-2xl font-bold text-neutral-900 mb-6">Size Guide</h2>
+              
+              <div className="space-y-6">
+                {/* XS - S Sizes */}
+                <div>
+                  <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider mb-3">XS - S</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-neutral-200">
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Size</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Chest</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Length</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Sleeve</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">XS</td>
+                          <td className="py-2 px-2 text-neutral-600">32"</td>
+                          <td className="py-2 px-2 text-neutral-600">27"</td>
+                          <td className="py-2 px-2 text-neutral-600">31"</td>
+                        </tr>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">S</td>
+                          <td className="py-2 px-2 text-neutral-600">34"</td>
+                          <td className="py-2 px-2 text-neutral-600">28"</td>
+                          <td className="py-2 px-2 text-neutral-600">32"</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* M - L Sizes */}
+                <div>
+                  <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider mb-3">M - L</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-neutral-200">
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Size</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Chest</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Length</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Sleeve</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">M</td>
+                          <td className="py-2 px-2 text-neutral-600">36"</td>
+                          <td className="py-2 px-2 text-neutral-600">29"</td>
+                          <td className="py-2 px-2 text-neutral-600">33"</td>
+                        </tr>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">L</td>
+                          <td className="py-2 px-2 text-neutral-600">38"</td>
+                          <td className="py-2 px-2 text-neutral-600">30"</td>
+                          <td className="py-2 px-2 text-neutral-600">34"</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* XL - XXXL Sizes */}
+                <div>
+                  <h3 className="text-sm font-semibold text-neutral-900 uppercase tracking-wider mb-3">XL - XXXL</h3>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="border-b border-neutral-200">
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Size</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Chest</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Length</th>
+                          <th className="text-left py-2 px-2 font-semibold text-neutral-900">Sleeve</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">XL</td>
+                          <td className="py-2 px-2 text-neutral-600">40"</td>
+                          <td className="py-2 px-2 text-neutral-600">31"</td>
+                          <td className="py-2 px-2 text-neutral-600">35"</td>
+                        </tr>
+                        <tr className="border-b border-neutral-100">
+                          <td className="py-2 px-2 text-neutral-800">XXL</td>
+                          <td className="py-2 px-2 text-neutral-600">42"</td>
+                          <td className="py-2 px-2 text-neutral-600">32"</td>
+                          <td className="py-2 px-2 text-neutral-600">36"</td>
+                        </tr>
+                        <tr>
+                          <td className="py-2 px-2 text-neutral-800">XXXL</td>
+                          <td className="py-2 px-2 text-neutral-600">44"</td>
+                          <td className="py-2 px-2 text-neutral-600">33"</td>
+                          <td className="py-2 px-2 text-neutral-600">37"</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* Helpful Tips */}
+                <div className="pt-4 border-t border-neutral-200">
+                  <h3 className="text-sm font-semibold text-neutral-900 mb-3">How to measure</h3>
+                  <ul className="space-y-2 text-sm text-neutral-700">
+                    <li><strong>Chest:</strong> Measure across the chest at the widest point</li>
+                    <li><strong>Length:</strong> Measure from shoulder to hem</li>
+                    <li><strong>Sleeve:</strong> Measure from shoulder seam to wrist</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

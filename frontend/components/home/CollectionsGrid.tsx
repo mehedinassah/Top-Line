@@ -56,7 +56,7 @@ export default function CollectionsGrid() {
             <Link
               key={collection.slug}
               href={collection.href}
-              className="group flex flex-col overflow-hidden rounded-2xl border border-neutral-200 bg-white hover:border-neutral-300 transition hover:shadow-minimal"
+              className="group flex flex-col overflow-hidden border border-neutral-200 bg-white hover:border-neutral-300 transition hover:shadow-minimal"
               title={`Browse ${collection.title}`}
             >
               <div className="relative aspect-[4/5] w-full overflow-hidden">
@@ -86,4 +86,5 @@ export default function CollectionsGrid() {
     </section>
   );
 }
+
 

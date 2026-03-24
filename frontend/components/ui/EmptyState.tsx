@@ -15,7 +15,7 @@ interface EmptyStateProps {
 
 export default function EmptyState({ icon, title, description, cta }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-neutral-200 bg-neutral-50 px-6 py-12 text-center md:py-16">
+    <div className="flex flex-col items-center justify-center gap-4 border border-neutral-200 bg-neutral-50 px-6 py-12 text-center md:py-16">
       {icon && (
         <div className="flex justify-center">
           {icon}
@@ -28,7 +28,7 @@ export default function EmptyState({ icon, title, description, cta }: EmptyState
       {cta && (
         <Link
           href={cta.href}
-          className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+          className="mt-4 inline-block bg-neutral-900 px-6 py-2.5 text-sm font-semibold text-white hover:bg-neutral-800 transition"
         >
           {cta.label}
         </Link>
@@ -69,3 +69,4 @@ export function EmptyWishlist() {
     />
   );
 }
+

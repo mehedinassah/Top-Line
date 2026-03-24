@@ -53,13 +53,13 @@ export default function NewsletterSection() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               disabled={loading}
-              className="flex-1 rounded-lg border border-neutral-300 bg-white px-4 py-3 text-sm placeholder-neutral-500 transition focus:border-neutral-900 focus:outline-none disabled:opacity-50"
+              className="flex-1 border border-neutral-300 bg-white px-4 py-3 text-sm placeholder-neutral-500 transition focus:border-neutral-900 focus:outline-none disabled:opacity-50"
               aria-label="Email address"
             />
             <button
               type="submit"
               disabled={loading}
-              className="rounded-lg bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
+              className="bg-neutral-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-50 disabled:cursor-not-allowed whitespace-nowrap"
             >
               {loading ? "Subscribing..." : "Subscribe"}
             </button>
@@ -73,3 +73,4 @@ export default function NewsletterSection() {
     </section>
   );
 }
+

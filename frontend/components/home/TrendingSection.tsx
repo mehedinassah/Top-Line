@@ -176,7 +176,7 @@ export default function TrendingSection() {
             onClick={() => scroll("left")}
             onMouseEnter={() => setIsManualScrolling(true)}
             onMouseLeave={() => setIsManualScrolling(false)}
-            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition duration-200 hover:scale-110 backdrop-blur-sm"
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 text-white p-3 transition duration-200 hover:scale-110 backdrop-blur-sm"
             aria-label="Scroll left"
             title="Scroll left"
           >
@@ -200,7 +200,7 @@ export default function TrendingSection() {
             onClick={() => scroll("right")}
             onMouseEnter={() => setIsManualScrolling(true)}
             onMouseLeave={() => setIsManualScrolling(false)}
-            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition duration-200 hover:scale-110 backdrop-blur-sm"
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/40 text-white p-3 transition duration-200 hover:scale-110 backdrop-blur-sm"
             aria-label="Scroll right"
             title="Scroll right"
           >
@@ -211,3 +211,4 @@ export default function TrendingSection() {
     </section>
   );
 }
+

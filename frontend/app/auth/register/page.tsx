@@ -107,7 +107,7 @@ export default function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {error && (
-            <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-800">
+            <div className="bg-red-50 px-4 py-3 text-sm text-red-800">
               {error}
             </div>
           )}
@@ -122,7 +122,7 @@ export default function RegisterPage() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="John Doe"
-              className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+              className="mt-1 w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               disabled={isLoading}
             />
           </div>
@@ -137,7 +137,7 @@ export default function RegisterPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="you@example.com"
-              className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+              className="mt-1 w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               disabled={isLoading}
             />
           </div>
@@ -152,7 +152,7 @@ export default function RegisterPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+              className="mt-1 w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
               disabled={isLoading}
             />
             {password && (
@@ -161,7 +161,7 @@ export default function RegisterPage() {
                   <span className="text-xs text-neutral-700">Password Strength</span>
                   <span className="text-xs font-medium text-neutral-700">{passwordStrength.label}</span>
                 </div>
-                <div className="h-1 bg-neutral-200 rounded-full overflow-hidden">
+                <div className="h-1 bg-neutral-200 overflow-hidden">
                   <div
                     className={`h-full ${passwordStrength.color} transition-all`}
                     style={{ width: `${(passwordStrength.score + 1) * 20}%` }}
@@ -182,7 +182,7 @@ export default function RegisterPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="••••••••"
-                className="mt-1 w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                className="mt-1 w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                 disabled={isLoading}
               />
               {password && confirmPassword && (
@@ -220,7 +220,7 @@ export default function RegisterPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed"
+            className="w-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {isLoading ? "Creating account..." : "Create Account"}
           </button>
@@ -239,3 +239,4 @@ export default function RegisterPage() {
     </div>
   );
 }
+

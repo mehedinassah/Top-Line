@@ -18,7 +18,7 @@ export default function SearchBar() {
   return (
     <form
       onSubmit={onSubmit}
-      className="flex items-center rounded-full border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-sm text-neutral-900"
+      className="flex items-center border border-neutral-300 bg-neutral-100 px-3 py-1.5 text-sm text-neutral-900"
       title="Search for products"
     >
       <MagnifyingGlassIcon className="mr-2 h-4 w-4 text-neutral-600" />
@@ -32,4 +32,5 @@ export default function SearchBar() {
     </form>
   );
 }
+
 

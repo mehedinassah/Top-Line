@@ -108,7 +108,7 @@ export default function HeroSection() {
       {/* Navigation Arrows */}
       <button
         onClick={prevImage}
-        className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 rounded-full transition duration-200 backdrop-blur-sm"
+        className="absolute left-4 sm:left-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 transition duration-200 backdrop-blur-sm"
         aria-label="Previous image"
         title="Previous image"
       >
@@ -117,7 +117,7 @@ export default function HeroSection() {
 
       <button
         onClick={nextImage}
-        className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 rounded-full transition duration-200 backdrop-blur-sm"
+        className="absolute right-4 sm:right-6 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-2 sm:p-3 transition duration-200 backdrop-blur-sm"
         aria-label="Next image"
         title="Next image"
       >
@@ -130,7 +130,7 @@ export default function HeroSection() {
           <button
             key={index}
             onClick={() => setCurrentImage(index)}
-            className={`h-2 transition duration-300 rounded-full ${
+            className={`h-2 transition duration-300 ${
               index === currentImage ? "bg-white w-8" : "bg-white/50 w-2 hover:bg-white/70"
             }`}
             aria-label={`Go to image ${index + 1}`}
@@ -141,4 +141,5 @@ export default function HeroSection() {
     </section>
   );
 }
+
 

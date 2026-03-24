@@ -12,6 +12,7 @@ export default function Navbar() {
   const [cartOpen, setCartOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [userName, setUserName] = useState("");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -24,8 +25,10 @@ export default function Navbar() {
     const updateAuthState = () => {
       const loggedIn = localStorage.getItem("isLoggedIn") === "true";
       const email = localStorage.getItem("userEmail") || "";
+      const name = localStorage.getItem("userName") || "User";
       setIsLoggedIn(loggedIn);
       setUserEmail(email);
+      setUserName(name);
     };
 
     updateAuthState();
@@ -36,8 +39,10 @@ export default function Navbar() {
     const handleAuthStateChange = () => {
       const updatedLoggedIn = localStorage.getItem("isLoggedIn") === "true";
       const updatedEmail = localStorage.getItem("userEmail") || "";
+      const updatedName = localStorage.getItem("userName") || "User";
       setIsLoggedIn(updatedLoggedIn);
       setUserEmail(updatedEmail);
+      setUserName(updatedName);
     };
 
     // Listen for custom auth event from login/register
@@ -183,7 +188,7 @@ export default function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="block md:hidden rounded-full border border-neutral-300 p-1.5 text-neutral-700 hover:bg-neutral-100 transition duration-200 mr-2"
+            className="block md:hidden border border-neutral-300 p-1.5 text-neutral-700 hover:bg-neutral-100 transition duration-200 mr-2"
             aria-label="Toggle navigation menu"
             title="Toggle navigation menu"
           >
@@ -198,13 +203,13 @@ export default function Navbar() {
           <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
             <button
               onClick={() => setCartOpen(true)}
-              className="relative rounded-full border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
+              className="relative border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200"
               aria-label={`Open shopping cart (${totalQuantity} items)`}
               title={`Open shopping cart (${totalQuantity} items)`}
             >
               <ShoppingBagIcon className="h-4 sm:h-5 w-4 sm:w-5" />
               {totalQuantity > 0 && (
-                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-[1rem] items-center justify-center rounded-full bg-neutral-900 px-1 text-[0.6rem] font-semibold text-white">
+                <span className="absolute -right-1 -top-1 inline-flex h-4 min-w-[1rem] items-center justify-center bg-neutral-900 px-1 text-[0.6rem] font-semibold text-white">
                   {totalQuantity}
                 </span>
               )}
@@ -214,16 +219,16 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden rounded-full border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
+                  className="hidden border border-neutral-300 p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
                   title="Account menu"
                 >
                   <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
                 </button>
                 {showProfileMenu && (
-                  <div className="absolute right-0 mt-2 w-48 rounded-lg border border-neutral-200 bg-white shadow-lg z-50">
+                  <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
                     <div className="px-4 py-3 border-b border-neutral-200">
                       <p className="text-xs text-neutral-600">Signed in as</p>
-                      <p className="text-sm font-medium text-neutral-900 truncate">{userEmail}</p>
+                      <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
                     </div>
                     <Link
                       href="/account"
@@ -262,7 +267,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden rounded-full bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 md:inline-block"
+                className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 md:inline-block"
                 title="Sign in to your account"
               >
                 Sign in
@@ -338,7 +343,7 @@ export default function Navbar() {
                   <>
                     <div className="px-3 py-2 mb-3 bg-neutral-50 rounded">
                       <p className="text-xs text-neutral-600">Signed in as</p>
-                      <p className="text-sm font-medium text-neutral-900 truncate">{userEmail}</p>
+                      <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
                     </div>
                     <Link
                       href="/account"
@@ -395,4 +400,5 @@ export default function Navbar() {
     </>
   );
 }
+
 

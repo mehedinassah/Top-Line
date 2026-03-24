@@ -73,3 +73,4 @@ export default function FabricDescription({ details }: FabricDescriptionProps) {
     </div>
   );
 }
+

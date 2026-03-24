@@ -125,8 +125,8 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-neutral-900 via-neutral-800 to-neutral-900"></div>
         
         {/* Decorative elements - hide on mobile */}
-        <div className="hidden sm:block absolute top-0 left-0 w-96 h-96 bg-white/5 rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="hidden sm:block absolute bottom-0 right-0 w-96 h-96 bg-white/5 rounded-full translate-x-1/2 translate-y-1/2"></div>
+        <div className="hidden sm:block absolute top-0 left-0 w-96 h-96 bg-white/5 -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="hidden sm:block absolute bottom-0 right-0 w-96 h-96 bg-white/5 translate-x-1/2 translate-y-1/2"></div>
         
         {/* Content */}
         <div className="relative flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 gap-8 sm:gap-12">
@@ -178,3 +178,4 @@ export default function AboutPage() {
     </>
   );
 }
+

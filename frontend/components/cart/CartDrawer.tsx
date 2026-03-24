@@ -63,7 +63,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                   items.map((item) => (
                     <div
                       key={item.id}
-                      className="flex flex-col gap-2 rounded-xl border border-neutral-200 bg-neutral-50 p-3 text-sm text-neutral-900 sm:flex-row sm:items-center sm:justify-between"
+                      className="flex flex-col gap-2 border border-neutral-200 bg-neutral-50 p-3 text-sm text-neutral-900 sm:flex-row sm:items-center sm:justify-between"
                     >
                       <div>
                         <p className="font-medium line-clamp-2">{item.name}</p>
@@ -91,7 +91,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                 <button
                   disabled={items.length === 0}
                   onClick={handleCheckout}
-                  className="mt-3 w-full rounded-full bg-neutral-900 py-2.5 text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 transition"
+                  className="mt-3 w-full bg-neutral-900 py-2.5 text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50 transition"
                 >
                   Proceed to checkout
                 </button>
@@ -103,4 +103,5 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
     </Transition.Root>
   );
 }
+
 

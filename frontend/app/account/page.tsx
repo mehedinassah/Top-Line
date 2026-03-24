@@ -9,6 +9,8 @@ import { useCart, type CartItem } from "@/components/cart/CartContext";
 interface UserProfile {
   name: string;
   email: string;
+  phoneNumber?: string;
+  address?: string;
 }
 
 interface WishlistItem {
@@ -24,6 +26,8 @@ export default function AccountPage() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
+  const [phoneInput, setPhoneInput] = useState("");
+  const [addressInput, setAddressInput] = useState("");
 
   useEffect(() => {
     // Check if user is logged in
@@ -36,7 +40,17 @@ export default function AccountPage() {
     // Get user data from localStorage
     const userName = localStorage.getItem("userName") || "User";
     const userEmail = localStorage.getItem("userEmail") || "";
-    setUser({ name: userName, email: userEmail });
+    const userPhone = localStorage.getItem("userPhone") || "";
+    const userAddress = localStorage.getItem("userAddress") || "";
+    
+    setUser({ 
+      name: userName, 
+      email: userEmail, 
+      phoneNumber: userPhone,
+      address: userAddress
+    });
+    setPhoneInput(userPhone);
+    setAddressInput(userAddress);
     setIsLoggedIn(true);
 
     // Load wishlist from localStorage
@@ -57,6 +71,18 @@ export default function AccountPage() {
     router.push("/auth/login");
   };
 
+  const handleSavePhone = () => {
+    localStorage.setItem("userPhone", phoneInput);
+    setUser(prev => prev ? { ...prev, phoneNumber: phoneInput } : null);
+    setPhoneInput(""); // Clear input to show saved value in placeholder
+  };
+
+  const handleSaveAddress = () => {
+    localStorage.setItem("userAddress", addressInput);
+    setUser(prev => prev ? { ...prev, address: addressInput } : null);
+    setAddressInput(""); // Clear input to show saved value in placeholder
+  };
+
   if (!isLoggedIn || !user) {
     return null;
   }
@@ -75,17 +101,17 @@ export default function AccountPage() {
         <div className="grid gap-8 md:grid-cols-3">
           {/* Sidebar Navigation */}
           <div className="md:col-span-1">
-            <div className="space-y-1 rounded-lg border border-neutral-200 bg-white p-2">
+            <div className="space-y-1 border border-neutral-200 bg-white p-2">
               <Link
                 href="#profile"
-                className="flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
+                className="flex items-center justify-between px-4 py-3 text-sm font-medium text-neutral-900 hover:bg-neutral-50 transition"
               >
                 Profile
                 <ArrowRightOnRectangleIcon className="h-4 w-4" />
               </Link>
               <button
                 onClick={handleLogout}
-                className="w-full flex items-center justify-between rounded-lg px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition"
+                className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-red-600 hover:bg-red-50 transition"
               >
                 Logout
                 <ArrowRightOnRectangleIcon className="h-4 w-4" />
@@ -96,28 +122,80 @@ export default function AccountPage() {
           {/* Main Content */}
           <div className="md:col-span-2 space-y-8">
             {/* Profile Section */}
-            <section id="profile" className="rounded-2xl border border-neutral-200 bg-white p-6">
-              <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
+            <section id="profile" className="border border-neutral-200 bg-white p-6">
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-6">
                 <Cog6ToothIcon className="h-5 w-5" />
                 Profile Information
               </h2>
-              <div className="space-y-4">
+              <form className="space-y-6">
+                {/* Name Field - Read Only */}
                 <div>
-                  <p className="text-sm text-neutral-700">Name</p>
-                  <p className="mt-1 font-medium text-neutral-900">{user.name}</p>
+                  <label className="block text-sm font-medium text-neutral-900 mb-2">Name</label>
+                  <input
+                    type="text"
+                    value={user.name}
+                    disabled
+                    className="w-full px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 cursor-not-allowed"
+                  />
                 </div>
+
+                {/* Email Field - Read Only */}
                 <div>
-                  <p className="text-sm text-neutral-700">Email Address</p>
-                  <p className="mt-1 font-medium text-neutral-900">{user.email}</p>
+                  <label className="block text-sm font-medium text-neutral-900 mb-2">Email Address</label>
+                  <input
+                    type="email"
+                    value={user.email}
+                    disabled
+                    className="w-full px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 cursor-not-allowed"
+                  />
                 </div>
-                <button className="mt-4 rounded-full border border-neutral-900 px-6 py-2 text-sm font-semibold text-neutral-900 hover:bg-neutral-50 transition">
-                  Edit Profile
-                </button>
-              </div>
+
+                {/* Phone Number Field - Editable */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-900 mb-2">Phone Number</label>
+                  <div className="flex gap-3">
+                    <input
+                      type="tel"
+                      value={phoneInput}
+                      onChange={(e) => setPhoneInput(e.target.value)}
+                      placeholder={user.phoneNumber ? user.phoneNumber : "Not added yet"}
+                      className="flex-1 px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900"
+                    />
+                    <button
+                      type="button"
+                      onClick={handleSavePhone}
+                      className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+                {/* Address Field - Editable */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-900 mb-2">Address</label>
+                  <div className="flex gap-3">
+                    <textarea
+                      value={addressInput}
+                      onChange={(e) => setAddressInput(e.target.value)}
+                      placeholder={user.address ? user.address : "Not added yet"}
+                      className="flex-1 px-4 py-2 border border-neutral-200 text-sm bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-neutral-900 resize-none"
+                      rows={1}
+                    />
+                    <button
+                      type="button"
+                      onClick={handleSaveAddress}
+                      className="px-6 py-2 bg-neutral-900 text-white text-sm font-semibold hover:bg-neutral-800 transition whitespace-nowrap"
+                    >
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </form>
             </section>
 
             {/* Cart Items Section */}
-            <section className="rounded-2xl border border-neutral-200 bg-white p-6">
+            <section className="border border-neutral-200 bg-white p-6">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
                 <ShoppingBagIcon className="h-5 w-5" />
                 Your Cart
@@ -125,7 +203,7 @@ export default function AccountPage() {
               {cartItems.length > 0 ? (
                 <div className="space-y-3">
                   {cartItems.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
+                    <div key={item.id} className="flex items-center justify-between border border-neutral-200 p-4">
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900">{item.name}</p>
                         <p className="text-sm text-neutral-700">Qty: {item.quantity}</p>
@@ -143,14 +221,14 @@ export default function AccountPage() {
               )}
               <Link
                 href="/products"
-                className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                className="mt-4 inline-block bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
                 Continue Shopping
               </Link>
             </section>
 
             {/* Wishlist Section */}
-            <section className="rounded-2xl border border-neutral-200 bg-white p-6">
+            <section className="border border-neutral-200 bg-white p-6">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-neutral-900 mb-4">
                 <HeartIcon className="h-5 w-5" />
                 Wishlist
@@ -158,7 +236,7 @@ export default function AccountPage() {
               {wishlistItems.length > 0 ? (
                 <div className="space-y-3">
                   {wishlistItems.map((item) => (
-                    <div key={item.id} className="flex items-center justify-between rounded-lg border border-neutral-200 p-4">
+                    <div key={item.id} className="flex items-center justify-between border border-neutral-200 p-4">
                       <div className="flex-1">
                         <p className="font-medium text-neutral-900">{item.name}</p>
                         <p className="text-sm text-neutral-700">৳{item.price.toFixed(0)}</p>
@@ -179,7 +257,7 @@ export default function AccountPage() {
               )}
               <Link
                 href="/products"
-                className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                className="mt-4 inline-block bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
                 Explore Products
               </Link>
@@ -190,3 +268,4 @@ export default function AccountPage() {
     </div>
   );
 }
+

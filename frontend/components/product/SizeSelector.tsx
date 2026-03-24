@@ -17,7 +17,7 @@ export default function SizeSelector({
   return (
     <div>
       <label className="text-sm font-semibold text-neutral-900">Size</label>
-      <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
+      <div className="mt-3 grid grid-cols-4 gap-1.5 sm:grid-cols-7">
         {SIZES.map((size) => {
           const isAvailable = availableSizes.includes(size);
           const isSelected = selectedSize === size;
@@ -27,7 +27,7 @@ export default function SizeSelector({
               key={size}
               onClick={() => isAvailable && onSizeChange(size)}
               disabled={!isAvailable}
-              className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
+              className={`px-2 py-1.5 text-xs font-medium transition ${
                 isSelected
                   ? "border-2 border-neutral-900 bg-neutral-900 text-white"
                   : isAvailable
@@ -45,3 +45,4 @@ export default function SizeSelector({
     </div>
   );
 }
+

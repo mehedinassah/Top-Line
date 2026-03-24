@@ -31,7 +31,7 @@ export default function ColorSelector({
               aria-label={`Color ${color.name}${isSelected ? " (selected)" : ""}`}
             >
               <div
-                className={`h-10 w-10 rounded-full border-2 transition ${
+                className={`h-10 w-10 border-2 transition ${
                   isSelected
                     ? "border-neutral-900 shadow-md"
                     : "border-neutral-300 hover:border-neutral-500"
@@ -51,3 +51,4 @@ export default function ColorSelector({
     </div>
   );
 }
+

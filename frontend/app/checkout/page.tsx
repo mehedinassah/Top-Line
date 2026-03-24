@@ -155,7 +155,7 @@ export default function CheckoutPage() {
                 return (
                   <div key={step} className="flex flex-1 items-center last:flex-none">
                     <div
-                      className={`flex h-10 w-10 items-center justify-center rounded-full font-semibold text-sm transition ${
+                      className={`flex h-10 w-10 items-center justify-center font-semibold text-sm transition ${
                         isCompleted
                           ? "bg-green-600 text-white"
                           : isCurrent
@@ -197,7 +197,7 @@ export default function CheckoutPage() {
                       placeholder="Full Name"
                       value={shippingData.fullName}
                       onChange={handleShippingChange}
-                      className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                      className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
                     <input
                       type="email"
@@ -205,7 +205,7 @@ export default function CheckoutPage() {
                       placeholder="Email"
                       value={shippingData.email}
                       onChange={handleShippingChange}
-                      className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                      className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
                     <input
                       type="text"
@@ -213,7 +213,7 @@ export default function CheckoutPage() {
                       placeholder="Street Address"
                       value={shippingData.address}
                       onChange={handleShippingChange}
-                      className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                      className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
                     <div className="grid grid-cols-1 gap-4">
                       <input
@@ -222,7 +222,7 @@ export default function CheckoutPage() {
                         placeholder="City"
                         value={shippingData.city}
                         onChange={handleShippingChange}
-                        className="rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                        className="border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                       />
                     </div>
                     <input
@@ -231,7 +231,7 @@ export default function CheckoutPage() {
                       placeholder="ZIP Code"
                       value={shippingData.zip}
                       onChange={handleShippingChange}
-                      className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                      className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
                   </div>
                 </div>
@@ -242,28 +242,28 @@ export default function CheckoutPage() {
                 <div className="space-y-6">
                   <h2 className="text-2xl font-bold text-neutral-900">Payment Method</h2>
                   <div className="space-y-4">
-                    <div className="rounded-lg border border-neutral-300 p-4">
+                    <div className="border border-neutral-300 p-4">
                       <label className="flex items-center gap-3">
                         <input type="radio" name="payment" defaultChecked className="h-4 w-4" />
                         <span className="text-sm font-medium text-neutral-900">Credit Card</span>
                       </label>
                     </div>
-                    <div className="space-y-4 rounded-lg border border-neutral-300 bg-neutral-50 p-4">
+                    <div className="space-y-4 border border-neutral-300 bg-neutral-50 p-4">
                       <input
                         type="text"
                         placeholder="Card Number"
-                        className="w-full rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                        className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                       />
                       <div className="grid grid-cols-2 gap-4">
                         <input
                           type="text"
                           placeholder="MM/YY"
-                          className="rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                          className="border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                         />
                         <input
                           type="text"
                           placeholder="CVV"
-                          className="rounded-lg border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
+                          className="border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                         />
                       </div>
                     </div>
@@ -279,7 +279,7 @@ export default function CheckoutPage() {
                     <h2 className="text-2xl font-bold text-neutral-900">Order Confirmed</h2>
                     <p className="mt-2 text-neutral-700">Thank you for your purchase!</p>
                   </div>
-                  <div className="rounded-lg bg-neutral-50 p-6">
+                  <div className="bg-neutral-50 p-6">
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <p className="text-neutral-700">Order Number</p>
@@ -310,7 +310,7 @@ export default function CheckoutPage() {
                       if (currentStep === "payment") setCurrentStep("shipping");
                       else if (currentStep === "confirmation") setCurrentStep("payment");
                     }}
-                    className="flex-1 rounded-full border border-neutral-900 px-6 py-2.5 font-semibold text-neutral-900 transition hover:bg-neutral-50"
+                    className="flex-1 border border-neutral-900 px-6 py-2.5 font-semibold text-neutral-900 transition hover:bg-neutral-50"
                   >
                     Previous
                   </button>
@@ -318,7 +318,7 @@ export default function CheckoutPage() {
                 {currentStep !== "confirmation" && (
                   <button
                     onClick={currentStep === "shipping" ? handleContinueToPayment : handleContinueToConfirmation}
-                    className="flex-1 rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
+                    className="flex-1 bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
                   >
                     Next
                   </button>
@@ -326,7 +326,7 @@ export default function CheckoutPage() {
                 {currentStep === "confirmation" && (
                   <button
                     onClick={handleContinueClick}
-                    className="flex-1 rounded-full bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
+                    className="flex-1 bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
                   >
                     Continue Shopping
                   </button>
@@ -335,7 +335,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Summary Sidebar */}
-            <div className="h-fit rounded-2xl border border-neutral-200 bg-neutral-50 p-6">
+            <div className="h-fit border border-neutral-200 bg-neutral-50 p-6">
               <h3 className="font-semibold text-neutral-900">Order Summary</h3>
               <div className="mt-4 space-y-3 border-b border-neutral-200 pb-4">
                 {currentStep === "confirmation" && orderDetails
@@ -386,3 +386,4 @@ export default function CheckoutPage() {
     </>
   );
 }
+

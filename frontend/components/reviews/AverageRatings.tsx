@@ -38,9 +38,9 @@ export default function AverageRatings({ averageRating, totalReviews, reviewCoun
         {reviewCounts.map((item) => (
           <div key={item.rating} className="flex items-center gap-3 mb-2">
             <span className="text-sm text-gray-600 w-8">{item.rating}★</span>
-            <div className="bg-gray-200 rounded-full h-2 flex-1">
+            <div className="bg-gray-200 h-2 flex-1">
               <div
-                className="bg-yellow-400 h-2 rounded-full transition-all"
+                className="bg-yellow-400 h-2 transition-all"
                 style={{ width: `${(item.count / totalReviews) * 100}%` }}
               />
             </div>
@@ -51,3 +51,4 @@ export default function AverageRatings({ averageRating, totalReviews, reviewCoun
     </div>
   );
 }
+

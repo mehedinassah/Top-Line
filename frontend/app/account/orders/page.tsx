@@ -99,7 +99,7 @@ export default function OrdersPage() {
               <button
                 key={filter}
                 onClick={() => setSelectedFilter(filter)}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${
+                className={`px-4 py-2 text-sm font-medium transition ${
                   isActive
                     ? "bg-neutral-900 text-white"
                     : "bg-neutral-100 text-neutral-900 hover:bg-neutral-200"
@@ -114,11 +114,11 @@ export default function OrdersPage() {
         {/* Orders List */}
         <div className="mt-8 space-y-4">
           {filteredOrders.length === 0 ? (
-            <div className="rounded-lg border border-neutral-200 bg-neutral-50 p-8 text-center">
+            <div className="border border-neutral-200 bg-neutral-50 p-8 text-center">
               <p className="text-neutral-700">No orders found. Start shopping to place your first order!</p>
               <Link
                 href="/products"
-                className="mt-4 inline-block rounded-full bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
+                className="mt-4 inline-block bg-neutral-900 px-6 py-2 text-sm font-semibold text-white hover:bg-neutral-800 transition"
               >
                 Continue Shopping
               </Link>
@@ -131,20 +131,20 @@ export default function OrdersPage() {
               return (
                 <div
                   key={index}
-                  className="rounded-lg border border-neutral-200 bg-white p-4 md:p-6 transition hover:border-neutral-300"
+                  className="border border-neutral-200 bg-white p-4 md:p-6 transition hover:border-neutral-300"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div>
                       <p className="font-semibold text-neutral-900">Order {order.number}</p>
                       <p className="text-sm text-neutral-700">{order.date}</p>
                     </div>
-                    <span className={`rounded-full px-3 py-1 text-xs font-medium ${config.color}`}>
+                    <span className={`px-3 py-1 text-xs font-medium ${config.color}`}>
                       {config.label}
                     </span>
                   </div>
 
                   {/* Order Items */}
-                  <div className="mb-4 rounded-lg bg-neutral-50 p-3 space-y-2">
+                  <div className="mb-4 bg-neutral-50 p-3 space-y-2">
                     {order.items?.slice(0, 2).map((item, idx) => (
                       <div key={idx} className="text-sm text-neutral-700">
                         <span className="font-medium text-neutral-900">{item.name}</span>
@@ -176,7 +176,7 @@ export default function OrdersPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="rounded-full border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 transition flex-1">
+                    <button className="border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 transition flex-1">
                       View Details
                     </button>
                   </div>
@@ -197,3 +197,4 @@ export default function OrdersPage() {
     </div>
   );
 }
+

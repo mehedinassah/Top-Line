@@ -94,3 +94,4 @@ export default function SizeGuide({ category = 'clothing', sizeChart }: SizeGuid
     </div>
   );
 }
+

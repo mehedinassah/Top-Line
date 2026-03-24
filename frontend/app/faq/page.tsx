@@ -48,7 +48,7 @@ function FAQAccordion({ item }: { item: FAQItem }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="rounded-2xl border border-neutral-200 bg-white">
+    <div className="border border-neutral-200 bg-white">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-full px-6 py-4 text-left font-medium text-neutral-900 flex items-center justify-between hover:bg-neutral-50"
@@ -97,7 +97,7 @@ export default function FAQPage() {
           <p className="text-neutral-700 mb-8">Contact our support team and we'll be happy to help</p>
           <Link
             href="/contact"
-            className="inline-block rounded-full bg-neutral-900 px-8 py-3 font-semibold text-white hover:bg-neutral-800"
+            className="inline-block bg-neutral-900 px-8 py-3 font-semibold text-white hover:bg-neutral-800"
           >
             Contact Support
           </Link>
@@ -106,3 +106,4 @@ export default function FAQPage() {
     </>
   );
 }
+

@@ -49,7 +49,7 @@ export default function FilterDrawer({
         </h2>
         <button
           onClick={onClose}
-          className="p-1 hover:bg-neutral-100 rounded-lg transition"
+          className="p-1 hover:bg-neutral-100 transition"
           aria-label="Close filters"
         >
           <XMarkIcon className="h-5 w-5 text-neutral-600" />
@@ -80,7 +80,7 @@ export default function FilterDrawer({
               onClick={() => {
                 onCategoryChange("");
               }}
-              className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg transition font-medium ${
+              className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm transition font-medium ${
                 !selectedCategory
                   ? "bg-neutral-900 text-white"
                   : "text-neutral-700 hover:bg-neutral-50"
@@ -94,7 +94,7 @@ export default function FilterDrawer({
                 onClick={() => {
                   onCategoryChange(selectedCategory === cat ? "" : cat);
                 }}
-                className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm rounded-lg transition capitalize font-medium ${
+                className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm transition capitalize font-medium ${
                   selectedCategory === cat
                     ? "bg-neutral-900 text-white"
                     : "text-neutral-700 hover:bg-neutral-50"
@@ -149,7 +149,7 @@ export default function FilterDrawer({
               <button
                 key={size}
                 onClick={() => onSizeToggle(size)}
-                className={`rounded-lg px-2 sm:px-3 py-2 sm:py-2.5 text-xs font-semibold transition ${
+                className={`px-2 sm:px-3 py-2 sm:py-2.5 text-xs font-semibold transition ${
                   selectedSizes.includes(size)
                     ? "bg-neutral-900 text-white"
                     : "border border-neutral-300 text-neutral-900 hover:border-neutral-900"
@@ -164,3 +164,4 @@ export default function FilterDrawer({
     </div>
   );
 }
+

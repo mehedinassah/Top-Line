@@ -59,7 +59,7 @@ export default function ToastContainer() {
             animate={{ opacity: 1, y: 0, x: 0 }}
             exit={{ opacity: 0, y: -20, x: 400 }}
             transition={{ type: "spring", stiffness: 100, damping: 15 }}
-            className={`pointer-events-auto flex items-start gap-3 rounded-lg border p-4 shadow-lg ${getBackgroundColor(toast.type)}`}
+            className={`pointer-events-auto flex items-start gap-3 border p-4 shadow-lg ${getBackgroundColor(toast.type)}`}
           >
             <div className="mt-0.5 flex-shrink-0">{getIcon(toast.type)}</div>
             <p className={`flex-1 text-sm font-medium ${getTextColor(toast.type)}`}>
@@ -77,3 +77,4 @@ export default function ToastContainer() {
     </div>
   );
 }
+

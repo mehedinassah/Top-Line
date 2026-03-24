@@ -65,7 +65,7 @@ export default function ContactPage() {
               {/* Email */}
               <div className="space-y-2 sm:space-y-3 md:space-y-4">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 flex items-center justify-center flex-shrink-0">
                     <EnvelopeIcon className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
                   <h3 className="text-base sm:text-lg md:text-xl font-light text-neutral-900">Email</h3>
@@ -83,7 +83,7 @@ export default function ContactPage() {
               {/* Location */}
               <div className="space-y-2 sm:space-y-3 md:space-y-4">
                 <div className="flex items-center gap-2 sm:gap-3">
-                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-10 sm:w-12 h-10 sm:h-12 bg-neutral-900 flex items-center justify-center flex-shrink-0">
                     <MapPinIcon className="h-5 sm:h-6 w-5 sm:w-6 text-white" />
                   </div>
                   <h3 className="text-base sm:text-lg md:text-xl font-light text-neutral-900">Location</h3>
@@ -101,7 +101,7 @@ export default function ContactPage() {
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group w-12 h-12 bg-white border border-neutral-200 rounded-full flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
+                    className="group w-12 h-12 bg-white border border-neutral-200 flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
                     title="Follow us on Instagram"
                     aria-label="Instagram"
                   >
@@ -113,7 +113,7 @@ export default function ContactPage() {
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group w-12 h-12 bg-white border border-neutral-200 rounded-full flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
+                    className="group w-12 h-12 bg-white border border-neutral-200 flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
                     title="Follow us on Twitter"
                     aria-label="Twitter"
                   >
@@ -125,7 +125,7 @@ export default function ContactPage() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group w-12 h-12 bg-white border border-neutral-200 rounded-full flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
+                    className="group w-12 h-12 bg-white border border-neutral-200 flex items-center justify-center hover:border-neutral-900 hover:bg-neutral-900 transition-all duration-300"
                     title="Follow us on Facebook"
                     aria-label="Facebook"
                   >
@@ -139,7 +139,7 @@ export default function ContactPage() {
 
             {/* Message Box */}
             <div className="flex flex-col justify-center">
-              <div className="bg-white p-6 sm:p-8 md:p-12 border border-neutral-200 rounded-2xl space-y-4 sm:space-y-6">
+              <div className="bg-white p-6 sm:p-8 md:p-12 border border-neutral-200 space-y-4 sm:space-y-6">
                 <h3 className="text-xl sm:text-2xl font-light text-neutral-900">Send us a Message</h3>
                 <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
                   <div>
@@ -200,3 +200,4 @@ export default function ContactPage() {
     </>
   );
 }
+

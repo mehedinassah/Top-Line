@@ -83,7 +83,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
         {/* Discount Badge */}
         {hasDiscount && (
-          <div className="absolute right-2 top-2 rounded-full bg-red-600 px-2 py-1 text-xs font-semibold text-white z-10">
+          <div className="absolute right-2 top-2 bg-red-600 px-2 py-1 text-xs font-semibold text-white z-10">
             Sale
           </div>
         )}
@@ -124,4 +124,5 @@ export default function ProductCard({ product }: { product: Product }) {
     </Link>
   );
 }
+
 
