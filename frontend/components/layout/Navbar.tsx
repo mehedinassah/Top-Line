@@ -171,8 +171,8 @@ export default function Navbar() {
             </button>
           </nav>
 
-          {/* Search - Desktop only */}
-          <div className="hidden flex-1 px-8 md:block">
+          {/* Search - Visible on all sizes */}
+          <div className="flex-1 px-2 sm:px-4 md:px-8">
             <SearchBar />
           </div>
 
@@ -210,7 +210,7 @@ export default function Navbar() {
               <div className="relative">
                 <button
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 md:inline-flex items-center justify-center"
+                  className="hidden p-1.5 sm:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 sm:inline-flex items-center justify-center"
                   title="Account menu"
                 >
                   <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
@@ -258,7 +258,7 @@ export default function Navbar() {
             ) : (
               <Link
                 href="/auth/login"
-                className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 md:inline-block"
+                className="hidden bg-neutral-900 px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm font-medium text-white shadow-minimal hover:bg-neutral-800 transition duration-200 sm:inline-block"
                 title="Sign in to your account"
               >
                 Sign in
@@ -271,11 +271,6 @@ export default function Navbar() {
         {mobileMenuOpen && (
           <div className="border-t border-neutral-200 bg-white md:hidden">
             <div className="mx-auto max-w-6xl px-4 py-4">
-              {/* Mobile Search */}
-              <div className="mb-4">
-                <SearchBar />
-              </div>
-
               {/* Mobile Navigation Links */}
               <nav className="space-y-3 py-4 border-t border-neutral-200">
                 <button
