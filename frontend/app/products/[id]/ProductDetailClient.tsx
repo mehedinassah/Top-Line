@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { StarIcon, ChevronLeftIcon, MinusIcon, PlusIcon, HeartIcon, XMarkIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { useCart } from "@/components/cart/CartContext";
+import { useToast } from "@/components/toast/ToastContext";
 import SizeSelector from "@/components/product/SizeSelector";
 import ColorSelector from "@/components/product/ColorSelector";
 import RelatedProducts from "@/components/products/RelatedProducts";
@@ -23,10 +24,11 @@ type ProductDetailProps = Product & {
 
 export default function ProductDetailClient(props: ProductDetailProps) {
   const { addItem } = useCart();
+  const { addToast } = useToast();
   const [quantity, setQuantity] = useState(1);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   const [selectedSize, setSelectedSize] = useState<Size | null>(null);
-  const [selectedColor, setSelectedColor] = useState<Color | null>(props.colors?.[0] || null);
+  const [selectedColor, setSelectedColor] = useState<Color | null>(null);
   const [addedToCart, setAddedToCart] = useState(false);
   const [addedToWishlist, setAddedToWishlist] = useState(false);
   const [isInWishlist, setIsInWishlist] = useState(false);
@@ -104,9 +106,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const image = props.images?.[selectedImageIndex] ?? "/placeholder-product.png";
   
   // Find the current variant based on selected size and color
-  const currentVariant = props.variants?.find(
-    v => v.size === selectedSize && v.color?.name === selectedColor?.name
-  );
+  // For accessories, find by color only (no size); for other products, find by both
+  const currentVariant = props.collection === "accessories"
+    ? props.variants?.find(v => v.color?.name === selectedColor?.name)
+    : props.variants?.find(v => v.size === selectedSize && v.color?.name === selectedColor?.name);
 
   const variantStock = currentVariant?.quantity ?? 0;
   const isVariantInStock = currentVariant?.inStock ?? props.inStock;
@@ -114,23 +117,11 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const displayPrice = props.discountPrice ?? props.price;
   const hasDiscount = props.discountPrice !== undefined;
 
-  // Get available sizes for selected color
-  const availableSizesForColor = selectedColor
-    ? props.variants
-        ?.filter(v => v.color?.name === selectedColor.name && v.inStock)
-        .map(v => v.size)
-        .filter((size, index, arr) => arr.indexOf(size) === index) || []
-    : props.sizes || [];
+  // Get available sizes for selected color - Show all sizes, filter based on variant stock
+  const availableSizesForColor = props.sizes || [];
 
-  // Get available colors for selected size
-  const availableColorsForSize = selectedSize
-    ? props.variants
-        ?.filter(v => v.size === selectedSize && v.inStock)
-        .map(v => v.color)
-        .filter((color, index, arr) => 
-          arr.findIndex(c => c.name === color.name) === index
-        ) || []
-    : props.colors || [];
+  // Get available colors for selected size - Show all colors, filter based on variant stock
+  const availableColorsForSize = props.colors || [];
 
   function handleAddToCart() {
     if (!isVariantInStock) {
@@ -139,8 +130,16 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     
     // Only require size/color for non-accessory items
     if (props.collection !== "accessories") {
-      if (!selectedSize || !selectedColor) {
-        alert("Please select a size and color");
+      if (!selectedSize && !selectedColor) {
+        addToast("Please select a size and color", "warning");
+        return;
+      }
+      if (!selectedSize) {
+        addToast("Please select a size", "warning");
+        return;
+      }
+      if (!selectedColor) {
+        addToast("Please pick a color", "warning");
         return;
       }
     }
@@ -314,10 +313,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                       ৳{props.price.toFixed(0)}
                     </span>
                   )}
-                  <span className="rounded-full bg-neutral-100 px-3 py-1 text-xs font-medium text-neutral-900">
+                  <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-900">
                     {stockLabel}
-                    {isVariantInStock && variantStock > 0 && (
-                      <span className="ml-1 text-neutral-700">
+                    {isVariantInStock && (
+                      <span className="ml-1 text-neutral-700 text-xs">
                         • {variantStock} left
                       </span>
                     )}
@@ -412,7 +411,9 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                     className={`flex-1 px-6 py-2.5 font-semibold text-sm shadow-minimal transition ${
                       addedToCart
                         ? "bg-green-600 text-white hover:bg-green-700"
-                        : "bg-neutral-900 text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60"
+                        : !isVariantInStock
+                        ? "bg-neutral-300 text-neutral-500 cursor-not-allowed"
+                        : "bg-neutral-900 text-white hover:bg-neutral-800 disabled:cursor-not-allowed disabled:bg-neutral-300 disabled:text-neutral-500"
                     }`}
                     title={isVariantInStock ? "Add this item to your cart" : "This variant is out of stock"}
                     aria-label={isVariantInStock ? `Add ${props.name} to cart` : "Out of stock"}

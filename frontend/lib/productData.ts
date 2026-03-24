@@ -115,7 +115,7 @@ export const featuredProducts: Product[] = [
       "https://drive.google.com/uc?export=view&id=18y3VK3nf74ypAkmBJhhe3h1JVh07gRTq"
     ],
     rating: 4.8,
-    sizes: ["S", "M", "L", "XL", "XXL", "XXXL"],
+    sizes: ["XS", "S", "M", "L", "XL", "XXL", "XXXL"],
     colors: [
       { name: "Charcoal", code: "#36454F" },
       { name: "Navy", code: "#001F3F" },
@@ -123,25 +123,29 @@ export const featuredProducts: Product[] = [
       { name: "Beige", code: "#F5F5DC" }
     ],
     variants: [
+      { size: "XS", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-XS", inStock: true, quantity: 6 },
       { size: "S", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-S", inStock: true, quantity: 12 },
       { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-M", inStock: true, quantity: 18 },
       { size: "L", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-L", inStock: true, quantity: 14 },
       { size: "XL", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-XL", inStock: true, quantity: 8 },
       { size: "XXL", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-XXL", inStock: false, quantity: 0 },
       { size: "XXXL", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-001-CHA-XXXL", inStock: true, quantity: 5 },
+      { size: "XS", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-XS", inStock: true, quantity: 5 },
       { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-S", inStock: true, quantity: 10 },
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-M", inStock: true, quantity: 16 },
       { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-L", inStock: true, quantity: 11 },
       { size: "XL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-XL", inStock: true, quantity: 6 },
       { size: "XXXL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-001-NAV-XXXL", inStock: true, quantity: 4 },
+      { size: "XS", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-XS", inStock: true, quantity: 8 },
       { size: "S", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-S", inStock: true, quantity: 15 },
       { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-M", inStock: true, quantity: 20 },
       { size: "L", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-L", inStock: true, quantity: 17 },
       { size: "XL", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-XL", inStock: true, quantity: 9 },
       { size: "XXXL", color: { name: "Black", code: "#000000" }, sku: "TL-001-BLK-XXXL", inStock: true, quantity: 5 },
+      { size: "XS", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-XS", inStock: true, quantity: 4 },
       { size: "S", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-S", inStock: true, quantity: 8 },
       { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-M", inStock: true, quantity: 12 },
-      { size: "L", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-L", inStock: false, quantity: 0 },
+      { size: "L", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-L", inStock: true, quantity: 10 },
       { size: "XXXL", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-001-BEI-XXXL", inStock: true, quantity: 4 },
     ]
   },
@@ -203,7 +207,7 @@ export const featuredProducts: Product[] = [
       { size: "XS", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-XS", inStock: true, quantity: 7 },
       { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-S", inStock: true, quantity: 14 },
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-M", inStock: true, quantity: 22 },
-      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-L", inStock: true, quantity: 18 },
+      { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-L", inStock: false, quantity: 0 },
       { size: "XL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-XL", inStock: true, quantity: 10 },
       { size: "XXL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-XXL", inStock: true, quantity: 6 },
       { size: "XXXL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-002-NAV-XXXL", inStock: true, quantity: 4 },
@@ -670,6 +674,7 @@ export const featuredProducts: Product[] = [
       { size: "S", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-S", inStock: true, quantity: 12 },
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-M", inStock: true, quantity: 16 },
       { size: "L", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-L", inStock: true, quantity: 13 },
+      { size: "XL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-XL", inStock: false, quantity: 0 },
       { size: "XXL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-XXL", inStock: true, quantity: 5 },
       { size: "XXXL", color: { name: "Navy", code: "#001F3F" }, sku: "TL-008-NAV-XXXL", inStock: true, quantity: 3 },
       { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-008-CRM-M", inStock: true, quantity: 8 },
@@ -956,7 +961,7 @@ export const featuredProducts: Product[] = [
     ],
     variants: [
       { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-012-BLK-M", inStock: true, quantity: 12 },
-      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-012-CHA-M", inStock: true, quantity: 10 },
+      { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-012-CHA-M", inStock: false, quantity: 0 },
       { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-012-BEI-M", inStock: true, quantity: 8 }
     ]
   },
@@ -1024,7 +1029,7 @@ export const featuredProducts: Product[] = [
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-013-NAV-M", inStock: true, quantity: 15 },
       { size: "M", color: { name: "Gray", code: "#808080" }, sku: "TL-013-GRY-M", inStock: true, quantity: 14 },
       { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-013-CHA-M", inStock: true, quantity: 12 },
-      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-013-CRM-M", inStock: true, quantity: 10 }
+      { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-013-CRM-M", inStock: false, quantity: 0 }
     ]
   },
   {
@@ -1087,7 +1092,7 @@ export const featuredProducts: Product[] = [
     ],
     variants: [
       { size: "M", color: { name: "Black", code: "#000000" }, sku: "TL-014-BLK-M", inStock: true, quantity: 18 },
-      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-014-NAV-M", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-014-NAV-M", inStock: false, quantity: 0 },
       { size: "M", color: { name: "Beige", code: "#F5F5DC" }, sku: "TL-014-BEI-M", inStock: true, quantity: 14 }
     ]
   },
@@ -1103,11 +1108,7 @@ export const featuredProducts: Product[] = [
         "Durable Construction",
         "Long-Lasting Shine"
       ],
-      trustSignals: [
-        "Anti-Tarnish Coating",
-        "Durable Construction",
-        "Premium Polish Finish"
-      ],
+      trustSignals: [],
       fabricBuild: {
         description: "Alloy with protective anti-tarnish coating, engineered for durability, lightweight comfort, and premium polish finish.",
         composition: [
@@ -1154,7 +1155,7 @@ export const featuredProducts: Product[] = [
     variants: [
       { size: "M", color: { name: "Navy", code: "#001F3F" }, sku: "TL-015-NAV-M", inStock: true, quantity: 20 },
       { size: "M", color: { name: "Charcoal", code: "#36454F" }, sku: "TL-015-CHA-M", inStock: true, quantity: 18 },
-      { size: "M", color: { name: "Olive", code: "#808000" }, sku: "TL-015-OLI-M", inStock: true, quantity: 16 },
+      { size: "M", color: { name: "Olive", code: "#808000" }, sku: "TL-015-OLI-M", inStock: false, quantity: 0 },
       { size: "M", color: { name: "Cream", code: "#FFFDD0" }, sku: "TL-015-CRM-M", inStock: true, quantity: 14 }
     ]
   }
@@ -1174,8 +1175,8 @@ const detailedProducts: DetailedProduct[] = featuredProducts.map((product, index
   return {
     ...product,
     rating: avgRating,
-    inStock: index % 3 !== 2, // Make every 3rd product out of stock for variety
-    stockCount: index % 3 !== 2 ? Math.floor(Math.random() * 25) + 5 : 0,
+    inStock: true, // All products are always in stock (size variants manage individual availability)
+    stockCount: Math.floor(Math.random() * 25) + 5, // Always have stock count > 0
     reviews: reviews,
     reviewCount: reviews.length
   };
