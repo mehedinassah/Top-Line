@@ -6,6 +6,7 @@ import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
 import FilterDrawer from "@/components/products/FilterDrawer";
 import { featuredProducts, SIZES } from "@/lib/productData";
+import { useScrollToRefOnChange } from "@/hooks/useScrollToRefOnChange";
 import { FunnelIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
 
@@ -25,13 +26,8 @@ function ProductsPageContent() {
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Ref for scrolling to products
-  const productsGridRef = useRef<HTMLDivElement>(null);
-
-  // Scroll to products grid when page changes
-  useEffect(() => {
-    productsGridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [currentPage]);
+  // Use the scroll hook to scroll to content when page changes
+  const productsGridRef = useScrollToRefOnChange(currentPage);
 
   // Filter products
   const filteredProducts = useMemo(() => {
@@ -173,7 +169,7 @@ function ProductsPageContent() {
 
         {/* Main Content - Flex Item */}
         <div className="flex-1">
-        <div className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
+        <div ref={productsGridRef} className="flex flex-col gap-6 sm:gap-8 px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16 lg:py-20">
           {/* Search Results Header */}
           {searchQuery && (
             <div className="pb-4 border-b border-neutral-200">
@@ -215,7 +211,7 @@ function ProductsPageContent() {
           </div>
 
           {/* Main Content with Products Grid */}
-          <div ref={productsGridRef}>
+          <div>
             {sortedProducts.length === 0 ? (
               <div className="border border-neutral-200 bg-neutral-50 p-6 sm:p-8 md:p-12 text-center">
                 <p className="text-sm sm:text-base text-neutral-700 mb-4">No items match your selections.</p>

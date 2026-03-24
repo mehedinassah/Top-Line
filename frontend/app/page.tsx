@@ -10,8 +10,8 @@ export default function HomePage() {
     <>
       <HeroSection />
       <CategorySection />
-      <FeaturedProducts />
       <TrendingSection />
+      <FeaturedProducts />
       <LookbookSection />
       <NewsletterSection />
     </>
