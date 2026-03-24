@@ -4,6 +4,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import ThemeProviderWrapper from "@/components/layout/ThemeProviderWrapper";
 import { ToastProvider } from "@/components/toast/ToastContext";
+import { CartProvider } from "@/components/cart/CartContext";
 import ToastContainer from "@/components/toast/ToastContainer";
 
 export const metadata: Metadata = {
@@ -20,14 +21,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html suppressHydrationWarning>
       <body>
         <ThemeProviderWrapper>
-          <ToastProvider>
-            <div className="min-h-screen flex flex-col bg-slate-950">
-              <Navbar />
-              <main className="flex-1">{children}</main>
-              <Footer />
-              <ToastContainer />
-            </div>
-          </ToastProvider>
+          <CartProvider>
+            <ToastProvider>
+              <div className="min-h-screen flex flex-col bg-slate-950">
+                <Navbar />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <ToastContainer />
+              </div>
+            </ToastProvider>
+          </CartProvider>
         </ThemeProviderWrapper>
       </body>
     </html>

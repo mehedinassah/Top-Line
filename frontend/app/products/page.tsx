@@ -29,6 +29,15 @@ function ProductsPageContent() {
   // Use the scroll hook to scroll to content when page changes
   const productsGridRef = useScrollToRefOnChange(currentPage);
 
+  // Scroll to products when search query changes
+  useEffect(() => {
+    if (searchQuery) {
+      setTimeout(() => {
+        productsGridRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  }, [searchQuery]);
+
   // Filter products
   const filteredProducts = useMemo(() => {
     let result = [...featuredProducts];

@@ -3,7 +3,6 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { featuredProducts } from "@/lib/productData";
 
 export default function SearchBar() {
   const [q, setQ] = useState("");
@@ -13,22 +12,7 @@ export default function SearchBar() {
     e.preventDefault();
     const query = q.trim();
     if (!query) return;
-
-    // Search for matching products
-    const searchQuery = query.toLowerCase();
-    const results = featuredProducts.filter(p =>
-      p.name.toLowerCase().includes(searchQuery) ||
-      p.description.story.toLowerCase().includes(searchQuery) ||
-      p.description.highlights.some(h => h.toLowerCase().includes(searchQuery))
-    );
-
-    // If exactly one result, go directly to that product page
-    if (results.length === 1) {
-      router.push(`/products/${results[0].id}`);
-    } else {
-      // Otherwise, go to products page with search query
-      router.push(`/products?search=${encodeURIComponent(query)}`);
-    }
+    router.push(`/products?search=${encodeURIComponent(query)}`);
   }
 
   return (
