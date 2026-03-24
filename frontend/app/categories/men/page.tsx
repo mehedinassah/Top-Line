@@ -233,7 +233,7 @@ export default function MenPage() {
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
             <div className="overflow-x-auto">
-              <div className="grid grid-cols-4 gap-6 md:gap-8" style={{ minWidth: 'min-content' }}>
+              <div className="grid grid-cols-4 gap-3 sm:gap-4 md:gap-6 lg:gap-8" style={{ gridTemplateColumns: 'repeat(4, minmax(120px, 1fr))', minWidth: 'min-content' }}>
                 {filteredProducts.map(product => (
                   <MinimalProductCard key={product.id} product={product} />
                 ))}
