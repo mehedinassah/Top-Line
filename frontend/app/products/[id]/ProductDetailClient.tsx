@@ -229,13 +229,13 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
       {/* Main Product Section */}
       <section className="border-b border-neutral-200 bg-white">
-        <div className="mx-auto max-w-6xl px-4 py-6 md:py-10">
-          <div className="grid gap-6 md:gap-8 lg:grid-cols-2">
+        <div className="mx-auto max-w-6xl px-3 py-4 sm:px-4 md:py-10">
+          <div className="grid gap-4 md:gap-8 lg:grid-cols-2">
             {/* Product Images */}
-            <div className="space-y-3 md:space-y-4">
+            <div className="space-y-2 sm:space-y-3 md:space-y-4">
               {/* Main Image with Zoom */}
               <div
-                className="relative aspect-square w-full overflow-hidden bg-neutral-100 cursor-zoom-in"
+                className="relative aspect-square w-full overflow-hidden bg-neutral-100 cursor-zoom-in border border-neutral-200"
                 onMouseEnter={() => setImageZoom(true)}
                 onMouseLeave={() => setImageZoom(false)}
                 onMouseMove={handleMouseMove}
@@ -260,12 +260,12 @@ export default function ProductDetailClient(props: ProductDetailProps) {
 
               {/* Image Thumbnails */}
               {props.images.length > 1 && (
-                <div className="flex gap-2">
+                <div className="flex gap-2 overflow-x-auto pb-2">
                   {props.images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setSelectedImageIndex(idx)}
-                      className={`relative h-16 w-16 overflow-hidden transition md:h-20 md:w-20 ${
+                      className={`relative flex-shrink-0 h-14 w-14 sm:h-16 sm:w-16 overflow-hidden transition md:h-20 md:w-20 ${
                         idx === selectedImageIndex
                           ? "ring-2 ring-neutral-900"
                           : "border border-neutral-300 hover:border-neutral-400"
@@ -287,7 +287,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
             </div>
 
             {/* Product Info */}
-            <div className="flex flex-col justify-start gap-4 md:gap-6">
+            <div className="flex flex-col justify-start gap-3 sm:gap-4 md:gap-6">
               {/* Category & Title */}
               <div>
                 <p className="text-xs uppercase tracking-wide text-neutral-700">
