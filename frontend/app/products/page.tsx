@@ -233,10 +233,12 @@ function ProductsPageContent() {
               </div>
             ) : (
               <>
-                <div className="grid gap-2 sm:gap-3 md:gap-3 grid-cols-4">
-                  {paginatedProducts.map(product => (
-                    <ProductCard key={product.id} product={product} />
-                  ))}
+                <div className="overflow-x-auto">
+                  <div className="grid gap-2 sm:gap-3 md:gap-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)', minWidth: 'min-content' }}>
+                    {paginatedProducts.map(product => (
+                      <ProductCard key={product.id} product={product} />
+                    ))}
+                  </div>
                 </div>
 
                 {/* Pagination Controls */}

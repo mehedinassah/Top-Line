@@ -232,10 +232,12 @@ export default function MenPage() {
         <div className="flex flex-col gap-8 px-6 py-12 md:px-8 md:py-16 lg:py-20">
           {/* Products Grid */}
           {filteredProducts.length > 0 ? (
-            <div className="grid grid-cols-4 gap-6 md:gap-8">
-              {filteredProducts.map(product => (
-                <MinimalProductCard key={product.id} product={product} />
-              ))}
+            <div className="overflow-x-auto">
+              <div className="grid grid-cols-4 gap-6 md:gap-8" style={{ minWidth: 'min-content' }}>
+                {filteredProducts.map(product => (
+                  <MinimalProductCard key={product.id} product={product} />
+                ))}
+              </div>
             </div>
           ) : (
             <div className="flex flex-col items-center justify-center gap-4 rounded bg-white px-6 py-16 text-center">
