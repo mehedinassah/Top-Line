@@ -129,9 +129,9 @@ export default function Navbar() {
         </p>
       </div>
 
-      <header className={`sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 ${isRefreshing ? 'bg-blue-50/95' : ''}`}>
+      <header className="sticky top-0 z-40 border-b border-neutral-200 bg-white will-change-auto">
         {isRefreshing && (
-          <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 animate-pulse" />
+          <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600" style={{ animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite' }} />
         )}
         <div className="mx-auto flex max-w-6xl items-center px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 md:py-3">
           {/* Logo - Far Left */}

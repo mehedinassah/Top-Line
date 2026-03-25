@@ -7,10 +7,12 @@
 body {
   @apply bg-white text-neutral-900 antialiased font-sans;
   font-family: 'Inter', system-ui, sans-serif;
+  overflow-y: scroll;
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
+  scroll-padding-top: 80px;
 }
 
 @layer base {
@@ -18,6 +20,60 @@ html {
     @apply font-sans;
   }
 }
+
+/* Premium Performance Optimizations for Smooth Scrolling */
+@layer utilities {
+  /* Optimize rendering during scrolling */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Smooth scroll only on programmatic scrollTo with behavior: 'smooth' */
+  .scroll-smooth-optimized {
+    scroll-behavior: smooth;
+  }
+
+  /* GPU acceleration for fixed/sticky elements */
+  header,
+  .sticky {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  /* Reduce layout shift during scroll */
+  input:focus,
+  button:focus,
+  a:focus {
+    outline-offset: -2px;
+  }
+
+  /* Prevent text rendering lag */
+  .text-content {
+    contain: layout style paint;
+  }
+}
+
+/* Optimized animations */
+@layer utilities {
+  @keyframes fadeOutZoom {
+    from {
+      opacity: 1;
+      transform: scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+  }
+
+  .animate-out-fade-zoom {
+    animation: fadeOutZoom 300ms ease-out forwards;
+  }
+}
+
 
 @layer utilities {
   @keyframes fadeOutZoom {
