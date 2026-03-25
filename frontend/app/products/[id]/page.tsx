@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import ProductDetailClient from "./ProductDetailClient";
 import { getProductById } from "@/lib/productData";
+import { featuredProducts } from "@/lib/productData";
 
 type PageProps = {
   params: Promise<{
@@ -20,6 +21,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  return <ProductDetailClient {...product} />;
+  return <ProductDetailClient {...product} allProducts={featuredProducts} />;
 }
 

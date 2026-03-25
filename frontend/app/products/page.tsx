@@ -174,6 +174,8 @@ function ProductsPageContent() {
           hasActiveFilters={hasActiveFilters}
           onClearFilters={clearFilters}
           SIZES={SIZES}
+          sortBy={sortBy}
+          onSortChange={setSortBy}
         />
 
         {/* Main Content - Flex Item */}
@@ -199,23 +201,11 @@ function ProductsPageContent() {
               {/* Filter Toggle Button */}
               <button
                 onClick={() => setShowFilterDrawer(true)}
-                className="flex items-center gap-2 border border-neutral-300 px-3 py-2.5 text-xs font-medium text-neutral-900 hover:bg-neutral-50 transition flex-1 sm:flex-none min-h-[40px]"
+                className="flex items-center gap-2 text-xs font-semibold text-neutral-900 underline hover:text-neutral-700 transition cursor-pointer"
               >
                 <FunnelIcon className="h-4 w-4" />
                 Filters
               </button>
-
-              {/* Sort Dropdown */}
-              <select
-                value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="border border-neutral-300 bg-white px-3 py-2.5 text-xs font-medium text-neutral-900 outline-none focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900 hover:border-neutral-400 transition flex-1 sm:flex-none min-h-[40px]"
-              >
-                <option value="newest">Newest</option>
-                <option value="price-low">Price: Low to High</option>
-                <option value="price-high">Price: High to Low</option>
-                <option value="rating">Top Rated</option>
-              </select>
             </div>
           </div>
 

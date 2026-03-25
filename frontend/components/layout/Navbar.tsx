@@ -60,26 +60,22 @@ export default function Navbar() {
 
     setIsRefreshing(true);
     
-    // Scroll to top immediately
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Scroll to top immediately (without delay)
+    window.scrollTo({ top: 0, behavior: 'auto' });
 
     // Check if we're already on this page
     if (pathname === href || pathname === href + "/") {
       // Soft refresh: revalidate the current page with a visible effect
+      router.refresh();
       setTimeout(() => {
-        router.refresh();
-        setTimeout(() => {
-          setIsRefreshing(false);
-        }, 500);
-      }, 300);
+        setIsRefreshing(false);
+      }, 400);
     } else {
       // Navigate to the new page
+      router.push(href);
       setTimeout(() => {
-        router.push(href);
-        setTimeout(() => {
-          setIsRefreshing(false);
-        }, 500);
-      }, 300);
+        setIsRefreshing(false);
+      }, 400);
     }
   };
 
@@ -389,6 +385,11 @@ export default function Navbar() {
           </div>
         )}
       </header>
+
+      {/* Full-page loading overlay */}
+      {isRefreshing && (
+        <div className="fixed inset-0 bg-white z-30 pointer-events-none" />
+      )}
 
       <CartDrawer open={cartOpen} onClose={() => setCartOpen(false)} />
     </>

@@ -7,6 +7,7 @@ import { useCart } from "@/components/cart/CartContext";
 import { useToast } from "@/components/toast/ToastContext";
 import SizeSelector from "@/components/product/SizeSelector";
 import ColorSelector from "@/components/product/ColorSelector";
+import ProductCard from "@/components/products/ProductCard";
 import RelatedProducts from "@/components/products/RelatedProducts";
 import ProductImageZoom from "@/components/product/ProductImageZoom";
 import { useState, useEffect, useRef } from "react";
@@ -732,6 +733,25 @@ export default function ProductDetailClient(props: ProductDetailProps) {
           </div>
         </div>
       </section>
+
+      {/* You May Also Like Section - Similar Products by Collection */}
+      {props.allProducts && (
+        <section className="border-b border-neutral-200 bg-white">
+          <div className="mx-auto max-w-6xl px-4 py-8 md:py-12">
+            <h2 className="mb-8 text-2xl font-bold text-neutral-900 md:text-3xl">
+              You May Also Like
+            </h2>
+            <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
+              {props.allProducts
+                .filter(p => p.id !== props.id && p.collection === props.collection)
+                .slice(0, 4)
+                .map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Reviews Section */}
       <section className="border-b border-neutral-200 bg-white">

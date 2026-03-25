@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from "next/link";
 import SizeGuideModal from "@/components/product/SizeGuideModal";
 
@@ -16,6 +17,22 @@ const SIZE_CHART = [
 
 export default function Footer() {
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const handleNavigation = (href: string) => {
+    // Scroll to top immediately (without delay)
+    window.scrollTo({ top: 0, behavior: 'auto' });
+
+    // Check if we're already on this page
+    if (pathname === href || pathname === href + "/") {
+      // Soft refresh: revalidate the current page with a visible effect
+      router.refresh();
+    } else {
+      // Navigate to the new page
+      router.push(href);
+    }
+  };
 
   return (
     <>
@@ -32,10 +49,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Collections</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/categories/men" className="text-neutral-300 hover:text-white transition duration-200" title="Shop mens collection">Men</Link></li>
-              <li><Link href="/categories/women" className="text-neutral-300 hover:text-white transition duration-200" title="Shop womens collection">Women</Link></li>
-              <li><Link href="/categories/accessories" className="text-neutral-300 hover:text-white transition duration-200" title="Shop accessories">Accessories</Link></li>
-              <li><Link href="/products?sort=newest" className="text-neutral-300 hover:text-white transition duration-200" title="View new arrivals">New Arrivals</Link></li>
+              <li><button onClick={() => handleNavigation("/categories/men")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Shop mens collection">Men</button></li>
+              <li><button onClick={() => handleNavigation("/categories/women")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Shop womens collection">Women</button></li>
+              <li><button onClick={() => handleNavigation("/categories/accessories")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Shop accessories">Accessories</button></li>
+              <li><button onClick={() => handleNavigation("/products?sort=newest")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="View new arrivals">New Arrivals</button></li>
             </ul>
           </div>
 
@@ -43,10 +60,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Support</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/account/orders" className="text-neutral-300 hover:text-white transition duration-200" title="Track your orders">Order Status</Link></li>
-              <li><button onClick={() => setShowSizeGuide(true)} className="text-neutral-300 hover:text-white transition duration-200 cursor-pointer" title="View size guide">Size Guide</button></li>
-              <li><Link href="/contact" className="text-neutral-300 hover:text-white transition duration-200" title="Contact support">Contact Us</Link></li>
-              <li><Link href="/faq" className="text-neutral-300 hover:text-white transition duration-200" title="Shipping information">Shipping Info</Link></li>
+              <li><button onClick={() => handleNavigation("/account/orders")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Track your orders">Order Status</button></li>
+              <li><button onClick={() => setShowSizeGuide(true)} className="text-neutral-300 hover:text-white transition duration-200 cursor-pointer bg-none border-none p-0 text-left" title="View size guide">Size Guide</button></li>
+              <li><button onClick={() => handleNavigation("/contact")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Contact support">Contact Us</button></li>
+              <li><button onClick={() => handleNavigation("/faq")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Shipping information">Shipping Info</button></li>
             </ul>
           </div>
 
@@ -54,10 +71,10 @@ export default function Footer() {
           <div>
             <h4 className="text-sm font-semibold text-white mb-4 uppercase tracking-wide">Information</h4>
             <ul className="space-y-2 text-sm">
-              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="About Top Line">About Us</Link></li>
-              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Privacy policy">Privacy Policy</Link></li>
-              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Terms and conditions">Terms & Conditions</Link></li>
-              <li><Link href="/about" className="text-neutral-300 hover:text-white transition duration-200" title="Returns policy">Returns & Exchanges</Link></li>
+              <li><button onClick={() => handleNavigation("/about")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="About Top Line">About Us</button></li>
+              <li><button onClick={() => handleNavigation("/faq")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Privacy policy">Privacy Policy</button></li>
+              <li><button onClick={() => handleNavigation("/faq")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Terms and conditions">Terms & Conditions</button></li>
+              <li><button onClick={() => handleNavigation("/faq")} className="text-neutral-300 hover:text-white transition duration-200 bg-none border-none cursor-pointer p-0 text-left" title="Returns policy">Returns & Exchanges</button></li>
             </ul>
           </div>
 

@@ -3,6 +3,8 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { Size } from "@/lib/productData";
 
+type SortOption = "newest" | "price-low" | "price-high" | "rating";
+
 interface FilterDrawerProps {
   open: boolean;
   onClose: () => void;
@@ -17,6 +19,8 @@ interface FilterDrawerProps {
   hasActiveFilters: boolean;
   onClearFilters: () => void;
   SIZES: Size[];
+  sortBy: SortOption;
+  onSortChange: (sort: SortOption) => void;
 }
 
 export default function FilterDrawer({
@@ -33,6 +37,8 @@ export default function FilterDrawer({
   hasActiveFilters,
   onClearFilters,
   SIZES,
+  sortBy,
+  onSortChange,
 }: FilterDrawerProps) {
   return (
     <div
@@ -70,8 +76,35 @@ export default function FilterDrawer({
           </button>
         )}
 
+        {/* Sort Filter */}
+        <div className="mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-neutral-200">
+          <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
+            Sort By
+          </p>
+          <div className="space-y-2">
+            {[
+              { value: "newest" as SortOption, label: "Newest" },
+              { value: "price-low" as SortOption, label: "Price: Low to High" },
+              { value: "price-high" as SortOption, label: "Price: High to Low" },
+              { value: "rating" as SortOption, label: "Top Rated" },
+            ].map((option) => (
+              <button
+                key={option.value}
+                onClick={() => onSortChange(option.value)}
+                className={`w-full text-left px-3 py-2 sm:py-2.5 text-xs sm:text-sm transition font-medium ${
+                  sortBy === option.value
+                    ? "bg-neutral-900 text-white"
+                    : "text-neutral-700 hover:bg-neutral-50"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Category Filter */}
-        <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-neutral-200">
+        <div className="mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-neutral-200">
           <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
             Category
           </p>
@@ -107,7 +140,7 @@ export default function FilterDrawer({
         </div>
 
         {/* Price Range Filter */}
-        <div className="mb-6 sm:mb-8 pb-6 sm:pb-8 border-b border-neutral-200">
+        <div className="mb-4 sm:mb-5 pb-4 sm:pb-5 border-b border-neutral-200">
           <p className="text-xs font-semibold text-neutral-900 mb-3 sm:mb-4 uppercase tracking-wide">
             Price Range
           </p>

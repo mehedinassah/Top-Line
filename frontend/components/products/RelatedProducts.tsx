@@ -10,8 +10,10 @@ export default function RelatedProducts({
   products, 
   currentProductId 
 }: RelatedProductsProps) {
+  // Shuffle and select random products that change on each refresh
   const relatedProducts = products
     .filter(p => p.id !== currentProductId)
+    .sort(() => Math.random() - 0.5)
     .slice(0, 4);
 
   if (relatedProducts.length === 0) {
