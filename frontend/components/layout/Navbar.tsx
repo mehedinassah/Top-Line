@@ -13,6 +13,7 @@ export default function Navbar() {
   const [userEmail, setUserEmail] = useState("");
   const [userName, setUserName] = useState("");
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [isProfileMenuClosing, setIsProfileMenuClosing] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { totalQuantity } = useCart();
@@ -51,6 +52,29 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   }, [pathname]);
 
+  // Auto-close profile menu after 2 seconds with smooth exit animation
+  useEffect(() => {
+    if (showProfileMenu) {
+      const timer = setTimeout(() => {
+        setIsProfileMenuClosing(true);
+        setTimeout(() => {
+          setShowProfileMenu(false);
+          setIsProfileMenuClosing(false);
+        }, 300);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [showProfileMenu]);
+
+  const closeProfileMenuWithAnimation = () => {
+    setIsProfileMenuClosing(true);
+    setTimeout(() => {
+      setShowProfileMenu(false);
+      setIsProfileMenuClosing(false);
+    }, 300);
+  };
+
   // Handle soft refresh on navigation
   const handleNavigation = (href: string) => {
     // Close mobile menu if open
@@ -88,7 +112,7 @@ export default function Navbar() {
     localStorage.removeItem("topline_orders");
     setIsLoggedIn(false);
     setUserEmail("");
-    setShowProfileMenu(false);
+    closeProfileMenuWithAnimation();
     // Dispatch event for other components to listen
     window.dispatchEvent(new Event("authStateChanged"));
     // Reload page to refresh all components
@@ -206,14 +230,27 @@ export default function Navbar() {
             {isLoggedIn ? (
               <div className="relative">
                 <button
-                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  onClick={() => {
+                    if (showProfileMenu) {
+                      // Apply exit animation before closing
+                      setIsProfileMenuClosing(true);
+                      setTimeout(() => {
+                        setShowProfileMenu(false);
+                        setIsProfileMenuClosing(false);
+                      }, 300);
+                    } else {
+                      setShowProfileMenu(true);
+                    }
+                  }}
                   className="hidden p-1 sm:p-1.5 md:p-2 text-neutral-700 hover:bg-neutral-100 transition duration-200 sm:inline-flex items-center justify-center"
                   title="Account menu"
                 >
                   <UserIcon className="h-4 sm:h-5 w-4 sm:w-5" />
                 </button>
                 {showProfileMenu && (
-                  <div className="absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50">
+                  <div className={`absolute right-0 mt-2 w-48 border border-neutral-200 bg-white shadow-lg z-50 ${
+                    isProfileMenuClosing ? 'animate-out-fade-zoom' : 'animate-in fade-in zoom-in-95'
+                  } duration-300 ease-out`}>
                     <div className="px-4 py-3 border-b border-neutral-200">
                       <p className="text-xs text-neutral-600">Signed in as</p>
                       <p className="text-sm font-medium text-neutral-900 truncate">{userName}</p>
@@ -221,7 +258,7 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         handleNavigation("/account");
-                        setShowProfileMenu(false);
+                        closeProfileMenuWithAnimation();
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="Go to account"
@@ -231,7 +268,7 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         handleNavigation("/account/orders");
-                        setShowProfileMenu(false);
+                        closeProfileMenuWithAnimation();
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="View orders"
@@ -241,7 +278,7 @@ export default function Navbar() {
                     <button
                       onClick={() => {
                         handleNavigation("/wishlist");
-                        setShowProfileMenu(false);
+                        closeProfileMenuWithAnimation();
                       }}
                       className="block w-full text-left px-4 py-2 text-sm text-neutral-700 hover:bg-neutral-50 transition bg-none border-none cursor-pointer"
                       title="View wishlist"
