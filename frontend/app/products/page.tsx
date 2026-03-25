@@ -201,7 +201,7 @@ function ProductsPageContent() {
               {/* Filter Toggle Button */}
               <button
                 onClick={() => setShowFilterDrawer(true)}
-                className="flex items-center gap-2 text-xs font-semibold text-neutral-900 underline hover:text-neutral-700 transition cursor-pointer"
+                className="ml-auto flex items-center gap-2 text-xs font-semibold text-neutral-900 underline hover:text-neutral-700 transition cursor-pointer"
               >
                 <FunnelIcon className="h-4 w-4" />
                 Filters
