@@ -124,7 +124,7 @@ export default function Navbar() {
           <div className="flex-1" />
 
           {/* Navigation - Hidden on mobile */}
-          <nav className="hidden items-center gap-6 md:gap-8 text-xs sm:text-sm md:text-sm font-medium text-neutral-700 md:flex">
+          <nav className="hidden items-center gap-8 text-xs sm:text-sm md:text-sm font-medium text-neutral-700 md:flex">
             <button
               onClick={() => handleNavigation("/products")}
               disabled={isRefreshing}

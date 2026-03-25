@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { ShoppingBagIcon, UserIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import SearchBar from "@/components/search/SearchBar";
 import CartDrawer from "@/components/cart/CartDrawer";
+import CouponBadge from "@/components/coupon/CouponBadge";
 import { useCart } from "@/components/cart/CartContext";
 
 export default function Navbar() {
@@ -195,6 +196,11 @@ export default function Navbar() {
           {/* Search - Visible on all sizes */}
           <div className="flex-grow-0 sm:flex-1 px-0.5 sm:px-2 md:px-4 max-w-[140px] sm:max-w-none">
             <SearchBar />
+          </div>
+
+          {/* Coupon Badge */}
+          <div className="ml-2">
+            <CouponBadge />
           </div>
 
           {/* Mobile Menu Button */}

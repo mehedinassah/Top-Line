@@ -1,3 +1,4 @@
+import PromotionalBanner from "@/components/home/PromotionalBanner";
 import HeroSection from "@/components/home/HeroSection";
 import CategorySection from "@/components/home/CategorySection";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
@@ -8,6 +9,7 @@ import NewsletterSection from "@/components/home/NewsletterSection";
 export default function HomePage() {
   return (
     <>
+      <PromotionalBanner />
       <HeroSection />
       <CategorySection />
       <TrendingSection />

@@ -5,6 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { useCart, type CartItem } from "@/components/cart/CartContext";
+import CouponInput from "@/components/coupon/CouponInput";
+import { incrementCouponUses } from "@/lib/couponStorage";
+import type { DeliveryLocation } from "@/lib/shippingUtils";
+import { getLocationText, getShippingText } from "@/lib/shippingUtils";
 
 type CheckoutStep = "shipping" | "payment" | "confirmation";
 
@@ -25,11 +29,12 @@ interface OrderDetails {
   subtotal: number;
   shipping: number;
   tax: number;
+  couponDiscount: number;
 }
 
 export default function CheckoutPage() {
   const router = useRouter();
-  const { items: cartItems, clear } = useCart();
+  const { items: cartItems, clear, couponDiscount, appliedCoupon, deliveryLocation, setDeliveryLocation, shipping } = useCart();
   const [currentStep, setCurrentStep] = useState<CheckoutStep>("shipping");
   const [isHydrated, setIsHydrated] = useState(false);
   
@@ -53,9 +58,9 @@ export default function CheckoutPage() {
   
   // Calculate totals from actual cart items
   const cartSubtotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-  const shipping = 10;
-  const tax = Math.round((cartSubtotal + shipping) * 0.08 * 100) / 100;
-  const cartTotal = cartSubtotal + shipping + tax;
+  const tax = Math.round((cartSubtotal + shipping) * 0.05 * 100) / 100;
+  const totalAfterDiscount = Math.max(0, cartSubtotal - couponDiscount);
+  const cartTotal = totalAfterDiscount + shipping + tax;
   
   const [shippingData, setShippingData] = useState<ShippingData>({
     fullName: "",
@@ -91,6 +96,7 @@ export default function CheckoutPage() {
     const subtotal = cartSubtotal;
     const orderTax = tax;
     const orderShipping = shipping;
+    const orderCouponDiscount = couponDiscount;
     const orderTotal = cartTotal;
     const orderItems = [...cartItems]; // Create a copy of items
     
@@ -102,10 +108,16 @@ export default function CheckoutPage() {
       items: orderItems,
       subtotal: subtotal,
       shipping: orderShipping,
-      tax: orderTax
+      tax: orderTax,
+      couponDiscount: orderCouponDiscount
     };
 
     setOrderDetails(orderData);
+    
+    // Increment coupon uses if a coupon was applied
+    if (appliedCoupon && appliedCoupon.code) {
+      incrementCouponUses(appliedCoupon.code);
+    }
     
     // Save order to localStorage for orders page
     try {
@@ -114,7 +126,8 @@ export default function CheckoutPage() {
       orders.push({
         ...orderData,
         status: "Confirmed",
-        placedDate: new Date().toISOString()
+        placedDate: new Date().toISOString(),
+        couponCode: appliedCoupon?.code
       });
       localStorage.setItem("topline_orders", JSON.stringify(orders));
     } catch (error) {
@@ -233,6 +246,41 @@ export default function CheckoutPage() {
                       onChange={handleShippingChange}
                       className="w-full border border-neutral-300 bg-white px-4 py-2.5 text-sm placeholder-neutral-500 outline-none transition focus:border-neutral-900 focus:ring-1 focus:ring-neutral-900"
                     />
+                    
+                    {/* Delivery Location Selector */}
+                    <div className="border-t border-neutral-200 pt-4 mt-4">
+                      <label className="block text-sm font-medium text-neutral-900 mb-3">Delivery Location</label>
+                      <div className="space-y-2">
+                        <label className="flex items-center gap-3 p-3 border border-neutral-300 cursor-pointer hover:bg-neutral-50 transition">
+                          <input
+                            type="radio"
+                            name="location"
+                            value="dhaka"
+                            checked={deliveryLocation === "dhaka"}
+                            onChange={(e) => setDeliveryLocation(e.target.value as DeliveryLocation)}
+                            className="h-4 w-4"
+                          />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-neutral-900">Inside Dhaka</p>
+                            <p className="text-xs text-neutral-700">Shipping: ৳60 (Free for orders over ৳2000)</p>
+                          </div>
+                        </label>
+                        <label className="flex items-center gap-3 p-3 border border-neutral-300 cursor-pointer hover:bg-neutral-50 transition">
+                          <input
+                            type="radio"
+                            name="location"
+                            value="outside-dhaka"
+                            checked={deliveryLocation === "outside-dhaka"}
+                            onChange={(e) => setDeliveryLocation(e.target.value as DeliveryLocation)}
+                            className="h-4 w-4"
+                          />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-neutral-900">Outside Dhaka</p>
+                            <p className="text-xs text-neutral-700">Shipping: ৳100 (Free for orders over ৳2000)</p>
+                          </div>
+                        </label>
+                      </div>
+                    </div>
                   </div>
                 </div>
               )}
@@ -335,9 +383,17 @@ export default function CheckoutPage() {
             </div>
 
             {/* Order Summary Sidebar */}
-            <div className="h-fit border border-neutral-200 bg-neutral-50 p-6">
+            <div className="h-fit border border-neutral-200 bg-neutral-50 p-6 space-y-4">
               <h3 className="font-semibold text-neutral-900">Order Summary</h3>
-              <div className="mt-4 space-y-3 border-b border-neutral-200 pb-4">
+              
+              {/* Coupon Input */}
+              {currentStep !== "confirmation" && (
+                <div className="border-b border-neutral-200 pb-4">
+                  <CouponInput showSuggestions={true} />
+                </div>
+              )}
+              
+              <div className="space-y-3 border-b border-neutral-200 pb-4">
                 {currentStep === "confirmation" && orderDetails
                   ? // Display stored order items during confirmation
                     orderDetails.items.map(item => (
@@ -366,12 +422,18 @@ export default function CheckoutPage() {
                   <span>Subtotal</span>
                   <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.subtotal : cartSubtotal).toFixed(0)}</span>
                 </div>
+                {(currentStep === "confirmation" && orderDetails ? orderDetails.couponDiscount : couponDiscount) > 0 && (
+                  <div className="flex justify-between text-green-600 font-medium">
+                    <span>Discount {appliedCoupon && `(${appliedCoupon.code})`}</span>
+                    <span>-৳{(currentStep === "confirmation" && orderDetails ? orderDetails.couponDiscount : couponDiscount).toFixed(0)}</span>
+                  </div>
+                )}
                 <div className="flex justify-between text-neutral-700">
                   <span>Shipping</span>
                   <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.shipping : shipping).toFixed(0)}</span>
                 </div>
                 <div className="flex justify-between text-neutral-700">
-                  <span>Tax</span>
+                  <span>VAT (5%)</span>
                   <span>৳{(currentStep === "confirmation" && orderDetails ? orderDetails.tax : tax).toFixed(0)}</span>
                 </div>
                 <div className="border-t border-neutral-200 pt-2 flex justify-between font-semibold text-neutral-900">

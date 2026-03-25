@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import { ChevronLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
 type OrderStatus = "Confirmed" | "Shipped" | "Delivered" | "Cancelled";
 
@@ -16,6 +16,7 @@ interface CartItem {
   size?: string;
   color?: string;
   image?: string;
+  discountPrice?: number;
 }
 
 interface Order {
@@ -29,6 +30,8 @@ interface Order {
   tax: number;
   status?: string;
   placedDate?: string;
+  couponDiscount?: number;
+  couponCode?: string;
 }
 
 const statusConfig: Record<string, { color: string; label: string }> = {
@@ -43,6 +46,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<string>("all");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
     const isAuthenticated = localStorage.getItem("isLoggedIn");
@@ -176,7 +180,10 @@ export default function OrdersPage() {
                   </div>
 
                   <div className="flex gap-2">
-                    <button className="border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 transition flex-1">
+                    <button 
+                      onClick={() => setSelectedOrder(order)}
+                      className="border border-neutral-300 px-4 py-2 text-sm font-medium text-neutral-900 hover:border-neutral-900 transition flex-1"
+                    >
                       View Details
                     </button>
                   </div>
@@ -194,7 +201,129 @@ export default function OrdersPage() {
           </div>
         )}
       </div>
+
+      {/* Order Details Modal */}
+      {selectedOrder && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
+          <div className="w-full max-w-2xl max-h-[90vh] bg-white overflow-y-auto">
+            {/* Modal Header */}
+            <div className="sticky top-0 border-b border-neutral-200 bg-white p-6 flex items-center justify-between">
+              <h2 className="text-xl font-bold text-neutral-900">Order Details</h2>
+              <button
+                onClick={() => setSelectedOrder(null)}
+                className="text-neutral-500 hover:text-neutral-700"
+                title="Close"
+              >
+                <XMarkIcon className="h-6 w-6" />
+              </button>
+            </div>
+
+            <div className="p-6 space-y-6">
+              {/* Order Header */}
+              <div className="border-b border-neutral-200 pb-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-neutral-600">Order Number</p>
+                    <p className="text-lg font-semibold text-neutral-900">{selectedOrder.number}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-neutral-600">Order Date</p>
+                    <p className="text-lg font-semibold text-neutral-900">{selectedOrder.date}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-neutral-600">Status</p>
+                    <p className={`text-lg font-semibold ${statusConfig[selectedOrder.status || "Confirmed"].color} inline-block px-2 py-1 mt-1`}>
+                      {statusConfig[selectedOrder.status || "Confirmed"].label}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-neutral-600">Estimated Delivery</p>
+                    <p className="text-lg font-semibold text-neutral-900">{selectedOrder.estimatedDelivery || 'TBD'}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Order Items */}
+              <div className="border-b border-neutral-200 pb-4">
+                <h3 className="text-lg font-semibold text-neutral-900 mb-4">Order Items</h3>
+                <div className="space-y-4">
+                  {selectedOrder.items.map((item, idx) => (
+                    <div key={idx} className="border border-neutral-200 p-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <p className="text-sm text-neutral-600">Product Name</p>
+                          <p className="font-semibold text-neutral-900">{item.name}</p>
+                        </div>
+                        <div>
+                          <p className="text-sm text-neutral-600">Quantity</p>
+                          <p className="font-semibold text-neutral-900">{item.quantity}</p>
+                        </div>
+                        {item.size && (
+                          <div>
+                            <p className="text-sm text-neutral-600">Size</p>
+                            <p className="font-semibold text-neutral-900">{item.size}</p>
+                          </div>
+                        )}
+                        {item.color && (
+                          <div>
+                            <p className="text-sm text-neutral-600">Color</p>
+                            <p className="font-semibold text-neutral-900">{item.color as string}</p>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price Breakdown */}
+              <div className="border-b border-neutral-200 pb-4">
+                <h3 className="text-lg font-semibold text-neutral-900 mb-4">Price Breakdown</h3>
+                <div className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-neutral-700">Subtotal</span>
+                    <span className="font-semibold text-neutral-900">৳{selectedOrder.subtotal.toLocaleString()}</span>
+                  </div>
+                  
+                  {selectedOrder.couponDiscount && selectedOrder.couponDiscount > 0 && (
+                    <div className="flex justify-between text-green-700">
+                      <span>Coupon Discount {selectedOrder.couponCode && `(${selectedOrder.couponCode})`}</span>
+                      <span className="font-semibold">-৳{selectedOrder.couponDiscount.toLocaleString()}</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-between">
+                    <span className="text-neutral-700">Shipping</span>
+                    <span className="font-semibold text-neutral-900">৳{selectedOrder.shipping.toLocaleString()}</span>
+                  </div>
+                  
+                  <div className="flex justify-between">
+                    <span className="text-neutral-700">VAT (5%)</span>
+                    <span className="font-semibold text-neutral-900">৳{selectedOrder.tax.toLocaleString()}</span>
+                  </div>
+                  
+                  <div className="border-t-2 border-neutral-200 pt-3 flex justify-between">
+                    <span className="text-lg font-bold text-neutral-900">Total Amount</span>
+                    <span className="text-lg font-bold text-neutral-900">৳{selectedOrder.total.toLocaleString()}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Close Button */}
+              <div>
+                <button
+                  onClick={() => setSelectedOrder(null)}
+                  className="w-full bg-neutral-900 px-6 py-2 text-sm font-medium text-white hover:bg-neutral-800 transition"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
+
 

@@ -131,7 +131,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 2200,
-    discountPrice: 1890,
+    discountPrice: 1540,
     category: "shirts",
     collection: "men",
     images: [
@@ -391,7 +391,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 450,
-    discountPrice: 360,
+    discountPrice: 315,
     category: "outerwear",
     collection: "men",
     images: [
@@ -724,7 +724,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 1450,
-    discountPrice: 1160,
+    discountPrice: 1015,
     category: "tees",
     collection: "women",
     images: [
@@ -968,7 +968,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 2450,
-    discountPrice: 1990,
+    discountPrice: 1715,
     category: "jeans",
     collection: "women",
     images: [
@@ -1121,7 +1121,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 890,
-    discountPrice: 710,
+    discountPrice: 623,
     category: "jewelry",
     collection: "accessories",
     images: [
@@ -1254,7 +1254,7 @@ export const featuredProducts: Product[] = [
       ]
     },
     price: 450,
-    discountPrice: 360,
+    discountPrice: 315,
     category: "jewelry",
     collection: "accessories",
     images: [
@@ -1286,6 +1286,66 @@ export type DetailedProduct = Product & {
   reviews: Review[];
   reviewCount: number;
 };
+
+// Coupon System
+export interface Coupon {
+  code: string;
+  type: "percentage" | "fixed";
+  value: number; // percentage value (0-100) or fixed amount
+  expiryDate: string; // ISO date string
+  minPurchaseAmount: number;
+  maxUses: number;
+  currentUses: number;
+  active: boolean;
+  description: string;
+}
+
+export const availableCoupons: Coupon[] = [
+  {
+    code: "WELCOME10",
+    type: "percentage",
+    value: 10,
+    expiryDate: "2027-12-31",
+    minPurchaseAmount: 1000,
+    maxUses: 100,
+    currentUses: 45,
+    active: true,
+    description: "10% off your first purchase"
+  },
+  {
+    code: "SUMMER20",
+    type: "percentage",
+    value: 20,
+    expiryDate: "2027-08-31",
+    minPurchaseAmount: 3000,
+    maxUses: 50,
+    currentUses: 28,
+    active: true,
+    description: "Summer sale - 20% off"
+  },
+  {
+    code: "SAVE25",
+    type: "percentage",
+    value: 25,
+    expiryDate: "2027-07-31",
+    minPurchaseAmount: 4000,
+    maxUses: 75,
+    currentUses: 62,
+    active: true,
+    description: "Save 25% on orders over ৳4000"
+  },
+  {
+    code: "TOPLINE15",
+    type: "percentage",
+    value: 15,
+    expiryDate: "2027-09-30",
+    minPurchaseAmount: 1500,
+    maxUses: 200,
+    currentUses: 89,
+    active: true,
+    description: "Loyalty discount - 15% off"
+  }
+];
 
 const detailedProducts: DetailedProduct[] = featuredProducts.map((product, index) => {
   const reviews = getProductReviews(product.id);
