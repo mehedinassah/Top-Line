@@ -137,10 +137,6 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                     </div>
                   </div>
 
-                  <p className="text-xs text-neutral-500">
-                    Delivery to: {getLocationText(deliveryLocation)}
-                  </p>
-
                   {/* Free Shipping Info */}
                   {shipping === 0 ? (
                     <div className="bg-green-50 border border-green-200 p-2 rounded">
