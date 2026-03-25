@@ -1,10 +1,30 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { availableCoupons } from "@/lib/productData";
 import { getActiveCoupons } from "@/lib/couponUtils";
 import { SparklesIcon } from "@heroicons/react/24/outline";
+import type { Coupon } from "@/lib/productData";
 
 export default function CouponBadge() {
-  const activeCoupons = getActiveCoupons();
+  // Initialize with default coupons to match server render
+  const [activeCoupons, setActiveCoupons] = useState<Coupon[]>(() => {
+    const today = new Date();
+    return availableCoupons.filter(coupon => {
+      const expiryDate = new Date(coupon.expiryDate);
+      return (
+        coupon.active &&
+        today <= expiryDate &&
+        coupon.currentUses < coupon.maxUses
+      );
+    });
+  });
+
+  // After hydration, load actual coupons from localStorage
+  useEffect(() => {
+    setActiveCoupons(getActiveCoupons());
+  }, []);
+
   const count = activeCoupons.length;
 
   if (count === 0) return null;

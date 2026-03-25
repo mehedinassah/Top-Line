@@ -49,7 +49,7 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
             leaveFrom="translate-x-0"
             leaveTo="translate-x-full"
           >
-            <Dialog.Panel className="flex h-full w-1/2 sm:w-full sm:max-w-sm md:max-w-md flex-col border-l border-neutral-200 bg-white shadow-xl">
+            <Dialog.Panel className="flex h-full !w-[70%] lg:w-full lg:max-w-sm xl:max-w-md flex-col border-l border-neutral-200 bg-white shadow-xl">
               {/* Header - Compact on mobile */}
               <div className="flex items-center justify-between gap-2 border-b border-neutral-200 px-3 py-3 sm:px-4 sm:py-4">
                 <Dialog.Title className="text-base sm:text-lg font-bold text-neutral-900">

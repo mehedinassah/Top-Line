@@ -147,7 +147,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
     
     // Only require size/color for non-accessory items
     if (props.collection !== "accessories") {
-      if (!selectedSize && !selectedColor) {
+      if (!selectedSize || !selectedColor) {
         addToast("Please select a size and color", "warning");
         return;
       }
@@ -161,6 +161,10 @@ export default function ProductDetailClient(props: ProductDetailProps) {
       }
     }
 
+    // Capture current quantity before resetting
+    const currentQuantity = quantity;
+    console.log(`[BEFORE ADD] quantity state = ${quantity}, currentQuantity = ${currentQuantity}`);
+
     const cartItemData = {
       id: props.collection === "accessories" 
         ? `${props.id}` 
@@ -168,17 +172,19 @@ export default function ProductDetailClient(props: ProductDetailProps) {
       productId: props.id,
       name: props.name,
       price: displayPrice,
-      quantity,
+      quantity: currentQuantity,
       size: selectedSize,
       color: selectedColor?.name,
       image: props.images?.[0],
       discountPrice: props.discountPrice
     };
 
+    console.log(`[ADD] Sending to cart with quantity: ${cartItemData.quantity}`);
+    // Reset quantity IMMEDIATELY so next click starts fresh at 1
+    setQuantity(1);
     addItem(cartItemData);
     setAddedToCart(true);
     setTimeout(() => setAddedToCart(false), 2000);
-    setQuantity(1);
   }
 
   function handleAddToWishlist() {
@@ -216,13 +222,17 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   function handleIncreaseQuantity() {
     const stock = props.collection === "accessories" ? props.stockCount : variantStock;
     if (quantity < stock) {
-      setQuantity(quantity + 1);
+      const newQuantity = quantity + 1;
+      console.log(`[QTY +] Current: ${quantity} → New: ${newQuantity} (Stock limit: ${stock})`);
+      setQuantity(newQuantity);
     }
   }
 
   function handleDecreaseQuantity() {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+    if (quantity > 0) {
+      const newQuantity = quantity - 1;
+      console.log(`[QTY -] Current: ${quantity} → New: ${newQuantity}`);
+      setQuantity(newQuantity);
     }
   }
 

@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { availableCoupons } from "@/lib/productData";
 import { useCart } from "@/components/cart/CartContext";
 import { getActiveCoupons } from "@/lib/couponUtils";
 import { validateCoupon } from "@/lib/couponUtils";
+import type { Coupon } from "@/lib/productData";
 
 interface AvailableCouponsProps {
   subtotal: number;
@@ -13,8 +15,23 @@ export default function AvailableCoupons({ subtotal }: AvailableCouponsProps) {
   const { applyCoupon, removeCoupon, appliedCoupon } = useCart();
   const [appliedCode, setAppliedCode] = useState<string | null>(appliedCoupon?.code || null);
   const [toastMessage, setToastMessage] = useState("");
+  // Initialize with default coupons to match server render
+  const [activeCoupons, setActiveCoupons] = useState<Coupon[]>(() => {
+    const today = new Date();
+    return availableCoupons.filter(coupon => {
+      const expiryDate = new Date(coupon.expiryDate);
+      return (
+        coupon.active &&
+        today <= expiryDate &&
+        coupon.currentUses < coupon.maxUses
+      );
+    });
+  });
 
-  const activeCoupons = getActiveCoupons();
+  // After hydration, load actual coupons from localStorage
+  useEffect(() => {
+    setActiveCoupons(getActiveCoupons());
+  }, []);
   
   // Filter only truly eligible coupons based on subtotal >= minimum purchase
   const eligibleCoupons = activeCoupons.filter(coupon => {

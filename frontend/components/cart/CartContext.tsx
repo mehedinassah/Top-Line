@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useState, useReducer, type ReactNode } from "react";
 import type { Coupon } from "@/lib/productData";
 import type { DeliveryLocation } from "@/lib/shippingUtils";
 import { calculateShipping } from "@/lib/shippingUtils";
@@ -42,8 +42,60 @@ const CART_STORAGE_KEY = "topline_cart";
 const COUPON_STORAGE_KEY = "topline_coupon";
 const DELIVERY_LOCATION_KEY = "topline_delivery_location";
 
+// Reducer to prevent state updater from running multiple times
+type CartAction = 
+  | { type: 'ADD_ITEM'; payload: Omit<CartItem, "quantity"> & { quantity?: number } }
+  | { type: 'REMOVE_ITEM'; payload: string }
+  | { type: 'UPDATE_QUANTITY'; payload: { id: string; quantity: number } }
+  | { type: 'CLEAR' }
+  | { type: 'LOAD_FROM_STORAGE'; payload: CartItem[] };
+
+function cartReducer(state: CartItem[], action: CartAction): CartItem[] {
+  switch (action.type) {
+    case 'ADD_ITEM': {
+      const { payload } = action;
+      const quantityToAdd = payload.quantity || 1;
+      
+      // Check if item already exists
+      const existingItem = state.find((p) => p.id === payload.id);
+      console.log(`[REDUCER] ADD_ITEM: id=${payload.id}, qty=${quantityToAdd}, exists=${!!existingItem}`);
+      
+      if (existingItem) {
+        // Update existing item's quantity
+        const updated = state.map((item) =>
+          item.id === payload.id
+            ? { ...item, quantity: item.quantity + quantityToAdd }
+            : item
+        );
+        console.log(`[REDUCER] Updated: quantity now ${updated.find(i => i.id === payload.id)?.quantity}`);
+        return updated;
+      }
+      
+      // Add new item
+      console.log(`[REDUCER] Added new item`);
+      return [...state, { ...payload, quantity: quantityToAdd }];
+    }
+    case 'REMOVE_ITEM': {
+      return state.filter((p) => p.id !== action.payload);
+    }
+    case 'UPDATE_QUANTITY': {
+      return state.map((p) =>
+        p.id === action.payload.id ? { ...p, quantity: action.payload.quantity } : p
+      );
+    }
+    case 'CLEAR': {
+      return [];
+    }
+    case 'LOAD_FROM_STORAGE': {
+      return action.payload;
+    }
+    default:
+      return state;
+  }
+}
+
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
+  const [items, dispatch] = useReducer(cartReducer, []);
   const [appliedCoupon, setAppliedCoupon] = useState<Coupon | null>(null);
   const [couponDiscount, setCouponDiscount] = useState(0);
   const [deliveryLocation, setDeliveryLocationState] = useState<DeliveryLocation>("dhaka");
@@ -54,7 +106,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     try {
       const stored = localStorage.getItem(CART_STORAGE_KEY);
       if (stored) {
-        setItems(JSON.parse(stored));
+        dispatch({ type: 'LOAD_FROM_STORAGE', payload: JSON.parse(stored) });
       }
       const storedCoupon = localStorage.getItem(COUPON_STORAGE_KEY);
       if (storedCoupon) {
@@ -103,19 +155,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
   }, [deliveryLocation]);
 
   function addItem(item: Omit<CartItem, "quantity"> & { quantity?: number }) {
-    setItems((prev) => {
-      const existingIndex = prev.findIndex((p) => p.id === item.id);
-      if (existingIndex !== -1) {
-        const updated = [...prev];
-        updated[existingIndex].quantity += item.quantity || 1;
-        return updated;
-      }
-      return [...prev, { ...item, quantity: item.quantity || 1 }];
-    });
+    console.log(`[addItem] Dispatching with qty=${item.quantity || 1}`);
+    dispatch({ type: 'ADD_ITEM', payload: item });
   }
 
   function removeItem(id: string) {
-    setItems((prev) => prev.filter((p) => p.id !== id));
+    dispatch({ type: 'REMOVE_ITEM', payload: id });
   }
 
   function updateQuantity(id: string, quantity: number) {
@@ -123,13 +168,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem(id);
       return;
     }
-    setItems((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, quantity } : p))
-    );
+    dispatch({ type: 'UPDATE_QUANTITY', payload: { id, quantity } });
   }
 
   function clear() {
-    setItems([]);
+    dispatch({ type: 'CLEAR' });
     setAppliedCoupon(null);
     setCouponDiscount(0);
     // Explicitly remove coupon from localStorage immediately

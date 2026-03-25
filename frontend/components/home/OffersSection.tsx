@@ -1,17 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { availableCoupons } from "@/lib/productData";
 import { getActiveCoupons, formatCouponDiscount, validateCoupon } from "@/lib/couponUtils";
 import { SparklesIcon, CheckCircleIcon } from "@heroicons/react/24/outline";
 import { useToast } from "@/components/toast/ToastContext";
 import { useCart } from "@/components/cart/CartContext";
+import type { Coupon } from "@/lib/productData";
 
 export default function OffersSection() {
-  const activeCoupons = getActiveCoupons();
+  // Initialize with default coupons to match server render
+  const [activeCoupons, setActiveCoupons] = useState<Coupon[]>(() => {
+    // Filter default coupons the same way getActiveCoupons does for server-side
+    const today = new Date();
+    return availableCoupons.filter(coupon => {
+      const expiryDate = new Date(coupon.expiryDate);
+      return (
+        coupon.active &&
+        today <= expiryDate &&
+        coupon.currentUses < coupon.maxUses
+      );
+    });
+  });
+  
+  const [isHydrated, setIsHydrated] = useState(false);
   const [appliedCode, setAppliedCode] = useState<string | null>(null);
   const { addToast } = useToast();
   const { applyCoupon, removeCoupon, subtotal } = useCart();
+
+  // After hydration, load actual coupons from localStorage
+  useEffect(() => {
+    setIsHydrated(true);
+    setActiveCoupons(getActiveCoupons());
+  }, []);
 
   if (activeCoupons.length === 0) {
     return (
