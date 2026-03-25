@@ -10,11 +10,22 @@ export default function RelatedProducts({
   products, 
   currentProductId 
 }: RelatedProductsProps) {
-  // Shuffle and select random products that change on each refresh
-  const relatedProducts = products
-    .filter(p => p.id !== currentProductId)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 4);
+  // Deterministic shuffle using seeded random based on current product ID
+  // This ensures same products on server and client (fixes hydration mismatch)
+  const seededShuffle = (arr: Product[], seed: number) => {
+    const shuffled = [...arr];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      seed = (seed * 9301 + 49297) % 233280;
+      const j = Math.floor((seed / 233280) * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
+  };
+
+  const relatedProducts = seededShuffle(
+    products.filter(p => p.id !== currentProductId),
+    currentProductId
+  ).slice(0, 4);
 
   if (relatedProducts.length === 0) {
     return null;

@@ -101,6 +101,13 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Promo Banner */}
+      <div className="bg-neutral-50 px-4 py-0.5 text-center">
+        <p className="text-[11px] sm:text-sm md:text-base font-medium text-neutral-700 uppercase tracking-wider">
+          Free Delivery on All Orders Above Tk 2,000
+        </p>
+      </div>
+
       <header className={`sticky top-0 z-40 border-b border-neutral-200 bg-white/95 backdrop-blur transition-all duration-300 ${isRefreshing ? 'bg-blue-50/95' : ''}`}>
         {isRefreshing && (
           <div className="h-1 w-full bg-gradient-to-r from-blue-400 to-blue-600 animate-pulse" />
