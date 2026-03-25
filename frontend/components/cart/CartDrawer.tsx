@@ -140,6 +140,24 @@ export default function CartDrawer({ open, onClose }: CartDrawerProps) {
                   <p className="text-xs text-neutral-500">
                     Delivery to: {getLocationText(deliveryLocation)}
                   </p>
+
+                  {/* Free Shipping Info */}
+                  {shipping === 0 ? (
+                    <div className="bg-green-50 border border-green-200 p-2 rounded">
+                      <p className="text-xs font-semibold text-green-700">
+                        ✓ Free shipping on this order!
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="bg-blue-50 border border-blue-200 p-2 rounded">
+                      <p className="text-xs text-blue-700">
+                        <span className="font-semibold">Free shipping</span> for orders over <span className="font-semibold">৳2000</span>
+                      </p>
+                      <p className="text-xs text-blue-600 mt-0.5">
+                        Add <span className="font-semibold">৳{(2000 - subtotal).toFixed(0)}</span> more to qualify
+                      </p>
+                    </div>
+                  )}
                 </div>
               )}
 
