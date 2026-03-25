@@ -48,6 +48,7 @@ export default function ProductDetailClient(props: ProductDetailProps) {
   const [showAllReviews, setShowAllReviews] = useState(false);
   const [showProductDetails, setShowProductDetails] = useState(false);
   const [showProductInfo, setShowProductInfo] = useState(false);
+  const [showCareInstructions, setShowCareInstructions] = useState(false);
   const [showSizeGuide, setShowSizeGuide] = useState(false);
 
   // Detect if we're in desktop view
@@ -682,50 +683,61 @@ export default function ProductDetailClient(props: ProductDetailProps) {
                   </div>
                 )}
 
-                {/* Care Instructions - Always Visible with Descriptions (Not for Accessories) */}
+                {/* Care Instructions - Collapsible Dropdown */}
                 {props.collection !== "accessories" && typeof props.description === 'object' && (props.description as ProductDescription).careInstructions && (
                   <div>
-                    <div className="grid grid-cols-4 gap-2">
-                      {/* Cold Water Wash */}
-                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
-                        <div className="text-2xl" title="Machine wash cold (30°C)">❄️</div>
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-neutral-900">Cold</p>
-                          <p className="text-xs text-neutral-600 mt-1">30°C Max</p>
-                          <p className="text-xs text-neutral-500 mt-1.5">Machine wash in cold water to prevent color fading</p>
+                    <button
+                      onClick={() => setShowCareInstructions(!showCareInstructions)}
+                      className="flex items-center gap-2 text-xs font-semibold text-neutral-900 uppercase tracking-wider mb-2.5 hover:text-neutral-700 transition"
+                    >
+                      <span>Care Instructions</span>
+                      <ChevronDownIcon className={`h-3 w-3 transition-transform ${showCareInstructions ? 'rotate-180' : ''}`} />
+                    </button>
+                    {showCareInstructions && (
+                      <div className="border-t border-neutral-200 pt-4">
+                        <div className="grid grid-cols-4 gap-2">
+                          {/* Cold Water Wash */}
+                          <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
+                            <div className="text-2xl" title="Machine wash cold (30°C)">❄️</div>
+                            <div className="text-center">
+                              <p className="text-xs font-semibold text-neutral-900">Cold</p>
+                              <p className="text-xs text-neutral-600 mt-1">30°C Max</p>
+                              <p className="text-xs text-neutral-500 mt-1.5">Machine wash in cold water to prevent color fading</p>
+                            </div>
+                          </div>
+                          
+                          {/* No Bleach */}
+                          <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
+                            <div className="text-2xl" title="Do not bleach">🚫</div>
+                            <div className="text-center">
+                              <p className="text-xs font-semibold text-neutral-900">No</p>
+                              <p className="text-xs text-neutral-600 mt-1">Bleach</p>
+                              <p className="text-xs text-neutral-500 mt-1.5">Do not use bleach or bleaching agents</p>
+                            </div>
+                          </div>
+                          
+                          {/* Low Heat Dry */}
+                          <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
+                            <div className="text-2xl" title="Low heat dry">🌬️</div>
+                            <div className="text-center">
+                              <p className="text-xs font-semibold text-neutral-900">Low</p>
+                              <p className="text-xs text-neutral-600 mt-1">Heat Dry</p>
+                              <p className="text-xs text-neutral-500 mt-1.5">Tumble dry on low heat or air dry</p>
+                            </div>
+                          </div>
+                          
+                          {/* Iron Low */}
+                          <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
+                            <div className="text-2xl" title="Iron at low temperature">🔥</div>
+                            <div className="text-center">
+                              <p className="text-xs font-semibold text-neutral-900">Iron</p>
+                              <p className="text-xs text-neutral-600 mt-1">Low Temp</p>
+                              <p className="text-xs text-neutral-500 mt-1.5">If ironing needed, use low heat setting</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
-                      
-                      {/* No Bleach */}
-                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
-                        <div className="text-2xl" title="Do not bleach">🚫</div>
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-neutral-900">No</p>
-                          <p className="text-xs text-neutral-600 mt-1">Bleach</p>
-                          <p className="text-xs text-neutral-500 mt-1.5">Do not use bleach or bleaching agents</p>
-                        </div>
-                      </div>
-                      
-                      {/* Low Heat Dry */}
-                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
-                        <div className="text-2xl" title="Low heat dry">🌬️</div>
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-neutral-900">Low</p>
-                          <p className="text-xs text-neutral-600 mt-1">Heat Dry</p>
-                          <p className="text-xs text-neutral-500 mt-1.5">Tumble dry on low heat or air dry</p>
-                        </div>
-                      </div>
-                      
-                      {/* Iron Low */}
-                      <div className="flex flex-col items-center gap-1.5 p-3 border border-neutral-200 hover:border-neutral-400 transition">
-                        <div className="text-2xl" title="Iron at low temperature">🔥</div>
-                        <div className="text-center">
-                          <p className="text-xs font-semibold text-neutral-900">Iron</p>
-                          <p className="text-xs text-neutral-600 mt-1">Low Temp</p>
-                          <p className="text-xs text-neutral-500 mt-1.5">If ironing needed, use low heat setting</p>
-                        </div>
-                      </div>
-                    </div>
+                    )}
                   </div>
                 )}
               </div>
