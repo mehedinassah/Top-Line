@@ -43,7 +43,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     href === "/admin" ? pathname === "/admin" : pathname.startsWith(href);
 
   return (
-    <div className="min-h-screen flex bg-neutral-100 text-neutral-900">
+    <div className="min-h-screen flex bg-neutral-100 text-neutral-900 [color-scheme:light]">
       <aside className="w-60 shrink-0 bg-neutral-900 text-neutral-100 flex flex-col">
         <div className="px-6 py-5 border-b border-neutral-800">
           <div className="text-lg font-bold">Top-Line</div>
