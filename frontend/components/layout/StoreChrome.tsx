@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import HelpdeckWidget from "@/components/HelpdeckWidget";
 
 /**
  * Wraps page content with the storefront Navbar/Footer — except on /admin
@@ -21,6 +22,7 @@ export default function StoreChrome({ children }: { children: React.ReactNode })
       <Navbar />
       <main className="flex-1">{children}</main>
       <Footer />
+      <HelpdeckWidget />
     </div>
   );
 }
