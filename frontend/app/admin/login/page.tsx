@@ -26,7 +26,7 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-neutral-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-neutral-100 px-4 [color-scheme:light]">
       <div className="w-full max-w-sm bg-white shadow-sm border border-neutral-200 rounded-lg p-8">
         <div className="text-center mb-6">
           <h1 className="text-2xl font-bold text-neutral-900">Top-Line Admin</h1>
@@ -44,7 +44,7 @@ export default function AdminLoginPage() {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full border border-neutral-300 rounded px-3 py-2 text-sm outline-none focus:border-neutral-900"
+              className="w-full border border-neutral-300 rounded px-3 py-2 text-sm bg-white text-neutral-900 placeholder-neutral-400 outline-none focus:border-neutral-900"
               placeholder="admin@topline.com"
               required
             />
@@ -55,7 +55,7 @@ export default function AdminLoginPage() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full border border-neutral-300 rounded px-3 py-2 text-sm outline-none focus:border-neutral-900"
+              className="w-full border border-neutral-300 rounded px-3 py-2 text-sm bg-white text-neutral-900 placeholder-neutral-400 outline-none focus:border-neutral-900"
               placeholder="••••••••"
               required
             />

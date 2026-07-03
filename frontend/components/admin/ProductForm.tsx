@@ -45,7 +45,7 @@ function buildVariants(
 
 // simple inputs
 const inputCls =
-  "w-full border border-neutral-300 rounded px-3 py-2 text-sm outline-none focus:border-neutral-900";
+  "w-full border border-neutral-300 rounded px-3 py-2 text-sm bg-white text-neutral-900 placeholder-neutral-400 outline-none focus:border-neutral-900";
 const labelCls = "block text-sm font-medium text-neutral-700 mb-1";
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {

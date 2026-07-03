@@ -46,7 +46,7 @@ export default function AdminOrdersPage() {
         <select
           value={filter}
           onChange={(e) => setFilter(e.target.value)}
-          className="border border-neutral-300 rounded px-3 py-2 text-sm"
+          className="border border-neutral-300 rounded px-3 py-2 text-sm bg-white text-neutral-900"
         >
           <option value="">All statuses</option>
           {STATUSES.map((s) => (
@@ -86,7 +86,7 @@ export default function AdminOrdersPage() {
                     <select
                       value={o.status}
                       onChange={(e) => changeStatus(o, e.target.value)}
-                      className="border border-neutral-300 rounded px-2 py-1 text-sm"
+                      className="border border-neutral-300 rounded px-2 py-1 text-sm bg-white text-neutral-900"
                     >
                       {STATUSES.map((s) => (
                         <option key={s} value={s}>{s}</option>
