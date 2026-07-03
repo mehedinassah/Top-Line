@@ -124,6 +124,7 @@ public class AdminController {
         m.put("id", o.getId());
         m.put("status", o.getStatus());
         m.put("totalAmount", o.getTotalAmount());
+        m.put("shippingInfo", o.getShippingInfo());
         m.put("createdDate", o.getCreatedDate());
         m.put("deliveryDate", o.getDeliveryDate());
         m.put("itemCount", o.getItems() != null ? o.getItems().size() : 0);

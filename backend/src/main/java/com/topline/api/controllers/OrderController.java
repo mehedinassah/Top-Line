@@ -1,6 +1,7 @@
 package com.topline.api.controllers;
 
 import com.topline.api.models.Order;
+import com.topline.api.security.CustomUserDetails;
 import com.topline.api.services.OrderService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,10 +26,8 @@ public class OrderController {
 
     private Long getCurrentUserId() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null && auth.getPrincipal() instanceof org.springframework.security.core.userdetails.User) {
-            // For JWT-based auth, you would extract the user ID from the JWT token
-            // This is a placeholder - adjust based on your JWT implementation
-            return 1L; // For demo purposes
+        if (auth != null && auth.getPrincipal() instanceof CustomUserDetails details) {
+            return details.getUser().getId();
         }
         return null;
     }

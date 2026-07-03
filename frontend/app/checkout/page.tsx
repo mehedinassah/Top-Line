@@ -9,6 +9,7 @@ import CouponInput from "@/components/coupon/CouponInput";
 import { incrementCouponUses } from "@/lib/couponStorage";
 import type { DeliveryLocation } from "@/lib/shippingUtils";
 import { getLocationText, getShippingText } from "@/lib/shippingUtils";
+import { placeOrder, getToken } from "@/lib/api";
 
 type CheckoutStep = "shipping" | "payment" | "confirmation";
 
@@ -88,8 +89,42 @@ export default function CheckoutPage() {
     router.push("/");
   };
 
-  const handleContinueToConfirmation = () => {
-    const orderNumber = `ORD-${Date.now().toString().slice(-8)}`;
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+
+  const handleContinueToConfirmation = async () => {
+    // Placing an order requires a logged-in customer (so it's saved to the account/admin).
+    if (!getToken()) {
+      alert("Please sign in to place your order.");
+      router.push("/auth/login");
+      return;
+    }
+
+    // Send the order to the backend
+    let backendOrderId: number | null = null;
+    setIsPlacingOrder(true);
+    try {
+      const created = await placeOrder({
+        totalAmount: Math.round(cartTotal),
+        shippingInfo: `${shippingData.fullName} | ${shippingData.email} | ${shippingData.address}, ${shippingData.city} ${shippingData.zip} | ${getLocationText(deliveryLocation)}`,
+        items: cartItems.map((ci) => ({
+          product: { id: ci.productId },
+          quantity: ci.quantity,
+          size: ci.size,
+          color: ci.color,
+          price: ci.price,
+        })),
+      });
+      backendOrderId = created?.id ?? null;
+    } catch (err: any) {
+      setIsPlacingOrder(false);
+      alert("Could not place your order: " + (err?.message || "please try again"));
+      return;
+    }
+    setIsPlacingOrder(false);
+
+    const orderNumber = backendOrderId
+      ? `ORD-${backendOrderId}`
+      : `ORD-${Date.now().toString().slice(-8)}`;
     const deliveryDate = new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toLocaleDateString();
     
     // Capture cart items and pricing before clearing
@@ -366,9 +401,14 @@ export default function CheckoutPage() {
                 {currentStep !== "confirmation" && (
                   <button
                     onClick={currentStep === "shipping" ? handleContinueToPayment : handleContinueToConfirmation}
-                    className="flex-1 bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800"
+                    disabled={isPlacingOrder}
+                    className="flex-1 bg-neutral-900 px-6 py-2.5 font-semibold text-white transition hover:bg-neutral-800 disabled:opacity-60 disabled:cursor-not-allowed"
                   >
-                    Next
+                    {currentStep === "payment"
+                      ? isPlacingOrder
+                        ? "Placing order…"
+                        : "Place Order"
+                      : "Next"}
                   </button>
                 )}
                 {currentStep === "confirmation" && (
