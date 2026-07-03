@@ -11,7 +11,7 @@ spring:
         order_updates: true
   
 server:
-  port: 8080
+  port: ${PORT:8080}
   shutdown: graceful
   
 jwt:
