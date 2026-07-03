@@ -13,9 +13,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByCollection(String collection);
     List<Product> findByCategoryAndCollection(String category, String collection);
     List<Product> findByNameContainingIgnoreCase(String name);
-    List<Product> findByDescriptionContainingIgnoreCase(String description);
     List<Product> findByInStockTrue();
-    
-    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR LOWER(p.description) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
+
+    // description is now jsonb, so search matches on name/category only
+    @Query("SELECT p FROM Product p WHERE LOWER(p.name) LIKE LOWER(CONCAT('%', :searchTerm, '%')) OR LOWER(p.category) LIKE LOWER(CONCAT('%', :searchTerm, '%'))")
     List<Product> searchByNameOrDescription(String searchTerm);
 }

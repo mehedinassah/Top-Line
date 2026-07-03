@@ -15,7 +15,6 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/user")
-@CrossOrigin(origins = "*")
 public class AddressController {
     private static final Logger logger = LoggerFactory.getLogger(AddressController.class);
     private final AddressService addressService;

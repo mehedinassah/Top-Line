@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { featuredProducts } from "@/lib/productData";
+import { useProducts } from "@/hooks/useProducts";
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import type { Product } from "@/lib/productData";
@@ -145,7 +145,8 @@ function FeaturedProductCard({ product }: { product: Product }) {
 
 export default function FeaturedProducts() {
   // Limit to maximum 12 products (4 columns × 3 rows)
-  const displayedProducts = featuredProducts.slice(0, 12);
+  const { products } = useProducts();
+  const displayedProducts = products.slice(0, 12);
 
   return (
     <section className="border-b border-neutral-200 bg-white w-full">

@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/solid";
+import { register as apiRegister } from "@/lib/api";
 
 interface PasswordStrength {
   score: number;
@@ -74,24 +75,23 @@ export default function RegisterPage() {
         return;
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Create the account on the backend
+      await apiRegister(name, email, password);
 
-      // Simulate successful registration
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userName", name);
-      
+
       // Clear any previous data
       localStorage.removeItem("topline_wishlist");
       localStorage.removeItem("topline_orders");
-      
+
       // Dispatch custom event to notify navbar of auth state change
       window.dispatchEvent(new Event("authStateChanged"));
-      
+
       router.push("/");
-    } catch (err) {
-      setError("Registration failed. Please try again.");
+    } catch (err: any) {
+      setError(err?.message || "Registration failed. Please try again.");
     } finally {
       setIsLoading(false);
     }

@@ -5,7 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Image from "next/image";
 import ProductCard from "@/components/products/ProductCard";
 import FilterDrawer from "@/components/products/FilterDrawer";
-import { featuredProducts, SIZES } from "@/lib/productData";
+import { SIZES } from "@/lib/productData";
+import { useProducts } from "@/hooks/useProducts";
 import { useScrollToRefOnChange } from "@/hooks/useScrollToRefOnChange";
 import { FunnelIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
@@ -17,11 +18,20 @@ function ProductsPageContent() {
   const searchQuery = searchParams.get("search") || "";
   
   const itemsPerPage = 12;
-  const maxPrice = Math.max(...featuredProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
+  const { products, isLoading } = useProducts();
+  const maxPrice = useMemo(
+    () =>
+      products.length
+        ? Math.max(...products.map(p => Math.max(p.price, p.discountPrice || 0))) + 50
+        : 10000,
+    [products]
+  );
 
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);
-  const [priceRange, setPriceRange] = useState<[number, number]>([0, maxPrice]);
+  // null = "no upper bound chosen yet" → defaults to maxPrice once products load
+  const [priceRange, setPriceRange] = useState<[number, number] | null>(null);
+  const effectivePriceRange: [number, number] = priceRange ?? [0, maxPrice];
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [showFilterDrawer, setShowFilterDrawer] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -40,14 +50,15 @@ function ProductsPageContent() {
 
   // Filter products
   const filteredProducts = useMemo(() => {
-    let result = [...featuredProducts];
+    let result = [...products];
 
     // Search filter
     if (searchQuery) {
+      const q = searchQuery.toLowerCase();
       result = result.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.description.story.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.description.highlights.some(h => h.toLowerCase().includes(searchQuery.toLowerCase()))
+        p.name.toLowerCase().includes(q) ||
+        (p.description?.story?.toLowerCase().includes(q) ?? false) ||
+        (p.description?.highlights?.some(h => h.toLowerCase().includes(q)) ?? false)
       );
     }
 
@@ -59,7 +70,7 @@ function ProductsPageContent() {
     // Price filter
     result = result.filter(p => {
       const price = p.discountPrice ?? p.price;
-      return price >= priceRange[0] && price <= priceRange[1];
+      return price >= effectivePriceRange[0] && price <= effectivePriceRange[1];
     });
 
     // Size filter
@@ -70,7 +81,7 @@ function ProductsPageContent() {
     }
 
     return result;
-  }, [searchQuery, selectedCategory, priceRange, selectedSizes]);
+  }, [products, searchQuery, selectedCategory, effectivePriceRange, selectedSizes]);
 
   // Sort products
   const sortedProducts = useMemo(() => {
@@ -97,16 +108,19 @@ function ProductsPageContent() {
     }
   }, [filteredProducts, sortBy]);
 
-  const categories = Array.from(new Set(featuredProducts.map(p => p.category)));
+  const categories = Array.from(new Set(products.map(p => p.category)));
 
   const clearFilters = () => {
     setSortBy("newest");
     setSelectedSizes([]);
-    setPriceRange([0, maxPrice]);
+    setPriceRange(null);
     setSelectedCategory("");
   };
 
-  const hasActiveFilters = selectedSizes.length > 0 || !!selectedCategory || priceRange[0] > 0 || priceRange[1] < maxPrice;
+  const hasActiveFilters =
+    selectedSizes.length > 0 ||
+    !!selectedCategory ||
+    (priceRange !== null && (priceRange[0] > 0 || priceRange[1] < maxPrice));
 
   // Pagination logic
   const totalPages = Math.ceil(sortedProducts.length / itemsPerPage);
@@ -158,7 +172,7 @@ function ProductsPageContent() {
             setSelectedCategory(selectedCategory === cat ? "" : cat);
             setCurrentPage(1);
           }}
-          priceRange={priceRange}
+          priceRange={effectivePriceRange}
           onPriceChange={(range) => {
             setPriceRange(range);
             setCurrentPage(1);
@@ -211,7 +225,11 @@ function ProductsPageContent() {
 
           {/* Main Content with Products Grid */}
           <div>
-            {sortedProducts.length === 0 ? (
+            {isLoading ? (
+              <div className="border border-neutral-200 bg-neutral-50 p-12 text-center text-sm text-neutral-600">
+                Loading products…
+              </div>
+            ) : sortedProducts.length === 0 ? (
               <div className="border border-neutral-200 bg-neutral-50 p-6 sm:p-8 md:p-12 text-center">
                 <p className="text-sm sm:text-base text-neutral-700 mb-4">No items match your selections.</p>
                 <button

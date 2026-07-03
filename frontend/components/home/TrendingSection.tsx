@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRef, useState, useEffect } from "react";
-import { featuredProducts } from "@/lib/productData";
+import { useProducts } from "@/hooks/useProducts";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
@@ -105,7 +105,8 @@ function TrendingProductCard({ product }: { product: Product }) {
 
 export default function TrendingSection() {
   // Duplicate products for seamless infinite scroll
-  const allProducts = [...featuredProducts, ...featuredProducts];
+  const { products } = useProducts();
+  const allProducts = [...products, ...products];
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isManualScrolling, setIsManualScrolling] = useState(false);
 
