@@ -1,0 +1,26 @@
+# Keeps the free-tier Render services awake during active hours so users don't
+# hit the ~50s cold-start delay. Render free tier sleeps a service after 15 min
+# of inactivity; this pings both every 10 minutes during a 12-hour daily window.
+#
+# Why a window (not 24/7): Render's free tier gives 750 instance-hours/month per
+# workspace. Two services awake 24/7 would need ~1460h and get suspended.
+# 2 services x 12h x 30 days = 720h, which stays under the limit.
+#
+# Window: 04:00-15:59 UTC = 10:00-21:59 Asia/Dhaka (UTC+6).
+# Note: GitHub-hosted cron can be delayed by 10-15 min under load. For rock-solid
+# keep-warm, use UptimeRobot or cron-job.org with a 5-minute interval instead.
+name: keep-warm
+
+on:
+  schedule:
+    - cron: "*/10 4-15 * * *"
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping store backend
+        run: curl -fsS --max-time 90 https://top-line.onrender.com/api/products -o /dev/null -w "store backend: %{http_code} in %{time_total}s\n" || echo "store backend ping failed (will retry next run)"
+      - name: Ping chatbot (Helpdeck)
+        run: curl -fsS --max-time 90 https://helpdeck-api.onrender.com/health -o /dev/null -w "helpdeck: %{http_code} in %{time_total}s\n" || echo "helpdeck ping failed (will retry next run)"

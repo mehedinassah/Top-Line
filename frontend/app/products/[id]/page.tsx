@@ -17,9 +17,16 @@ function getProductReviews(productId: number) {
   return allReviews.slice(startIndex, startIndex + reviewCount);
 }
 
+// Cache responses at the edge for 5 minutes (ISR). Product pages then render
+// instantly from cache instead of blocking on the backend every visit — and
+// stay fast even if the free-tier backend is cold.
+const REVALIDATE_SECONDS = 300;
+
 async function fetchProduct(id: string) {
   try {
-    const res = await fetch(`${API_BASE}/products/${id}`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE}/products/${id}`, {
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
     if (!res.ok) return null;
     const json = await res.json();
     return json.data ?? null;
@@ -30,7 +37,9 @@ async function fetchProduct(id: string) {
 
 async function fetchAll() {
   try {
-    const res = await fetch(`${API_BASE}/products`, { cache: "no-store" });
+    const res = await fetch(`${API_BASE}/products`, {
+      next: { revalidate: REVALIDATE_SECONDS },
+    });
     if (!res.ok) return [];
     const json = await res.json();
     return json.data ?? [];
@@ -42,12 +51,12 @@ async function fetchAll() {
 export default async function ProductDetailPage({ params }: PageProps) {
   const { id } = await params;
 
-  const product = await fetchProduct(id);
+  // Fetch the product and the catalogue in parallel (was sequential).
+  const [product, allProducts] = await Promise.all([fetchProduct(id), fetchAll()]);
   if (!product) {
     notFound();
   }
 
-  const allProducts = await fetchAll();
   const reviews = getProductReviews(Number(product.id));
   return (
     <ProductDetailClient {...product} reviews={reviews} allProducts={allProducts} />

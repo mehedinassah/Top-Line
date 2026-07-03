@@ -18,6 +18,7 @@ yarn-error.log*
 .next/
 out/
 *.map
+*.tsbuildinfo
 
 # Backend
 backend/target/
