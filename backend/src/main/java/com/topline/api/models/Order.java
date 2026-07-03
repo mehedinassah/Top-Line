@@ -26,6 +26,9 @@ public class Order {
 
     private Double totalAmount = 0.0;
 
+    @Column(length = 1000)
+    private String shippingInfo;
+
     @Enumerated(EnumType.STRING)
     private Status status = Status.PENDING;
 
@@ -74,6 +77,14 @@ public class Order {
 
     public void setTotalAmount(Double totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getShippingInfo() {
+        return shippingInfo;
+    }
+
+    public void setShippingInfo(String shippingInfo) {
+        this.shippingInfo = shippingInfo;
     }
 
     public Status getStatus() {

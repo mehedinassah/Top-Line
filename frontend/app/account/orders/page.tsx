@@ -4,6 +4,15 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronLeftIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { getMyOrders, getToken, type MyOrder } from "@/lib/api";
+
+// Backend order status -> label used by this page
+const STATUS_LABEL: Record<string, string> = {
+  PENDING: "Confirmed",
+  SHIPPED: "Shipped",
+  DELIVERED: "Delivered",
+  CANCELLED: "Cancelled",
+};
 
 type OrderStatus = "Confirmed" | "Shipped" | "Delivered" | "Cancelled";
 
@@ -49,22 +58,44 @@ export default function OrdersPage() {
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
 
   useEffect(() => {
-    const isAuthenticated = localStorage.getItem("isLoggedIn");
-    if (!isAuthenticated) {
+    if (!getToken()) {
       router.push("/auth/login");
       return;
     }
     setIsLoggedIn(true);
 
-    // Load orders from localStorage
-    try {
-      const stored = localStorage.getItem("topline_orders");
-      const loadedOrders = stored ? JSON.parse(stored) : [];
-      setOrders(loadedOrders);
-    } catch (error) {
-      console.error("Failed to load orders:", error);
-    }
+    // Load the customer's real orders from the backend
+    getMyOrders()
+      .then((data) => setOrders(data.map(mapOrder)))
+      .catch((e) => console.error("Failed to load orders:", e));
   }, [router]);
+
+  // Map a backend order into the shape this page renders
+  function mapOrder(o: MyOrder): Order {
+    const items = (o.items || []).map((it: any) => ({
+      id: String(it.id ?? ""),
+      productId: it.product?.id ?? 0,
+      name: it.product?.name ?? "Product",
+      price: it.price ?? 0,
+      quantity: it.quantity ?? 1,
+      size: it.size,
+      color: it.color,
+    }));
+    const subtotal = items.reduce((s, it) => s + it.price * it.quantity, 0);
+    return {
+      number: `ORD-${o.id}`,
+      date: o.createdDate ? new Date(o.createdDate).toLocaleDateString() : "",
+      total: o.totalAmount ?? 0,
+      estimatedDelivery: o.deliveryDate
+        ? new Date(o.deliveryDate).toLocaleDateString()
+        : undefined,
+      items,
+      subtotal,
+      shipping: 0,
+      tax: 0,
+      status: STATUS_LABEL[o.status] || "Confirmed",
+    };
+  }
 
   if (!isLoggedIn) {
     return null;

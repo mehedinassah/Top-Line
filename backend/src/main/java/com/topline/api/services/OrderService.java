@@ -2,8 +2,10 @@ package com.topline.api.services;
 
 import com.topline.api.models.Order;
 import com.topline.api.models.OrderItem;
+import com.topline.api.models.Product;
 import com.topline.api.models.User;
 import com.topline.api.repositories.OrderRepository;
+import com.topline.api.repositories.ProductRepository;
 import com.topline.api.repositories.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,21 +20,39 @@ public class OrderService {
     private static final Logger logger = LoggerFactory.getLogger(OrderService.class);
     private final OrderRepository orderRepository;
     private final UserRepository userRepository;
+    private final ProductRepository productRepository;
 
-    public OrderService(OrderRepository orderRepository, UserRepository userRepository) {
+    public OrderService(OrderRepository orderRepository,
+                        UserRepository userRepository,
+                        ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.userRepository = userRepository;
+        this.productRepository = productRepository;
     }
 
+    @Transactional
     public Order createOrder(Long userId, Order order) {
         logger.info("Creating order for user: {}", userId);
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-        
+
         order.setUser(user);
         order.setCreatedDate(Instant.now());
         order.setStatus(Order.Status.PENDING);
-        
+
+        // Attach managed products by id and link each item back to the order
+        if (order.getItems() != null) {
+            for (OrderItem item : order.getItems()) {
+                if (item.getProduct() != null && item.getProduct().getId() != null) {
+                    Product product = productRepository.findById(item.getProduct().getId())
+                            .orElseThrow(() -> new RuntimeException(
+                                    "Product not found with id: " + item.getProduct().getId()));
+                    item.setProduct(product);
+                }
+                item.setOrder(order);
+            }
+        }
+
         return orderRepository.save(order);
     }
 

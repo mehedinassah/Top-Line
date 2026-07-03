@@ -147,6 +147,43 @@ export async function deleteProduct(id: number): Promise<void> {
   await api(`/products/${id}`, { method: "DELETE", auth: true });
 }
 
+// ---- Orders (storefront, requires a logged-in customer) ----
+export interface OrderItemInput {
+  product: { id: number };
+  quantity: number;
+  size?: string;
+  color?: string;
+  price: number;
+}
+export interface PlaceOrderInput {
+  totalAmount: number;
+  shippingInfo?: string;
+  items: OrderItemInput[];
+}
+export interface MyOrder {
+  id: number;
+  status: string;
+  totalAmount: number;
+  createdDate: string;
+  deliveryDate?: string;
+  shippingInfo?: string;
+  items?: any[];
+}
+
+export async function placeOrder(input: PlaceOrderInput): Promise<MyOrder> {
+  const res = await api<{ data: MyOrder }>("/orders", {
+    method: "POST",
+    body: input,
+    auth: true,
+  });
+  return res.data;
+}
+
+export async function getMyOrders(): Promise<MyOrder[]> {
+  const res = await api<{ data: MyOrder[] }>("/orders", { auth: true });
+  return res.data;
+}
+
 // ---- Admin ----
 export interface DashboardStats {
   totalProducts: number;
