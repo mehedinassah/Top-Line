@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { login as apiLogin } from "@/lib/api";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,28 +31,27 @@ export default function LoginPage() {
         return;
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Authenticate against the backend
+      await apiLogin(email, password);
 
       // Store credentials if remember me is checked
       if (rememberMe) {
         localStorage.setItem("rememberedEmail", email);
       }
 
-      // Simulate successful login
       localStorage.setItem("isLoggedIn", "true");
       localStorage.setItem("userEmail", email);
-      
+
       // Clear previous user's data
       localStorage.removeItem("topline_wishlist");
       localStorage.removeItem("topline_orders");
-      
+
       // Dispatch custom event to notify navbar of auth state change
       window.dispatchEvent(new Event("authStateChanged"));
-      
+
       router.push("/");
-    } catch (err) {
-      setError("Login failed. Please try again.");
+    } catch (err: any) {
+      setError(err?.message || "Login failed. Please try again.");
     } finally {
       setIsLoading(false);
     }

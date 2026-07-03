@@ -3,7 +3,8 @@
 import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { featuredProducts, SIZES } from "@/lib/productData";
+import { SIZES } from "@/lib/productData";
+import { useProducts } from "@/hooks/useProducts";
 import { StarIcon, HeartIcon as HeartSolidIcon } from "@heroicons/react/24/solid";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import type { Product, Size } from "@/lib/productData";
@@ -128,11 +129,19 @@ function MinimalProductCard({ product }: { product: Product }) {
 }
 
 export default function AccessoriesPage() {
-  const categoryProducts = useMemo(() => {
-    return featuredProducts.filter(p => p.collection === "accessories");
-  }, []);
+  const { products } = useProducts();
+  const categoryProducts = useMemo(
+    () => products.filter(p => p.collection === "accessories"),
+    [products]
+  );
 
-  const maxPrice = Math.max(...categoryProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50;
+  const maxPrice = useMemo(
+    () =>
+      categoryProducts.length
+        ? Math.max(...categoryProducts.map(p => Math.max(p.price, p.discountPrice || 0))) + 50
+        : 10000,
+    [categoryProducts]
+  );
 
   const [sortBy, setSortBy] = useState<SortOption>("newest");
   const [selectedSizes, setSelectedSizes] = useState<Size[]>([]);

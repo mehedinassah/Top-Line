@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "@/components/layout/Navbar";
-import Footer from "@/components/layout/Footer";
+import StoreChrome from "@/components/layout/StoreChrome";
 import ThemeProviderWrapper from "@/components/layout/ThemeProviderWrapper";
 import { ToastProvider } from "@/components/toast/ToastContext";
 import { CartProvider } from "@/components/cart/CartContext";
@@ -23,12 +22,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <ThemeProviderWrapper>
           <CartProvider>
             <ToastProvider>
-              <div className="min-h-screen flex flex-col bg-slate-950">
-                <Navbar />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <ToastContainer />
-              </div>
+              <StoreChrome>{children}</StoreChrome>
+              <ToastContainer />
             </ToastProvider>
           </CartProvider>
         </ThemeProviderWrapper>
