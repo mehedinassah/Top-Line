@@ -17,6 +17,14 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "drive.google.com"
+      },
+      {
+        protocol: "https",
+        hostname: "picsum.photos"
+      },
+      {
+        protocol: "https",
+        hostname: "loremflickr.com"
       }
     ],
     deviceSizes: [320, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
